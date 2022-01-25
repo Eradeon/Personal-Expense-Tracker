@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal Expense Tracker", "Personal Expense Tracker\Personal Expense Tracker.csproj", "{89E3CF63-DD39-4D26-B20D-DAE85DA4F141}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89E3CF63-DD39-4D26-B20D-DAE85DA4F141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89E3CF63-DD39-4D26-B20D-DAE85DA4F141}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89E3CF63-DD39-4D26-B20D-DAE85DA4F141}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89E3CF63-DD39-4D26-B20D-DAE85DA4F141}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1BF9B22C-D9F0-4C74-B5AD-1DBAF89BA844}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,72 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="PrimaryColour">#19696a</Color>
+    <Color x:Key="OnPrimaryColour">#ffffff</Color>
+    <Color x:Key="PrimaryContainerColour">#a8eff0</Color>
+    <Color x:Key="OnPrimaryContainerColour">#002021</Color>
+
+    <Color x:Key="BackgroundColour">#f5f5f5</Color>
+    <Color x:Key="OnBackgroundColour">#1c1c1c</Color>
+    <Color x:Key="SurfaceColour">#f5f5f5</Color>
+    <Color x:Key="OnSurfaceColour">#1c1c1c</Color>
+
+    <Color x:Key="SurfaceVariantColour">#d7d7d7</Color>
+    <Color x:Key="OnSurfaceVariantColour">#3e3e3e</Color>
+
+    <Color x:Key="ErrorColour">#b3261e</Color>
+    <Color x:Key="OnErrorColour">#ffffff</Color>
+    <Color x:Key="ErrorContainerColour">#f9dedc</Color>
+    <Color x:Key="OnErrorContainerColour">#410e0b</Color>
+
+    <Color x:Key="OutlineColour">#727272</Color>
+    <Color x:Key="ShadowColour">#000000</Color>
+
+    <SolidColorBrush x:Key="ModalBackgroundBrush" Color="{StaticResource ShadowColour}" Opacity="0.40"/>
+    <SolidColorBrush x:Key="ModalSurfaceBrush" Color="{StaticResource SurfaceColour}"/>
+    <SolidColorBrush x:Key="ModalHeadlineBrush" Color="{StaticResource OnSurfaceColour}"/>
+    <SolidColorBrush x:Key="ModalSupportingTextBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
+
+    <SolidColorBrush x:Key="TextButtonHoverStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="TextButtonPressedStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="TextButtonLabelBrush" Color="{StaticResource PrimaryColour}"/>
+    <SolidColorBrush x:Key="TextButtonDisabledLabelBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.38"/>
+
+    <SolidColorBrush x:Key="FilledButtonContainerBrush" Color="{StaticResource PrimaryColour}"/>
+    <SolidColorBrush x:Key="FilledButtonHoverStateBrush" Color="{StaticResource OnPrimaryColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="FilledButtonPressedStateBrush" Color="{StaticResource OnPrimaryColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="FilledButtonDisabledContainerBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="FilledButonLabelBrush" Color="{StaticResource OnPrimaryColour}"/>
+    <SolidColorBrush x:Key="FilledButonDisabledLabelBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.38"/>
+
+    <SolidColorBrush x:Key="FilledWarningButtonContainerBrush" Color="{StaticResource ErrorColour}"/>
+    <SolidColorBrush x:Key="FilledWarningButtonHoverStateBrush" Color="{StaticResource OnErrorColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="FilledWarningButtonPressedStateBrush" Color="{StaticResource OnErrorColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="FilledWarningButtonDisabledContainerBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="FilledWarningButonLabelBrush" Color="{StaticResource OnErrorColour}"/>
+    <SolidColorBrush x:Key="FilledWarningButonDisabledLabelBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.38"/>
+
+    <SolidColorBrush x:Key="CheckboxOutlineBrush" Color="{StaticResource OutlineColour}"/>
+    <SolidColorBrush x:Key="CheckboxCheckedContainerBrush" Color="{StaticResource PrimaryColour}"/>
+    <SolidColorBrush x:Key="CheckboxIconBrush" Color="{StaticResource OnPrimaryColour}"/>
+    <SolidColorBrush x:Key="CheckboxLabelBrush" Color="{StaticResource OnSurfaceColour}"/>
+    <SolidColorBrush x:Key="CheckboxHoverStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="CheckboxPressedStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.12"/>
+
+    <SolidColorBrush x:Key="TextBoxInputBrush" Color="{StaticResource OnSurfaceColour}"/>
+    <SolidColorBrush x:Key="TextBoxInactiveOutlineBrush" Color="{StaticResource OutlineColour}" Opacity="0.75"/>
+    <SolidColorBrush x:Key="TextBoxHoverOutlineBrush" Color="{StaticResource PrimaryColour}" Opacity="0.75"/>
+    <SolidColorBrush x:Key="TextBoxActiveOutlineBrush" Color="{StaticResource PrimaryColour}"/>
+
+    <SolidColorBrush x:Key="ComboBoxToggleButtonSurfaceBrush" Color="{StaticResource SurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="ComboBoxToggleButtonContentBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="ComboBoxToggleButtonStateBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="ComboBoxToggleButtonInactiveOutlineBrush" Color="{StaticResource OutlineColour}"/>
+    <SolidColorBrush x:Key="ComboBoxToggleButtonActiveOutlineBrush" Color="{StaticResource PrimaryColour}"/>
+    <SolidColorBrush x:Key="ComboBoxToggleButtonDisabledSurfaceBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="ComboBoxToggleButtonDisabledOutlineBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.38"/>
+    <SolidColorBrush x:Key="ComboBoxItemSurfaceBrush" Color="{StaticResource SurfaceColour}"/>
+    <SolidColorBrush x:Key="ComboBoxItemContentBrush" Color="{StaticResource OnSurfaceColour}"/>
+    <SolidColorBrush x:Key="ComboBoxItemHoverStateBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.08"/>
+
+</ResourceDictionary>

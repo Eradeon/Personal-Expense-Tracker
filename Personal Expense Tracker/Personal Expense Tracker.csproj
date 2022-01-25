@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Personal_Expense_Tracker</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+	<PublishSingleFile>true</PublishSingleFile>
+	<DebugType>embedded</DebugType>
+	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="assets\fonts\MaterialIcons-Regular.ttf" />
+    <None Remove="assets\fonts\MaterialIconsOutlined-Regular.otf" />
+    <None Remove="assets\fonts\RobotoMono-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\fonts\MaterialIcons-Regular.ttf" />
+    <Resource Include="assets\fonts\MaterialIconsOutlined-Regular.otf" />
+    <Resource Include="assets\fonts\RobotoMono-Regular.ttf" />
+  </ItemGroup>
+
+</Project>
