@@ -22,9 +22,12 @@
     <Color x:Key="OutlineColour">#727272</Color>
     <Color x:Key="ShadowColour">#000000</Color>
 
-    <SolidColorBrush x:Key="ModalBackgroundBrush" Color="{StaticResource ShadowColour}" Opacity="0.40"/>
+    <SolidColorBrush x:Key="ModalCoverBrush" Color="{StaticResource ShadowColour}" Opacity="0.50"/>
+    <SolidColorBrush x:Key="ModalBackgroundBrush" Color="{StaticResource SurfaceColour}"/>
+    <SolidColorBrush x:Key="ModalBackgroundDarkBrush" Color="{StaticResource SurfaceVariantColour}"/>
     <SolidColorBrush x:Key="ModalSurfaceBrush" Color="{StaticResource SurfaceColour}"/>
-    <SolidColorBrush x:Key="ModalHeadlineBrush" Color="{StaticResource OnSurfaceColour}"/>
+    <SolidColorBrush x:Key="ModalSeperatorBrush" Color="{StaticResource SurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="ModalHeadlineBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
     <SolidColorBrush x:Key="ModalSupportingTextBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
 
     <SolidColorBrush x:Key="TextButtonHoverStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.08"/>

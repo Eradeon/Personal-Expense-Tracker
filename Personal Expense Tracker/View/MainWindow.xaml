@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:services="clr-namespace:Personal_Expense_Tracker.Service"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="720" Width="1280">
     <Grid>
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -15,11 +15,11 @@
         </Grid.Resources>
 
         <Grid x:Name="CategoryManagementModal"
-              Style="{StaticResource ModalBackgroundStyle}"
+              Style="{StaticResource ModalCoverStyle}"
               Visibility="{Binding CategoryManagementModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
 
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Border Style="{StaticResource ModalWrapperStyle}"/>
+                <Border Style="{StaticResource ModalWrapperDarkStyle}"/>
 
                 <Grid Style="{StaticResource ModalContentStyle}">
                     <Grid.RowDefinitions>
@@ -38,163 +38,171 @@
 
                     <TextBlock Grid.Row="2" Text="Přidat kategorii" Style="{StaticResource ModalSubtitleStyle}"/>
 
-                    <Grid x:Name="AddCategoryGrid" Grid.Row="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="440"/>
-                            <ColumnDefinition Width="8"/>
-                            <ColumnDefinition Width="155"/>
-                            <ColumnDefinition Width="24"/>
-                            <ColumnDefinition Width="165"/>
-                        </Grid.ColumnDefinitions>
+                    <Border x:Name="AddCategoryGrid" Grid.Row="3" Style="{StaticResource ModalSurfaceStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="435"/>
+                                <ColumnDefinition Width="8"/>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="165"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                        <TextBox x:Name="NewCategoryNameInput" Grid.Column="0" Grid.Row="0"
-                            Style="{StaticResource TextBoxStyle}"
-                            Tag="Název kategorie"
-                            Text="{Binding NewCategoryName, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="NewCategoryNameInput" Grid.Column="0" Grid.Row="0"
+                                Style="{StaticResource TextBoxStyle}"
+                                Tag="Název kategorie"
+                                Text="{Binding NewCategoryName, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <Label x:Name="NewCategoryTableNamePreview" Grid.Column="0" Grid.Row="1"
-                            Style="{StaticResource DatabaseNameLabelStyle}"
-                            Tag="Název DB:"
-                            Content="{Binding NewCategoryTableName}"/>
-                        
-                        <CheckBox x:Name="NewCategoryGroupByMonthCheckBox" Grid.Column="2" Grid.Row="0"
-                            VerticalAlignment="Center"
-                            Content="Seskupit po měsících"
-                            Style="{StaticResource CheckBoxStyle}"
-                            IsChecked="{Binding NewCategoryGroupByMonth, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label x:Name="NewCategoryTableNamePreview" Grid.Column="0" Grid.Row="1"
+                                Style="{StaticResource DatabaseNameLabelStyle}"
+                                Tag="Název DB:"
+                                Content="{Binding NewCategoryTableName}"/>
 
-                        <Button x:Name="CreateNewCategoryButton" Grid.Column="4" Grid.Row="0"
-                            Content="Přidat kategorii"
-                            Command="{Binding AddCategory}"
-                            Style="{StaticResource FilledButtonStyle}"
-                            Tag="&#xe145;"
-                            FontFamily="{StaticResource MaterialIconsFilled}"/>
-                    </Grid>
+                            <CheckBox x:Name="NewCategoryGroupByMonthCheckBox" Grid.Column="2" Grid.Row="0"
+                                VerticalAlignment="Center"
+                                Content="Seskupit po měsících"
+                                Style="{StaticResource CheckBoxStyle}"
+                                IsChecked="{Binding NewCategoryGroupByMonth, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <Button x:Name="CreateNewCategoryButton" Grid.Column="4" Grid.Row="0"
+                                Content="Přidat kategorii"
+                                Command="{Binding AddCategory}"
+                                Style="{StaticResource FilledButtonStyle}"
+                                Tag="&#xe145;"
+                                FontFamily="{StaticResource MaterialIconsFilled}"/>
+                        </Grid>
+                    </Border>
 
                     <TextBlock Grid.Row="5" Text="Odstranit / přejmenovat kategorii" Style="{StaticResource ModalSubtitleStyle}"/>
-                    
-                    <Grid x:Name="EditDeleteCategoryGrid" Grid.Row="6">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="16"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20*"/>
-                                <ColumnDefinition Width="60*"/>
-                                <ColumnDefinition Width="20*"/>
-                            </Grid.ColumnDefinitions>
-                            
-                            <ComboBox x:Name="ManageCategoryComboBox" Grid.Column="1"
-                                ItemsSource="{Binding CategoryCollection}"
-                                SelectedIndex="{Binding SelectedEditCategory}"
-                                Style="{StaticResource ComboBoxStyle}"
-                                Tag="Kategorie">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding DisplayName}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </Grid>
+                    <Border x:Name="EditDeleteCategoryGrid" Grid.Row="6" Style="{StaticResource ModalSurfaceStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="36"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="60*"/>
+                                    <ColumnDefinition Width="20*"/>
+                                </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Column="0">
+                                <ComboBox x:Name="ManageCategoryComboBox" Grid.Column="1"
+                                    ItemsSource="{Binding CategoryCollection}"
+                                    SelectedIndex="{Binding SelectedEditCategory}"
+                                    Style="{StaticResource ComboBoxStyle}"
+                                    Tag="Kategorie">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding DisplayName}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+
+                            <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="12"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="8"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
 
-                                <TextBlock Text="Odstranění kategorie"
-                                           Style="{StaticResource ModalSubtitleSmallStyle}" HorizontalAlignment="Center"/>
+                                <Grid Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="12"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="8"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                <Button x:Name="DeleteCategoryButton"
-                                    Grid.Column="0" Grid.Row="1"
-                                    Content="Odstranit kategorii"
-                                    Command="{Binding DeleteCategory}"
-                                    Style="{StaticResource FilledWarningButtonStyle}"
-                                    Tag="&#xe872;"
-                                    FontFamily="{StaticResource MaterialIconsFilled}"
-                                    IsEnabled="{Binding DeleteCategoryConfirmation, Converter={StaticResource ReverseBooleanConverter}}"/>
+                                    <TextBlock Text="Odstranění kategorie"
+                                        Style="{StaticResource ModalSubtitleSmallStyle}" HorizontalAlignment="Center"/>
 
-                                <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button x:Name="CancelConfirmationButton" Content="Zrušit"
-                                        Visibility="{Binding DeleteCategoryConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Command="{Binding CancelDeleteCategory}"
-                                        Style="{StaticResource TextButtonStyle}"
-                                        Tag="&#xe5c9;"
-                                        FontFamily="{StaticResource MaterialIconsOutlined}"
-                                        Margin="0 0 8 0"/>
-
-                                    <Button x:Name="ConfirmDeleteCategoryButton" Content="Potvrdit odstranění"
-                                        Visibility="{Binding DeleteCategoryConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    <Button x:Name="DeleteCategoryButton"
+                                        Grid.Column="0" Grid.Row="1"
+                                        Content="Odstranit kategorii"
                                         Command="{Binding DeleteCategory}"
                                         Style="{StaticResource FilledWarningButtonStyle}"
-                                        Tag="&#xe92b;"
-                                        FontFamily="{StaticResource MaterialIconsFilled}"/>
-                                </StackPanel>
-                            </Grid>
+                                        Tag="&#xe872;"
+                                        FontFamily="{StaticResource MaterialIconsFilled}"
+                                        IsEnabled="{Binding DeleteCategoryConfirmation, Converter={StaticResource ReverseBooleanConverter}}"/>
 
-                            <Grid Grid.Column="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="12"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="350"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="8"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                                    <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button x:Name="CancelConfirmationButton" Content="Zrušit"
+                                            Visibility="{Binding DeleteCategoryConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Command="{Binding CancelDeleteCategory}"
+                                            Style="{StaticResource TextButtonStyle}"
+                                            Tag="&#xe5c9;"
+                                            FontFamily="{StaticResource MaterialIconsOutlined}"
+                                            Margin="0 0 8 0"/>
 
-                                <TextBlock Text="Přejmenování kategorie" Grid.Column="2"
+                                        <Button x:Name="ConfirmDeleteCategoryButton" Content="Potvrdit odstranění"
+                                            Visibility="{Binding DeleteCategoryConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Command="{Binding DeleteCategory}"
+                                            Style="{StaticResource FilledWarningButtonStyle}"
+                                            Tag="&#xe92b;"
+                                            FontFamily="{StaticResource MaterialIconsFilled}"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Separator Grid.Column="1"
+                                           Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                                           BorderThickness="1"
+                                           Background="{StaticResource ModalSeperatorBrush}"/>
+
+                                <Grid Grid.Column="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="48"/>
+                                        <ColumnDefinition Width="316"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="8"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Text="Přejmenování kategorie" Grid.Column="1"
                                            Style="{StaticResource ModalSubtitleSmallStyle}" HorizontalAlignment="Center"/>
 
-                                <TextBox x:Name="RenameCategoryInput"
-                                    Grid.Column="2" Grid.Row="1"
-                                    Style="{StaticResource TextBoxStyle}"
-                                    Tag="Nový název"
-                                    Text="{Binding RenamedCategoryName, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox x:Name="RenameCategoryInput"
+                                        Grid.Column="1" Grid.Row="1"
+                                        Style="{StaticResource TextBoxStyle}"
+                                        Tag="Nový název"
+                                        Text="{Binding RenamedCategoryName, UpdateSourceTrigger=PropertyChanged}"/>
 
-                                <Label x:Name="RenameCategoryTableNamePreview"
-                                    Grid.Column="2" Grid.Row="2"
-                                    Style="{StaticResource DatabaseNameLabelStyle}"
-                                    Tag="Název DB:"
-                                    Content="{Binding RenamedCategoryTableName}"/>
+                                    <Label x:Name="RenameCategoryTableNamePreview"
+                                        Grid.Column="1" Grid.Row="2"
+                                        Style="{StaticResource DatabaseNameLabelStyle}"
+                                        Tag="Název DB:"
+                                        Content="{Binding RenamedCategoryTableName}"/>
 
-                                <Button x:Name="RenameCategoryButton"
-                                    Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3"
-                                    Content="Přejmenovat kategorii"
-                                    Command="{Binding RenameCategory}"
-                                    Style="{StaticResource FilledButtonStyle}"
-                                    Tag="&#xe3c9;"
-                                    FontFamily="{StaticResource MaterialIconsFilled}"/>
+                                    <Button x:Name="RenameCategoryButton"
+                                        Grid.Column="1" Grid.Row="4"
+                                        Content="Přejmenovat kategorii"
+                                        Command="{Binding RenameCategory}"
+                                        Style="{StaticResource FilledButtonStyle}"
+                                        Tag="&#xe3c9;"
+                                        FontFamily="{StaticResource MaterialIconsFilled}"/>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Border>
 
                     <Button x:Name="CloseModalButton" Grid.Row="8"
                         Content="Zavřít"

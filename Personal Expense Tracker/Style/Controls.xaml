@@ -5,11 +5,11 @@
     <services:StringEmptyToBooleanConverter x:Key="StringEmptyToBooleanConverter"/>
 
     <!--#region Modal-->
-    <Style x:Key="ModalBackgroundStyle" TargetType="Grid">
+    <Style x:Key="ModalCoverStyle" TargetType="Grid">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Panel.ZIndex" Value="10"/>
-        <Setter Property="Background" Value="{StaticResource ModalBackgroundBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ModalCoverBrush}"/>
     </Style>
 
     <Style x:Key="ModalWrapperStyle" TargetType="Border">
@@ -17,7 +17,20 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="CornerRadius" Value="28"/>
-        <Setter Property="Background" Value="{StaticResource ModalSurfaceBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ModalBackgroundBrush}"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ModalWrapperDarkStyle" TargetType="Border">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="CornerRadius" Value="28"/>
+        <Setter Property="Background" Value="{StaticResource ModalBackgroundDarkBrush}"/>
         <Setter Property="Effect">
             <Setter.Value>
                 <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.5"/>
@@ -33,6 +46,16 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="MinWidth" Value="280"/>
         <Setter Property="MaxWidth" Value="840"/>
+    </Style>
+
+    <Style x:Key="ModalSurfaceStyle" TargetType="Border">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Padding" Value="24 24"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="CornerRadius" Value="14"/>
+        <Setter Property="Background" Value="{StaticResource ComboBoxItemSurfaceBrush}"/>
     </Style>
 
     <Style x:Key="ModalHeadlineStyle" TargetType="TextBlock">
@@ -80,7 +103,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Label">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 0 14 0">
                         <TextBlock
                             FontSize="12"
                             LineHeight="16"
