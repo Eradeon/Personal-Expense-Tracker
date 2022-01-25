@@ -27,7 +27,7 @@
     <SolidColorBrush x:Key="ModalBackgroundDarkBrush" Color="{StaticResource SurfaceVariantColour}"/>
     <SolidColorBrush x:Key="ModalSurfaceBrush" Color="{StaticResource SurfaceColour}"/>
     <SolidColorBrush x:Key="ModalSeperatorBrush" Color="{StaticResource SurfaceVariantColour}"/>
-    <SolidColorBrush x:Key="ModalHeadlineBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="ModalHeadlineBrush" Color="{StaticResource OnSurfaceColour}"/>
     <SolidColorBrush x:Key="ModalSupportingTextBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
 
     <SolidColorBrush x:Key="TextButtonHoverStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.08"/>

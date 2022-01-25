@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:services="clr-namespace:Personal_Expense_Tracker.Service"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="MainWindow" Height="900" Width="1600">
     <Grid>
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -142,7 +142,7 @@
                                         IsEnabled="{Binding DeleteCategoryConfirmation, Converter={StaticResource ReverseBooleanConverter}}"/>
 
                                     <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Button x:Name="CancelConfirmationButton" Content="Zrušit"
+                                        <Button x:Name="CancelDeleteCategoryButton" Content="Zrušit"
                                             Visibility="{Binding DeleteCategoryConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Command="{Binding CancelDeleteCategory}"
                                             Style="{StaticResource TextButtonStyle}"
@@ -214,23 +214,44 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="DeleteExpenseModal" Panel.ZIndex="10"
+        <Grid x:Name="DeleteExpenseModal"
+              Style="{StaticResource ModalCoverStyle}"
               Visibility="{Binding DeleteExpenseModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Border Style="{StaticResource ModalWrapperStyle}"/>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Opravdu chcete odstranit tuto položku?"/>
-                    <Button x:Name="ConfirmDeleteExpenseButton"
+                <Grid Style="{StaticResource ModalContentStyle}" Width="420">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="24"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Odstranění záznamu" Style="{StaticResource ModalHeadlineStyle}"/>
+
+                    <TextBlock Grid.Row="2"
+                               Text="Opravdu chcete odstranit tuto položku?"
+                               Style="{StaticResource ModalSupportingTextStyle}"/>
+
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="CancelDeleteExpenseButton"
+                            Content="Zrušit"
+                            Command="{Binding HideDeleteExpense}"
+                            Style="{StaticResource TextButtonStyle}"
+                            Tag="&#xe5c9;"
+                            FontFamily="{StaticResource MaterialIconsOutlined}"
+                            Margin="0 0 8 0"/>
+
+                        <Button x:Name="ConfirmDeleteExpenseButton"
                             Content="Odstranit"
                             Command="{Binding DeleteExpense}"
                             Style="{StaticResource FilledWarningButtonStyle}"
                             Tag="&#xe92b;"
                             FontFamily="{StaticResource MaterialIconsFilled}"/>
-                </StackPanel>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
 
