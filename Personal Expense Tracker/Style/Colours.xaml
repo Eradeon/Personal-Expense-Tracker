@@ -72,4 +72,25 @@
     <SolidColorBrush x:Key="ComboBoxItemContentBrush" Color="{StaticResource OnSurfaceColour}"/>
     <SolidColorBrush x:Key="ComboBoxItemHoverStateBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.08"/>
 
+    <SolidColorBrush x:Key="DatePickerOutlineBrush" Color="{StaticResource OutlineColour}"/>
+    <SolidColorBrush x:Key="DatePickerDropDownSurfaceBrush" Color="{StaticResource SurfaceColour}"/>
+    <SolidColorBrush x:Key="DatePickerButtonActiveStateBrush" Color="{StaticResource PrimaryColour}"/>
+    <SolidColorBrush x:Key="DatePickerButtonHoverStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="DatePickerButtonPressedStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.16"/>
+    <SolidColorBrush x:Key="DatePickerButtonLabelBrush" Color="{StaticResource OnSurfaceColour}"/>
+    <SolidColorBrush x:Key="DatePickerButtonActiveLabelBrush" Color="{StaticResource OnPrimaryColour}"/>
+    <SolidColorBrush x:Key="DatePickerButtonDisabledLabelBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.38"/>
+    <SolidColorBrush x:Key="DatePickerHeaderLabelBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="DatePickerDaysOfWeekBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.80"/>
+    <SolidColorBrush x:Key="DatePickerTextBoxSurfaceBrush" Color="{StaticResource SurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="DatePickerTextBoxStateBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="DatePickerTextBoxContentBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="DatePickerTextBoxInactiveOutlineBrush" Color="{StaticResource OutlineColour}"/>
+    <SolidColorBrush x:Key="DatePickerTextBoxActiveOutlineBrush" Color="{StaticResource PrimaryColour}"/>
+    <SolidColorBrush x:Key="DatePickerTextBoxErrorOutlineBrush" Color="{StaticResource ErrorColour}"/>
+    <SolidColorBrush x:Key="DatePickerTextBoxDisabledSurfaceBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="DatePickerTextBoxDisabledOutlineBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.38"/>
+    <SolidColorBrush x:Key="DatePickerCalendarButtonHoverBrush" Color="{StaticResource PrimaryColour}"/>
+    <SolidColorBrush x:Key="DatePickerCalendarButtonPressedBrush" Color="{StaticResource PrimaryColour}" Opacity="0.9"/>
+
 </ResourceDictionary>

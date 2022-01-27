@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Personal_Expense_Tracker.View"
         mc:Ignorable="d"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:services="clr-namespace:Personal_Expense_Tracker.Service"
         Title="MainWindow" Height="900" Width="1600">
@@ -264,7 +265,10 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <DatePicker x:Name="EditExpenseDateInput" SelectedDate="{Binding EditExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DatePicker x:Name="EditExpenseDateInput"
+                                Style="{StaticResource DatePickerStyle}"
+                                SelectedDateFormat="Short"
+                                SelectedDate="{Binding EditExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBox x:Name="EditExpenseNameInput"
                              Style="{StaticResource TextBoxStyle}"
                              Tag="Nový název"
@@ -282,7 +286,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
-
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="56"/>
@@ -383,7 +387,11 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <DatePicker x:Name="ExpenseDateInput" Grid.Column="0" SelectedDate="{Binding ExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DatePicker x:Name="ExpenseDateInput" Grid.Column="0"
+                                    Style="{StaticResource DatePickerStyle}"
+                                    SelectedDateFormat="Short"
+                                    Text="{x:Null}"
+                                    SelectedDate="{Binding ExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBox x:Name="ExpenseNameInput" Grid.Column="1"
                                  Style="{StaticResource TextBoxStyle}"
                                  Tag="Název"
