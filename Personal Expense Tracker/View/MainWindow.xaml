@@ -390,7 +390,6 @@
                         <DatePicker x:Name="ExpenseDateInput" Grid.Column="0"
                                     Style="{StaticResource DatePickerStyle}"
                                     SelectedDateFormat="Short"
-                                    Text="{x:Null}"
                                     SelectedDate="{Binding ExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBox x:Name="ExpenseNameInput" Grid.Column="1"
                                  Style="{StaticResource TextBoxStyle}"
