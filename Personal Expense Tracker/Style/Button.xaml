@@ -1,0 +1,246 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="TextButtonStyle" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Height" Value="36"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="StateLayer" CornerRadius="4" Background="Transparent" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                x:Name="Icon"
+                                Grid.Column="0"
+                                FontSize="18"
+                                Foreground="{StaticResource TextButtonLabelBrush}"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                Text="{TemplateBinding Tag}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="16 0 8 0"/>
+
+                            <TextBlock
+                                x:Name="Content"
+                                Grid.Column="1"
+                                FontSize="14"
+                                Foreground="{StaticResource TextButtonLabelBrush}"
+                                FontFamily="{StaticResource Roboto}"
+                                Text="{TemplateBinding Content}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="0 0 24 0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextButtonHoverStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextButtonPressedStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource TextButtonDisabledLabelBrush}"/>
+                            <Setter Property="Foreground" TargetName="Content" Value="{StaticResource TextButtonDisabledLabelBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="FilledButtonStyle" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Height" Value="36"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Container" CornerRadius="4" Background="{StaticResource FilledButtonContainerBrush}" HorizontalAlignment="Center">
+                        <Border x:Name="StateLayer" CornerRadius="4" Background="Transparent">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    x:Name="Icon"
+                                    Grid.Column="0"
+                                    FontSize="18"
+                                    Foreground="{StaticResource FilledButonLabelBrush}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    Text="{TemplateBinding Tag}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="16 0 8 0"/>
+
+                                <TextBlock
+                                    x:Name="Content"
+                                    Grid.Column="1"
+                                    FontSize="14"
+                                    Foreground="{StaticResource FilledButonLabelBrush}"
+                                    FontFamily="{StaticResource Roboto}"
+                                    Text="{TemplateBinding Content}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 0 24 0"/>
+                            </StackPanel>
+                        </Border>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource FilledButtonHoverStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource FilledButtonPressedStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="Container" Value="{StaticResource FilledButtonDisabledContainerBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource FilledButonDisabledLabelBrush}"/>
+                            <Setter Property="Foreground" TargetName="Content" Value="{StaticResource FilledButonDisabledLabelBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="FilledWarningButtonStyle" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Height" Value="36"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Container" CornerRadius="4" Background="{StaticResource FilledWarningButtonContainerBrush}" HorizontalAlignment="Center">
+                        <Border x:Name="StateLayer" CornerRadius="4" Background="Transparent">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    x:Name="Icon"
+                                    Grid.Column="0"
+                                    FontSize="18"
+                                    Foreground="{StaticResource FilledWarningButonLabelBrush}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    Text="{TemplateBinding Tag}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="16 0 8 0"/>
+
+                                <TextBlock
+                                    x:Name="Content"
+                                    Grid.Column="1"
+                                    FontSize="14"
+                                    Foreground="{StaticResource FilledWarningButonLabelBrush}"
+                                    FontFamily="{StaticResource Roboto}"
+                                    Text="{TemplateBinding Content}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 0 24 0"/>
+                            </StackPanel>
+                        </Border>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource FilledWarningButtonHoverStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource FilledWarningButtonPressedStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="Container" Value="{StaticResource FilledWarningButtonDisabledContainerBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource FilledWarningButonDisabledLabelBrush}"/>
+                            <Setter Property="Foreground" TargetName="Content" Value="{StaticResource FilledWarningButonDisabledLabelBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid Background="Transparent" HorizontalAlignment="Center" Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32"/>
+                            <ColumnDefinition Width="2"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border x:Name="IconBorder" Grid.Column="0"
+                            Panel.ZIndex="1"
+                            CornerRadius="1"
+                            BorderThickness="2"
+                            Height="14"
+                            Width="14"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                            <TextBlock
+                                x:Name="Icon"
+                                FontSize="14"
+                                Foreground="{StaticResource CheckboxIconBrush}"
+                                FontFamily="{StaticResource MaterialIconsFilled}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <Ellipse x:Name="StateLayer" Grid.Column="0"
+                            Height="32"
+                            Width="32"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Fill="Transparent"/>
+
+                        <TextBlock x:Name="Content" Grid.Column="2"
+                            FontSize="12"
+                            Foreground="{StaticResource CheckboxLabelBrush}"
+                            FontFamily="{StaticResource Roboto}"
+                            Text="{TemplateBinding Content}"
+                            Margin="0 0 10 0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{StaticResource CheckboxOutlineBrush}"/>
+                            <Setter Property="Background" TargetName="IconBorder" Value="Transparent"/>
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{StaticResource CheckboxCheckedContainerBrush}"/>
+                            <Setter Property="Background" TargetName="IconBorder" Value="{StaticResource CheckboxCheckedContainerBrush}"/>
+                            <Setter Property="Text" TargetName="Icon" Value="&#xe876;"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Fill" TargetName="StateLayer" Value="{StaticResource CheckboxHoverStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Fill" TargetName="StateLayer" Value="{StaticResource CheckboxPressedStateBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
