@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Personal_Expense_Tracker.View"
         mc:Ignorable="d"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:services="clr-namespace:Personal_Expense_Tracker.Service"
+        xmlns:services="clr-namespace:Personal_Expense_Tracker.Service.XAML"
         Title="MainWindow" Height="900" Width="1600">
     <Grid>
         <Grid.Resources>
@@ -375,7 +374,7 @@
 
                 <Grid x:Name="TableDataGrid" Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="56"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -407,7 +406,8 @@
                     </Grid>
 
                     <DataGrid x:Name="ExpenseDataGrid" Grid.Row="1"
-                              ItemsSource="{Binding ExpenseCollection}"
+                              ItemsSource="{Binding ExpenseLiveCollectionView}"
+                              SelectedItem="{Binding SelectedRow}"
                               IsReadOnly="True"
                               CanUserAddRows="False"
                               CanUserDeleteRows="False"
@@ -417,32 +417,58 @@
                               CanUserResizeRows="False"
                               AutoGenerateColumns="False"
                               SelectionMode="Single"
-                              SelectedItem="{Binding SelectedRow}">
+                              Style="{StaticResource DataGridStyle}">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Loaded">
+                                <Behaviors:InvokeCommandAction Command="{Binding DefaultDataGridSorting}"
+                                                               CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="DateColumn"
+                                                MinWidth="110"
+                                                Width="2*"
                                                 Header="Datum"
                                                 Binding="{Binding Date}"/>
                             <DataGridTextColumn x:Name="NameColumn"
+                                                MinWidth="130"
+                                                Width="6*"
                                                 Header="Název"
                                                 Binding="{Binding Name}"/>
                             <DataGridTextColumn x:Name="AmountColumn"
+                                                MinWidth="110"
+                                                Width="2*"
                                                 Header="Částka"
-                                                Binding="{Binding Amount}"/>
-                            <DataGridTemplateColumn x:Name="EditColumn">
+                                                CellStyle="{StaticResource DataGridRightAlignedCellStyle}"
+                                                HeaderStyle="{StaticResource DataGridRightAlignedColumnHeaderStyle}"
+                                                Binding="{Binding Amount, StringFormat=N2}"/>
+                            <DataGridTemplateColumn
+                                x:Name="EditColumn"
+                                MinWidth="48"
+                                Width="48"
+                                HeaderStyle="{StaticResource DataGridEmptyColumnHeaderStyle}"
+                                CellStyle="{StaticResource DataGridIconButtonCellStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="EditRowButton" Content="Upravit"
+                                        <Button x:Name="EditRowButton"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
-                                                                  Path=DataContext.EditExpense}"/>
+                                                                  Path=DataContext.EditExpense}"
+                                                Style="{StaticResource DataGridEditButton}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn x:Name="DeleteColumn">
+                            <DataGridTemplateColumn
+                                x:Name="DeleteColumn"
+                                MinWidth="48"
+                                Width="48"
+                                HeaderStyle="{StaticResource DataGridEmptyColumnHeaderStyle}"
+                                CellStyle="{StaticResource DataGridIconButtonCellStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="DeleteRowButton" Content="Odstranit"
+                                        <Button x:Name="DeleteRowButton"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
-                                                                  Path=DataContext.DeleteExpense}"/>
+                                                                  Path=DataContext.DeleteExpense}"
+                                                Style="{StaticResource DataGridDeleteButton}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

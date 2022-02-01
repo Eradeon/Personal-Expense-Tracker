@@ -57,7 +57,7 @@ namespace Personal_Expense_Tracker.Command
                         {
                             expense.Date = newExpenseDate;
                             expense.Name = newExpenseName;
-                            expense.Amount = newExpenseAmount.ToString();
+                            expense.Amount = newExpenseAmount;
                         }
                     }
 
@@ -71,7 +71,7 @@ namespace Personal_Expense_Tracker.Command
                 {
                     _mainViewModel.EditExpenseDate = DateTime.Parse(_mainViewModel.SelectedRow.Date);
                     _mainViewModel.EditExpenseName = _mainViewModel.SelectedRow.Name;
-                    _mainViewModel.EditExpenseAmount = _mainViewModel.SelectedRow.Amount;
+                    _mainViewModel.EditExpenseAmount = _mainViewModel.SelectedRow.Amount.ToString();
 
                     _mainViewModel.EditExpenseConfirmation = true;
                     _mainViewModel.EditExpenseModalVisible = true;

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows.Data;
 using System.Windows.Input;
 using Personal_Expense_Tracker.Command;
 using Personal_Expense_Tracker.Service;
@@ -44,6 +46,9 @@ namespace Personal_Expense_Tracker.ViewModel
             get { return _expenseCollection; }
             set { _expenseCollection = value; RaisePropertyChanged(); }
         }
+
+        private ICollectionView _expenseCollectionView;
+        public ICollectionViewLiveShaping ExpenseLiveCollectionView { get; set; }
         #endregion Collection Properties
 
         #region Selected Item Properties
@@ -260,6 +265,8 @@ namespace Personal_Expense_Tracker.ViewModel
         public ICommand EditExpense { get; }
         public ICommand HideDeleteExpense { get; }
         public ICommand HideEditExpense { get; }
+
+        public ICommand DefaultDataGridSorting { get; }
         #endregion Commands
 
         public MainViewModel(DatabaseService databaseService, DataLoadingService dataLoadingService, FormattingService formattingService)
@@ -277,6 +284,9 @@ namespace Personal_Expense_Tracker.ViewModel
             _monthList = _dataLoadingService.LoadMonths();
 
             _expenseCollection = new ObservableCollection<ExpenseViewModel>();
+            _expenseCollectionView = CollectionViewSource.GetDefaultView(ExpenseCollection);
+            ExpenseLiveCollectionView = (ICollectionViewLiveShaping)_expenseCollectionView;
+            ExpenseLiveCollectionView.IsLiveSorting = true;
 
             //Commands
             ShowCategoryManagement = new ShowCategoryModalCommand(this);
@@ -292,6 +302,8 @@ namespace Personal_Expense_Tracker.ViewModel
             EditExpense = new EditExpenseCommand(this, databaseService, formattingService);
             HideDeleteExpense = new HideDeleteExpenseModalCommand(this);
             HideEditExpense = new HideEditExpenseModalCommand(this);
+
+            DefaultDataGridSorting = new DefaultDataGridSortingCommand();
 
             LoadExpenses.Execute(null);
 

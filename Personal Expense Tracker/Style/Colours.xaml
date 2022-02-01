@@ -33,6 +33,9 @@
     <SolidColorBrush x:Key="TextButtonHoverStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.08"/>
     <SolidColorBrush x:Key="TextButtonPressedStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.12"/>
     <SolidColorBrush x:Key="TextButtonLabelBrush" Color="{StaticResource PrimaryColour}"/>
+    <SolidColorBrush x:Key="TextWarningButtonHoverStateBrush" Color="{StaticResource ErrorColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="TextWarningButtonPressedStateBrush" Color="{StaticResource ErrorColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="TextWarningButtonLabelBrush" Color="{StaticResource ErrorColour}"/>
     <SolidColorBrush x:Key="TextButtonDisabledLabelBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.38"/>
 
     <SolidColorBrush x:Key="FilledButtonContainerBrush" Color="{StaticResource PrimaryColour}"/>
@@ -92,5 +95,20 @@
     <SolidColorBrush x:Key="DatePickerTextBoxDisabledOutlineBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.38"/>
     <SolidColorBrush x:Key="DatePickerCalendarButtonHoverBrush" Color="{StaticResource PrimaryColour}"/>
     <SolidColorBrush x:Key="DatePickerCalendarButtonPressedBrush" Color="{StaticResource PrimaryColour}" Opacity="0.9"/>
+    
+    <SolidColorBrush x:Key="DataGridSurfaceBrush" Color="{StaticResource SurfaceColour}"/>
+    <SolidColorBrush x:Key="DataGridHeaderContentBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="DataGridCellContentBrush" Color="{StaticResource OnSurfaceColour}"/>
+    <SolidColorBrush x:Key="DataGridRowHoverStateBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="DataGridRowPressedStateBrush" Color="{StaticResource OnSurfaceColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="DataGridRowActiveStateBrush" Color="{StaticResource PrimaryColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="DataGridSeperatorBrush" Color="{StaticResource OnSurfaceVariantColour}" Opacity="0.50"/>
+    <SolidColorBrush x:Key="DataGridScrollBarBackgroundBrush" Color="{StaticResource SurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="DataGridScrollBarSurfaceBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="DataGridScrollBarHoverStateBrush" Color="{StaticResource SurfaceColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="DataGridScrollBarDraggingStateBrush" Color="{StaticResource SurfaceColour}" Opacity="0.16"/>
+    
+    <SolidColorBrush x:Key="TooltipSurfaceBrush" Color="{StaticResource OnSurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="TooltipContentBrush" Color="{StaticResource SurfaceVariantColour}"/>
 
 </ResourceDictionary>

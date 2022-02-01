@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Personal_Expense_Tracker.Service
+namespace Personal_Expense_Tracker.Service.XAML
 {
     internal class StringEmptyToBooleanConverter : IValueConverter
     {

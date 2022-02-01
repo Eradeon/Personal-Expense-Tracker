@@ -25,10 +25,10 @@ namespace Personal_Expense_Tracker.ViewModel
             set { _expense.Name = value; RaisePropertyChanged(); }
         }
 
-        public string Amount
+        public double Amount
         {
-            get { return _expense.Amount.ToString(); }
-            set { _expense.Amount = double.Parse(value); RaisePropertyChanged(); }
+            get { return _expense.Amount; }
+            set { _expense.Amount = value; RaisePropertyChanged(); }
         }
 
         public ExpenseViewModel(Expense expense)

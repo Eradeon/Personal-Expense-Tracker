@@ -243,4 +243,203 @@
         </Setter>
     </Style>
 
+    <Style x:Key="TooltipStyle" TargetType="ToolTip">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border
+                        x:Name="Border"
+                        CornerRadius="4"
+                        Height="24"
+                        Background="{StaticResource TooltipSurfaceBrush}"
+                        Padding="8 0"
+                        RenderTransformOrigin="0.5, 0.5">
+                        <Border.RenderTransform>
+                            <ScaleTransform
+                                ScaleX="0"
+                                ScaleY="0"/>
+                        </Border.RenderTransform>
+                        <TextBlock
+                            x:Name="Content"
+                            FontSize="12"
+                            FontFamily="{StaticResource Roboto}"
+                            Foreground="{StaticResource TooltipContentBrush}"
+                            Text="{TemplateBinding Content}"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsOpen" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                            From="0.5"
+                                            To="1"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                            From="0.5"
+                                            To="1"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                            From="1"
+                                            To="0.5"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                            From="1"
+                                            To="0.5"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="DataGridEditButton" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        
+        <Setter Property="ToolTipService.Placement" Value="Center"/>
+        <Setter Property="ToolTipService.VerticalOffset" Value="40"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
+        <Setter Property="ToolTipService.ShowDuration" Value="1500"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border
+                        x:Name="StateLayer"
+                        Height="40" Width="40"
+                        CornerRadius="4"
+                        Background="Transparent"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                            <TextBlock
+                            x:Name="Icon"
+                            Grid.Column="0"
+                            FontSize="22"
+                            Foreground="{StaticResource TextButtonLabelBrush}"
+                            FontFamily="{StaticResource MaterialIconsFilled}"
+                            Text="&#xe3c9;"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextButtonHoverStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextButtonPressedStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource TextButtonDisabledLabelBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="ToolTip">
+            <Setter.Value>
+                <ToolTip
+                    Content="Upravit"
+                    Style="{StaticResource TooltipStyle}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="DataGridDeleteButton" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        <Setter Property="ToolTipService.Placement" Value="Center"/>
+        <Setter Property="ToolTipService.VerticalOffset" Value="40"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
+        <Setter Property="ToolTipService.ShowDuration" Value="1500"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border
+                        x:Name="StateLayer"
+                        Height="40" Width="40"
+                        CornerRadius="4"
+                        Background="Transparent"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                            <TextBlock
+                            x:Name="Icon"
+                            Grid.Column="0"
+                            FontSize="22"
+                            Foreground="{StaticResource TextWarningButtonLabelBrush}"
+                            FontFamily="{StaticResource MaterialIconsFilled}"
+                            Text="&#xe872;"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextWarningButtonHoverStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextWarningButtonPressedStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource TextButtonDisabledLabelBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="ToolTip">
+            <Setter.Value>
+                <ToolTip
+                    Content="Odstranit"
+                    Style="{StaticResource TooltipStyle}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
