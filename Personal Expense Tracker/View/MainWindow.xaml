@@ -255,34 +255,70 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="EditExpenseModal" Panel.ZIndex="10"
+        <Grid x:Name="EditExpenseModal"
+              Style="{StaticResource ModalCoverStyle}"
               Visibility="{Binding EditExpenseModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Border Style="{StaticResource ModalWrapperStyle}"/>
 
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <DatePicker x:Name="EditExpenseDateInput"
-                                Style="{StaticResource DatePickerStyle}"
-                                SelectedDateFormat="Short"
-                                SelectedDate="{Binding EditExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox x:Name="EditExpenseNameInput"
-                             Style="{StaticResource TextBoxStyle}"
-                             Tag="Nový název"
-                             Text="{Binding EditExpenseName, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox x:Name="EditExpenseAmountInput"
-                             Style="{StaticResource TextBoxStyle}"
-                             Tag="Nová částka"
-                             Text="{Binding EditExpenseAmount, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button x:Name="ConfirmEditExpenseInputButton"
+                <Grid Style="{StaticResource ModalContentStyle}" Width="600">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="24"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Upravení záznamu" Style="{StaticResource ModalHeadlineStyle}"/>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="195"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <DatePicker
+                            x:Name="EditExpenseDateInput"
+                            Grid.Column="0"
+                            Style="{StaticResource DatePickerStyle}"
+                            SelectedDateFormat="Short"
+                            SelectedDate="{Binding EditExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox
+                            x:Name="EditExpenseNameInput"   
+                            Grid.Column="1"
+                            Style="{StaticResource TextBoxStyle}"
+                            Tag="Nový název"
+                            Text="{Binding EditExpenseName, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox
+                            x:Name="EditExpenseAmountInput"
+                            Grid.Column="3"
+                            Style="{StaticResource TextBoxStyle}"
+                            Tag="Nová částka"
+                            Text="{Binding EditExpenseAmount, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="CancelEditExpenseButton"
+                            Content="Zrušit"
+                            Command="{Binding HideEditExpense}"
+                            Style="{StaticResource TextButtonStyle}"
+                            Tag="&#xe5c9;"
+                            FontFamily="{StaticResource MaterialIconsOutlined}"
+                            Margin="0 0 8 0"/>
+
+                        <Button
+                            x:Name="ConfirmEditExpenseInputButton"
+                            HorizontalAlignment="Right"
                             Content="Potvrdit úpravu"
                             Command="{Binding EditExpense}"
                             Style="{StaticResource FilledButtonStyle}"
                             Tag="&#xe3c9;"
                             FontFamily="{StaticResource MaterialIconsFilled}"/>
-                </StackPanel>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
         
