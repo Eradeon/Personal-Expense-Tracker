@@ -313,6 +313,7 @@
                     </ComboBox.ItemTemplate>
                     <Behaviors:Interaction.Triggers>
                         <Behaviors:EventTrigger EventName="SelectionChanged">
+                            <Behaviors:InvokeCommandAction Command="{Binding CategoryChanged}"/>
                             <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
                         </Behaviors:EventTrigger>
                     </Behaviors:Interaction.Triggers>
@@ -360,6 +361,7 @@
                           IsChecked="{Binding GroupByMonth, UpdateSourceTrigger=PropertyChanged}">
                     <Behaviors:Interaction.Triggers>
                         <Behaviors:EventTrigger EventName="Click">
+                            <Behaviors:InvokeCommandAction Command="{Binding UpdateCategoryGroupByMonth}"/>
                             <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
                         </Behaviors:EventTrigger>
                     </Behaviors:Interaction.Triggers>

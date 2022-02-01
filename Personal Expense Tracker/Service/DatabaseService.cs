@@ -200,6 +200,22 @@ namespace Personal_Expense_Tracker.Service
                 }
             }
         }
+
+        public void UpdateGroupByMonth(int id, bool newValue)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(_dataSource))
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.CommandText = "UPDATE categories SET group_by_month = @groupByMonth WHERE category_id = @id;";
+                    command.Parameters.Add(new SQLiteParameter("groupByMonth", newValue));
+                    command.Parameters.Add(new SQLiteParameter("id", id));
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
         #endregion Update
 
         public DataTable QueryDatabase(string query)

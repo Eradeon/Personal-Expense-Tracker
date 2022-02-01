@@ -23,7 +23,7 @@ namespace Personal_Expense_Tracker.Command
                 {
                     _databaseService.DeleteCategory
                     (
-                        _mainViewModel.GetSelectedCategoryTableId(),
+                        _mainViewModel.GetSelectedCategoryTableId(true),
                         _mainViewModel.GetSelectedCategoryTableName(true)
                     );
 
@@ -40,7 +40,7 @@ namespace Personal_Expense_Tracker.Command
                         _mainViewModel.SelectedEditCategory = 1;
                     }
 
-                    _mainViewModel.DeleteFromCategoryCollection(collectionId);
+                    _mainViewModel.DeleteCategoryFromCollection(collectionId);
 
                     //Show message..
                     _mainViewModel.DeleteCategoryConfirmation = false;

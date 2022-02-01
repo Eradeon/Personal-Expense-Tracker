@@ -35,7 +35,7 @@ namespace Personal_Expense_Tracker.Command
 
                 _databaseService.RenameTable
                 (
-                    _mainViewModel.GetSelectedCategoryTableId(),
+                    _mainViewModel.GetSelectedCategoryTableId(true),
                     _mainViewModel.GetSelectedCategoryTableName(true),
                     _mainViewModel.RenamedCategoryTableName,
                     newDisplayName

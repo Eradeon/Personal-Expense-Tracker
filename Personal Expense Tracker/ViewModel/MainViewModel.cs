@@ -258,6 +258,8 @@ namespace Personal_Expense_Tracker.ViewModel
         public ICommand DeleteCategory { get; }
         public ICommand CancelDeleteCategory { get; }
         public ICommand RenameCategory { get; }
+        public ICommand CategoryChanged { get; }
+        public ICommand UpdateCategoryGroupByMonth { get; }
 
         public ICommand LoadExpenses { get; }
         public ICommand AddExpense { get; }
@@ -295,6 +297,8 @@ namespace Personal_Expense_Tracker.ViewModel
             DeleteCategory = new DeleteCategoryCommand(this, databaseService);
             CancelDeleteCategory = new CancelDeleteCategoryCommand(this);
             RenameCategory = new RenameCategoryCommand(this, databaseService, formattingService);
+            CategoryChanged = new CategoryChangedCommand(this);
+            UpdateCategoryGroupByMonth = new UpdateCategoryGroupByMonthCommand(this, databaseService);
 
             LoadExpenses = new LoadExpenseDataCommand(this, databaseService);
             AddExpense = new CreateExpenseCommand(this, databaseService, formattingService);
@@ -305,6 +309,7 @@ namespace Personal_Expense_Tracker.ViewModel
 
             DefaultDataGridSorting = new DefaultDataGridSortingCommand();
 
+            CategoryChanged.Execute(null);
             LoadExpenses.Execute(null);
 
             //Testing Purposes
@@ -312,9 +317,12 @@ namespace Personal_Expense_Tracker.ViewModel
             //Testing Purposes
         }
 
-        public int GetSelectedCategoryTableId()
+        public int GetSelectedCategoryTableId(bool editingCategories)
         {
-            return _categoryCollection.ElementAt(_selectedEditCategory).Id;
+            if (editingCategories)
+                return _categoryCollection.ElementAt(_selectedEditCategory).Id;
+            else
+                return _categoryCollection.ElementAt(_selectedCategory).Id;
         }
 
         public string GetSelectedCategoryTableName(bool editingCategories)
@@ -323,6 +331,11 @@ namespace Personal_Expense_Tracker.ViewModel
                 return _categoryCollection.ElementAt(_selectedEditCategory).Name;
             else
                 return _categoryCollection.ElementAt(_selectedCategory).Name;
+        }
+
+        public bool GetSelectedCategoryGroupByMonth()
+        {
+            return _categoryCollection.ElementAt(_selectedCategory).GroupByMonth;
         }
 
         public string GetSelectedCategoryYear()
@@ -347,7 +360,7 @@ namespace Personal_Expense_Tracker.ViewModel
             return result;
         }
 
-        public void DeleteFromCategoryCollection(int collectionId)
+        public void DeleteCategoryFromCollection(int collectionId)
         {
             _categoryCollection.RemoveAt(collectionId);
         }
@@ -356,6 +369,11 @@ namespace Personal_Expense_Tracker.ViewModel
         {
             _categoryCollection.ElementAt(_selectedEditCategory).Name = _renamedCategoryTableName;
             _categoryCollection.ElementAt(_selectedEditCategory).DisplayName = newDisplayName;
+        }
+
+        public void ChangeCategoryGroupByMonth(bool newValue)
+        {
+            _categoryCollection.ElementAt(_selectedCategory).GroupByMonth = newValue;
         }
     }
 }
