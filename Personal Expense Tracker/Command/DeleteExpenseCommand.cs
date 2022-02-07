@@ -17,26 +17,29 @@ namespace Personal_Expense_Tracker.Command
 
         public override void Execute(object? parameter)
         {
-            if (_mainViewModel.DeleteExpenseConfirmation)
+            if (_mainViewModel.SelectedCategory != null)
             {
-                if (_mainViewModel.SelectedRow != null)
+                if (_mainViewModel.DeleteExpenseConfirmation)
                 {
-                    _databaseService.DeleteExpense
-                    (
-                        _mainViewModel.SelectedRow.Id,
-                        _mainViewModel.GetSelectedCategoryTableName(false)
-                    );
+                    if (_mainViewModel.SelectedRow != null)
+                    {
+                        _databaseService.DeleteExpense
+                        (
+                            _mainViewModel.SelectedRow.Id,
+                            _mainViewModel.SelectedCategory.Name
+                        );
 
-                    _mainViewModel.ExpenseCollection.Remove(_mainViewModel.SelectedRow);
+                        _mainViewModel.ExpenseCollection.Remove(_mainViewModel.SelectedRow);
 
-                    _mainViewModel.DeleteExpenseConfirmation = false;
-                    _mainViewModel.DeleteExpenseModalVisible = false;
+                        _mainViewModel.DeleteExpenseConfirmation = false;
+                        _mainViewModel.DeleteExpenseModalVisible = false;
+                    }
                 }
-            }
-            else
-            {
-                _mainViewModel.DeleteExpenseConfirmation = true;
-                _mainViewModel.DeleteExpenseModalVisible = true;
+                else
+                {
+                    _mainViewModel.DeleteExpenseConfirmation = true;
+                    _mainViewModel.DeleteExpenseModalVisible = true;
+                }
             }
         }
     }

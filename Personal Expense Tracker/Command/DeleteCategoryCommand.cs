@@ -19,28 +19,28 @@ namespace Personal_Expense_Tracker.Command
         {
             if (_mainViewModel.DeleteCategoryConfirmation)
             {
-                if (_mainViewModel.CategoryCollection.Count > 1)
+                if (_mainViewModel.CategoryCollection.Count > 1 && _mainViewModel.SelectedEditCategory != null)
                 {
                     _databaseService.DeleteCategory
                     (
-                        _mainViewModel.GetSelectedCategoryTableId(true),
-                        _mainViewModel.GetSelectedCategoryTableName(true)
+                        _mainViewModel.SelectedEditCategory.Id,
+                        _mainViewModel.SelectedEditCategory.Name
                     );
 
-                    int collectionId = _mainViewModel.SelectedEditCategory;
+                    int collectionId = _mainViewModel.CategoryCollection.IndexOf(_mainViewModel.SelectedEditCategory);
 
                     if (collectionId > 0)
                     {
-                        _mainViewModel.SelectedCategory = 0;
-                        _mainViewModel.SelectedEditCategory = 0;
+                        _mainViewModel.SelectedCategory = _mainViewModel.CategoryCollection[0];
+                        _mainViewModel.SelectedEditCategory = _mainViewModel.CategoryCollection[0];
                     }
                     else
                     {
-                        _mainViewModel.SelectedCategory = 1;
-                        _mainViewModel.SelectedEditCategory = 1;
+                        _mainViewModel.SelectedCategory = _mainViewModel.CategoryCollection[1];
+                        _mainViewModel.SelectedEditCategory = _mainViewModel.CategoryCollection[1];
                     }
 
-                    _mainViewModel.DeleteCategoryFromCollection(collectionId);
+                    _mainViewModel.CategoryCollection.RemoveAt(collectionId);
 
                     //Show message..
                     _mainViewModel.DeleteCategoryConfirmation = false;

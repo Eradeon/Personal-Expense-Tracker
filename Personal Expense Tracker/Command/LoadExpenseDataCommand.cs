@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 using Personal_Expense_Tracker.ViewModel;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.Model;
@@ -19,29 +20,32 @@ namespace Personal_Expense_Tracker.Command
 
         public override void Execute(object? parameter)
         {
-            _mainViewModel.ExpenseCollection.Clear();
-
-            if (_mainViewModel.GroupByMonth)
+            if (_mainViewModel.SelectedCategory != null)
             {
-                DataTable dataTable = _databaseService.QueryDatabase(_databaseService.BuildExpenseQuery
-                (
-                    _mainViewModel.GetSelectedCategoryTableName(false),
-                    _mainViewModel.GetSelectedCategoryYear(),
-                    _mainViewModel.GetSelectedCategoryMonth()
-                ));
+                _mainViewModel.ExpenseCollection.Clear();
 
-                LoadExpenses(dataTable);
-            }
-            else
-            {
-                DataTable dataTable = _databaseService.QueryDatabase(_databaseService.BuildExpenseQuery
-                (
-                    _mainViewModel.GetSelectedCategoryTableName(false),
-                    _mainViewModel.GetSelectedCategoryYear(),
-                    string.Empty
-                ));
+                if (_mainViewModel.GroupByMonth)
+                {
+                    DataTable dataTable = _databaseService.QueryDatabase(_databaseService.BuildExpenseQuery
+                    (
+                        _mainViewModel.SelectedCategory.Name,
+                        _mainViewModel.YearList.ElementAt(_mainViewModel.SelectedYear),
+                        _mainViewModel.MonthList.ElementAt(_mainViewModel.SelectedMonth).Key
+                    ));
 
-                LoadExpenses(dataTable);
+                    LoadExpenses(dataTable);
+                }
+                else
+                {
+                    DataTable dataTable = _databaseService.QueryDatabase(_databaseService.BuildExpenseQuery
+                    (
+                        _mainViewModel.SelectedCategory.Name,
+                        _mainViewModel.YearList.ElementAt(_mainViewModel.SelectedYear),
+                        string.Empty
+                    ));
+
+                    LoadExpenses(dataTable);
+                }
             }
         }
 

@@ -31,35 +31,38 @@ namespace Personal_Expense_Tracker.Command
 
         public override void Execute(object? parameter)
         {
-            try
+            if (_mainViewModel.SelectedCategory != null)
             {
-                string expenseDate = _formattingService.FormatExpenseDate(_mainViewModel.ExpenseDate);
-                string expenseName = _formattingService.FormatExpenseName(_mainViewModel.ExpenseName);
-                double expenseAmount = _formattingService.FormatExpenseAmount(_mainViewModel.ExpenseAmount);
+                try
+                {
+                    string expenseDate = _formattingService.FormatExpenseDate(_mainViewModel.ExpenseDate);
+                    string expenseName = _formattingService.FormatExpenseName(_mainViewModel.ExpenseName);
+                    double expenseAmount = _formattingService.FormatExpenseAmount(_mainViewModel.ExpenseAmount);
 
-                int newExpenseId = _databaseService.InsertExpense
-                (
-                    _mainViewModel.GetSelectedCategoryTableName(false),
-                    expenseDate,
-                    expenseName,
-                    expenseAmount
-                );
+                    int newExpenseId = _databaseService.InsertExpense
+                    (
+                        _mainViewModel.SelectedCategory.Name,
+                        expenseDate,
+                        expenseName,
+                        expenseAmount
+                    );
 
-                _mainViewModel.ExpenseCollection.Add(new ExpenseViewModel(new Expense
-                (
-                    newExpenseId,
-                    expenseDate,
-                    expenseName,
-                    expenseAmount
-                )));
+                    _mainViewModel.ExpenseCollection.Add(new ExpenseViewModel(new Expense
+                    (
+                        newExpenseId,
+                        expenseDate,
+                        expenseName,
+                        expenseAmount
+                    )));
 
-                _mainViewModel.ExpenseDate = DateTime.Now;
-                _mainViewModel.ExpenseName = string.Empty;
-                _mainViewModel.ExpenseAmount = string.Empty;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                    _mainViewModel.ExpenseDate = DateTime.Now;
+                    _mainViewModel.ExpenseName = string.Empty;
+                    _mainViewModel.ExpenseAmount = string.Empty;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 

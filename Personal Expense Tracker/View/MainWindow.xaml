@@ -97,7 +97,7 @@
 
                                 <ComboBox x:Name="ManageCategoryComboBox" Grid.Column="1"
                                     ItemsSource="{Binding CategoryCollection}"
-                                    SelectedIndex="{Binding SelectedEditCategory}"
+                                    SelectedItem="{Binding SelectedEditCategory, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource ComboBoxStyle}"
                                     Tag="Kategorie">
                                     <ComboBox.ItemTemplate>
@@ -337,7 +337,7 @@
 
                 <ComboBox x:Name="CategoryComboBox" Grid.Column="0"
                           ItemsSource="{Binding CategoryCollection}"
-                          SelectedIndex="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"
                           Style="{StaticResource ComboBoxStyle}"
                           Tag="Kategorie">
                     <ComboBox.ItemTemplate>

@@ -40,6 +40,10 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextButtonHoverStateBrush}"/>
                         </Trigger>
+                        
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextButtonHoverStateBrush}"/>
+                        </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextButtonPressedStateBrush}"/>
@@ -94,6 +98,10 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource FilledButtonHoverStateBrush}"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsFocused" Value="True">
                             <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource FilledButtonHoverStateBrush}"/>
                         </Trigger>
 
@@ -151,6 +159,10 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource FilledWarningButtonHoverStateBrush}"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsFocused" Value="True">
                             <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource FilledWarningButtonHoverStateBrush}"/>
                         </Trigger>
 
@@ -231,6 +243,10 @@
                         </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Fill" TargetName="StateLayer" Value="{StaticResource CheckboxHoverStateBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsFocused" Value="True">
                             <Setter Property="Fill" TargetName="StateLayer" Value="{StaticResource CheckboxHoverStateBrush}"/>
                         </Trigger>
 
@@ -359,6 +375,10 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextButtonHoverStateBrush}"/>
                         </Trigger>
+                        
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextButtonHoverStateBrush}"/>
+                        </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextButtonPressedStateBrush}"/>
@@ -418,6 +438,10 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextWarningButtonHoverStateBrush}"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsFocused" Value="True">
                             <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource TextWarningButtonHoverStateBrush}"/>
                         </Trigger>
 

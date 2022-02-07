@@ -15,7 +15,8 @@ namespace Personal_Expense_Tracker.Command
 
         public override void Execute(object? parameter)
         {
-            _mainViewModel.GroupByMonth = _mainViewModel.GetSelectedCategoryGroupByMonth();
+            if (_mainViewModel.SelectedCategory != null)
+                _mainViewModel.GroupByMonth = _mainViewModel.SelectedCategory.GroupByMonth;
         }
     }
 }

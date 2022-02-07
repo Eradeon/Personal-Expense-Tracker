@@ -34,7 +34,7 @@ namespace Personal_Expense_Tracker.Command
 
         public override void Execute(object? parameter)
         {
-            if (_mainViewModel.SelectedRow != null)
+            if (_mainViewModel.SelectedRow != null && _mainViewModel.SelectedCategory != null)
             {
                 if (_mainViewModel.EditExpenseConfirmation)
                 {
@@ -45,7 +45,7 @@ namespace Personal_Expense_Tracker.Command
                     _databaseService.UpdateExpense
                     (
                         _mainViewModel.SelectedRow.Id,
-                        _mainViewModel.GetSelectedCategoryTableName(false),
+                        _mainViewModel.SelectedCategory.Name,
                         newExpenseDate,
                         newExpenseName,
                         newExpenseAmount

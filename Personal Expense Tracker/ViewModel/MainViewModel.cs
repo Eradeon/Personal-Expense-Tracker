@@ -52,15 +52,15 @@ namespace Personal_Expense_Tracker.ViewModel
         #endregion Collection Properties
 
         #region Selected Item Properties
-        private int _selectedCategory;
-        public int SelectedCategory
+        private CategoryViewModel? _selectedCategory;
+        public CategoryViewModel? SelectedCategory
         {
             get { return _selectedCategory; }
             set { _selectedCategory = value; RaisePropertyChanged(); }
         }
 
-        private int _selectedEditCategory;
-        public int SelectedEditCategory
+        private CategoryViewModel? _selectedEditCategory;
+        public CategoryViewModel? SelectedEditCategory
         {
             get { return _selectedEditCategory; }
             set { _selectedEditCategory = value; RaisePropertyChanged(); }
@@ -270,7 +270,7 @@ namespace Personal_Expense_Tracker.ViewModel
 
         public ICommand DefaultDataGridSorting { get; }
         #endregion Commands
-
+        
         public MainViewModel(DatabaseService databaseService, DataLoadingService dataLoadingService, FormattingService formattingService)
         {
             _databaseService = databaseService;
@@ -279,6 +279,8 @@ namespace Personal_Expense_Tracker.ViewModel
 
             //Setting up the basics
             _categoryCollection = _dataLoadingService.LoadCategories();
+            _selectedCategory = _categoryCollection[0];
+            _selectedEditCategory = _categoryCollection[0];
 
             _yearList = Enumerable.Range(2014, DateTime.Now.Year - 2014 + 1).Select(y => y.ToString()).ToList();
             _selectedYear = _yearList.Count()-1;
@@ -317,37 +319,6 @@ namespace Personal_Expense_Tracker.ViewModel
             //Testing Purposes
         }
 
-        public int GetSelectedCategoryTableId(bool editingCategories)
-        {
-            if (editingCategories)
-                return _categoryCollection.ElementAt(_selectedEditCategory).Id;
-            else
-                return _categoryCollection.ElementAt(_selectedCategory).Id;
-        }
-
-        public string GetSelectedCategoryTableName(bool editingCategories)
-        {
-            if (editingCategories)
-                return _categoryCollection.ElementAt(_selectedEditCategory).Name;
-            else
-                return _categoryCollection.ElementAt(_selectedCategory).Name;
-        }
-
-        public bool GetSelectedCategoryGroupByMonth()
-        {
-            return _categoryCollection.ElementAt(_selectedCategory).GroupByMonth;
-        }
-
-        public string GetSelectedCategoryYear()
-        {
-            return _yearList.ElementAt(_selectedYear);
-        }
-
-        public string GetSelectedCategoryMonth()
-        {
-            return _monthList.ElementAt(_selectedMonth).Key;
-        }
-
         public bool CategoryExists(string tableName)
         {
             bool result = false;
@@ -358,22 +329,6 @@ namespace Personal_Expense_Tracker.ViewModel
             }
 
             return result;
-        }
-
-        public void DeleteCategoryFromCollection(int collectionId)
-        {
-            _categoryCollection.RemoveAt(collectionId);
-        }
-
-        public void RenameCategoryInCollection(string newDisplayName)
-        {
-            _categoryCollection.ElementAt(_selectedEditCategory).Name = _renamedCategoryTableName;
-            _categoryCollection.ElementAt(_selectedEditCategory).DisplayName = newDisplayName;
-        }
-
-        public void ChangeCategoryGroupByMonth(bool newValue)
-        {
-            _categoryCollection.ElementAt(_selectedCategory).GroupByMonth = newValue;
         }
     }
 }

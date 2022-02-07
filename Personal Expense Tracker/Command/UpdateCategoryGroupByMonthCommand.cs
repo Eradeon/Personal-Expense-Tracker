@@ -17,13 +17,16 @@ namespace Personal_Expense_Tracker.Command
 
         public override void Execute(object? parameter)
         {
-            _databaseService.UpdateGroupByMonth
+            if (_mainViewModel.SelectedCategory != null)
+            {
+                _databaseService.UpdateGroupByMonth
             (
-                _mainViewModel.GetSelectedCategoryTableId(false),
+                _mainViewModel.SelectedCategory.Id,
                 _mainViewModel.GroupByMonth
             );
 
-            _mainViewModel.ChangeCategoryGroupByMonth(_mainViewModel.GroupByMonth);
+                _mainViewModel.SelectedCategory.GroupByMonth = _mainViewModel.GroupByMonth;
+            }
         }
     }
 }
