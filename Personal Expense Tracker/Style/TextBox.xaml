@@ -31,8 +31,8 @@
                         <TextBlock
                             x:Name="Tag"
                             Foreground="{StaticResource TextBoxInactiveOutlineBrush}"
-                            FontSize="14"
-                            Padding="14 16 14 0"
+                            FontSize="10"
+                            Padding="14 05 14 0"
                             Text="{TemplateBinding Tag}"/>
                     </Grid>
 
@@ -40,6 +40,35 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource TextBoxHoverOutlineBrush}"/>
                         </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsFocused" Value="False"/>
+                                <Condition Property="Text" Value=""/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="FocusedEmpty"/>
+                                <BeginStoryboard x:Name="NotFocusedEmpty">
+                                    <Storyboard>
+                                        <ThicknessAnimation
+                                            Storyboard.TargetName="Tag"
+                                            Storyboard.TargetProperty="Padding"
+                                            To="14 16 14 0"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Tag"
+                                            Storyboard.TargetProperty="FontSize"
+                                            To="14"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="NotFocusedEmpty"/>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
 
                         <Trigger Property="IsFocused" Value="True">
                             <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource TextBoxActiveOutlineBrush}"/>
@@ -60,6 +89,24 @@
                                             Storyboard.TargetProperty="Padding"
                                             From="11 15 11 0"
                                             To="10 14 10 0"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+
+                                <StopStoryboard BeginStoryboardName="NotFocusedEmpty"/>
+                                <BeginStoryboard x:Name="FocusedEmpty">
+                                    <Storyboard>
+                                        <ThicknessAnimation
+                                            Storyboard.TargetName="Tag"
+                                            Storyboard.TargetProperty="Padding"
+                                            To="14 5 14 0"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Tag"
+                                            Storyboard.TargetProperty="FontSize"
+                                            To="10"
                                             Duration="00:00:00.15"
                                             BeginTime="00:00:00"/>
                                     </Storyboard>
@@ -86,143 +133,6 @@
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
                         </Trigger>
-
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource StringEmptyToBooleanConverter}}" Value="True"/>
-                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True"/>
-                            </MultiDataTrigger.Conditions>
-
-                            <MultiDataTrigger.EnterActions>
-                                <StopStoryboard BeginStoryboardName="EmptyNotFocusedEnter"/>
-                                <StopStoryboard BeginStoryboardName="EmptyFocusedExit"/>
-                                <BeginStoryboard x:Name="EmptyFocusedEnter">
-                                    <Storyboard>
-                                        <ThicknessAnimation
-                                            Storyboard.TargetName="Tag"
-                                            Storyboard.TargetProperty="Padding"
-                                            From="14 16 14 0"
-                                            To="14 5 14 0"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Tag"
-                                            Storyboard.TargetProperty="FontSize"
-                                            From="14"
-                                            To="10"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiDataTrigger.EnterActions>
-
-                            <MultiDataTrigger.ExitActions>
-                                <StopStoryboard BeginStoryboardName="EmptyFocusedEnter"/>
-                                <BeginStoryboard x:Name="EmptyFocusedExit">
-                                    <Storyboard>
-                                        <ThicknessAnimation
-                                            Storyboard.TargetName="Tag"
-                                            Storyboard.TargetProperty="Padding"
-                                            To="14 16 14 0"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Tag"
-                                            Storyboard.TargetProperty="FontSize"
-                                            To="14"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiDataTrigger.ExitActions>
-                        </MultiDataTrigger>
-
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource StringEmptyToBooleanConverter}}" Value="False"/>
-                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="True"/>
-                            </MultiDataTrigger.Conditions>
-
-                            <MultiDataTrigger.EnterActions>
-                                <StopStoryboard BeginStoryboardName="EmptyFocusedEnter"/>
-                                <StopStoryboard BeginStoryboardName="EmptyFocusedExit"/>
-
-                                <BeginStoryboard x:Name="NotEmptyFocusedEnter">
-                                    <Storyboard>
-                                        <ThicknessAnimation
-                                            Storyboard.TargetName="Tag"
-                                            Storyboard.TargetProperty="Padding"
-                                            To="14 5 14 0"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Tag"
-                                            Storyboard.TargetProperty="FontSize"
-                                            To="10"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiDataTrigger.EnterActions>
-                        </MultiDataTrigger>
-
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource StringEmptyToBooleanConverter}}" Value="False"/>
-                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="False"/>
-                            </MultiDataTrigger.Conditions>
-
-                            <MultiDataTrigger.EnterActions>
-                                <StopStoryboard BeginStoryboardName="NotEmptyFocusedEnter"/>
-                                <BeginStoryboard x:Name="NotEmptyNotFocusedBegin">
-                                    <Storyboard>
-                                        <ThicknessAnimation
-                                            Storyboard.TargetName="Tag"
-                                            Storyboard.TargetProperty="Padding"
-                                            To="14 5 14 0"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Tag"
-                                            Storyboard.TargetProperty="FontSize"
-                                            To="10"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiDataTrigger.EnterActions>
-                        </MultiDataTrigger>
-
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource StringEmptyToBooleanConverter}}" Value="True"/>
-                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="False"/>
-                            </MultiDataTrigger.Conditions>
-
-                            <MultiDataTrigger.EnterActions>
-                                <StopStoryboard BeginStoryboardName="EmptyFocusedEnter"/>
-                                <StopStoryboard BeginStoryboardName="EmptyFocusedExit"/>
-                                <StopStoryboard BeginStoryboardName="NotEmptyFocusedEnter"/>
-                                <StopStoryboard BeginStoryboardName="NotEmptyNotFocusedBegin"/>
-
-                                <BeginStoryboard x:Name="EmptyNotFocusedEnter">
-                                    <Storyboard>
-                                        <ThicknessAnimation
-                                            Storyboard.TargetName="Tag"
-                                            Storyboard.TargetProperty="Padding"
-                                            To="14 16 14 0"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Tag"
-                                            Storyboard.TargetProperty="FontSize"
-                                            To="14"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiDataTrigger.EnterActions>
-                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

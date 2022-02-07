@@ -543,20 +543,6 @@
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="BorderStateLayer" Value="{StaticResource DatePickerTextBoxStateBrush}"/>
-                            <Setter Property="BorderThickness" TargetName="Border" Value="0 0 0 2"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource DatePickerTextBoxActiveOutlineBrush}"/>
-                            <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource DatePickerTextBoxActiveOutlineBrush}"/>
-                        </Trigger>
-
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" TargetName="Border" Value="{StaticResource DatePickerTextBoxDisabledSurfaceBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource DatePickerTextBoxDisabledOutlineBrush}"/>
-                            <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource DatePickerTextBoxDisabledOutlineBrush}"/>
-                            <Setter Property="Foreground" TargetName="PART_ContentHost" Value="{StaticResource DatePickerTextBoxDisabledOutlineBrush}"/>
-                        </Trigger>
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsFocused" Value="False"/>
@@ -585,12 +571,14 @@
                                 <StopStoryboard BeginStoryboardName="NotFocusedEmpty"/>
                             </MultiTrigger.ExitActions>
                         </MultiTrigger>
+                        
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Background" TargetName="BorderStateLayer" Value="{StaticResource DatePickerTextBoxStateBrush}"/>
+                            <Setter Property="BorderThickness" TargetName="Border" Value="0 0 0 2"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource DatePickerTextBoxActiveOutlineBrush}"/>
+                            <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource DatePickerTextBoxActiveOutlineBrush}"/>
 
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsFocused" Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.EnterActions>
+                            <Trigger.EnterActions>
                                 <StopStoryboard BeginStoryboardName="NotFocusedEmpty"/>
                                 <BeginStoryboard x:Name="FocusedEmpty">
                                     <Storyboard>
@@ -608,8 +596,15 @@
                                             BeginTime="00:00:00"/>
                                     </Storyboard>
                                 </BeginStoryboard>
-                            </MultiTrigger.EnterActions>
-                        </MultiTrigger>
+                            </Trigger.EnterActions>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="Border" Value="{StaticResource DatePickerTextBoxDisabledSurfaceBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource DatePickerTextBoxDisabledOutlineBrush}"/>
+                            <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource DatePickerTextBoxDisabledOutlineBrush}"/>
+                            <Setter Property="Foreground" TargetName="PART_ContentHost" Value="{StaticResource DatePickerTextBoxDisabledOutlineBrush}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
