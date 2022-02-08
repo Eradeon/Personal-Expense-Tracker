@@ -56,7 +56,11 @@
                             <TextBox x:Name="NewCategoryNameInput" Grid.Column="0" Grid.Row="0"
                                 Style="{StaticResource TextBoxStyle}"
                                 Tag="Název kategorie"
-                                Text="{Binding NewCategoryName, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding NewCategoryName, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Return" Command="{Binding AddCategory, UpdateSourceTrigger=PropertyChanged}"/>
+                                </TextBox.InputBindings>
+                            </TextBox>
 
                             <Label x:Name="NewCategoryTableNamePreview" Grid.Column="0" Grid.Row="1"
                                 Style="{StaticResource DatabaseNameLabelStyle}"
@@ -184,7 +188,11 @@
                                         Grid.Column="1" Grid.Row="1"
                                         Style="{StaticResource TextBoxStyle}"
                                         Tag="Nový název"
-                                        Text="{Binding RenamedCategoryName, UpdateSourceTrigger=PropertyChanged}"/>
+                                        Text="{Binding RenamedCategoryName, UpdateSourceTrigger=PropertyChanged}">
+                                        <TextBox.InputBindings>
+                                            <KeyBinding Key="Return" Command="{Binding RenameCategory, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </TextBox.InputBindings>
+                                    </TextBox>
 
                                     <Label x:Name="RenameCategoryTableNamePreview"
                                         Grid.Column="1" Grid.Row="2"
@@ -291,13 +299,21 @@
                             Grid.Column="1"
                             Style="{StaticResource TextBoxStyle}"
                             Tag="Nový název"
-                            Text="{Binding EditExpenseName, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding EditExpenseName, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding EditExpense, UpdateSourceTrigger=PropertyChanged}"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
                         <TextBox
                             x:Name="EditExpenseAmountInput"
                             Grid.Column="3"
                             Style="{StaticResource TextBoxStyle}"
                             Tag="Nová částka"
-                            Text="{Binding EditExpenseAmount, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding EditExpenseAmount, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding EditExpense, UpdateSourceTrigger=PropertyChanged}"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
                     </Grid>
 
                     <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -431,11 +447,19 @@
                         <TextBox x:Name="ExpenseNameInput" Grid.Column="1"
                                  Style="{StaticResource TextBoxStyle}"
                                  Tag="Název"
-                                 Text="{Binding ExpenseName, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{Binding ExpenseName, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding AddExpense, UpdateSourceTrigger=PropertyChanged}"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
                         <TextBox x:Name="ExpenseAmountInput" Grid.Column="2"
                                  Style="{StaticResource TextBoxStyle}"
                                  Tag="Částka"
-                                 Text="{Binding ExpenseAmount, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{Binding ExpenseAmount, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding AddExpense, UpdateSourceTrigger=PropertyChanged}"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
                         <Button x:Name="ConfirmExpenseInputButton" Grid.Column="3"
                                 Style="{StaticResource FilledButtonStyle}"
                                 Tag="&#xe145;"

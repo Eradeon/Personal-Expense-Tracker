@@ -321,14 +321,13 @@ namespace Personal_Expense_Tracker.ViewModel
 
         public bool CategoryExists(string tableName)
         {
-            bool result = false;
-
             foreach(var category in _categoryCollection)
             {
-                if (category.Name == tableName) result = true;
+                if (category.Name == tableName)
+                    return true;
             }
 
-            return result;
+            return false;
         }
     }
 }
