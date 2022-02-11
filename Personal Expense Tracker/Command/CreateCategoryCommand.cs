@@ -61,7 +61,7 @@ namespace Personal_Expense_Tracker.Command
                     _mainViewModel.NewCategoryGroupByMonth = false;
                     _mainViewModel.DeleteCategoryConfirmation = false;
 
-                    //TODO: Message - category created
+                    _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Kategorie {displayName} byla úspěšně vytvořena.");
                 }
                 catch (Exception ex)
                 {
@@ -70,7 +70,7 @@ namespace Personal_Expense_Tracker.Command
             }
             else
             {
-                //TODO: Error - category already exists
+                _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Kategorie s tímto názvem již existuje.");
             }
         }
 

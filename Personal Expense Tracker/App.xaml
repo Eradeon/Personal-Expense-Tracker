@@ -13,7 +13,8 @@
                 <ResourceDictionary Source="/Style/TextBox.xaml"/>
                 <ResourceDictionary Source="/Style/Button.xaml"/>
                 <ResourceDictionary Source="/Style/DataGrid.xaml"/>
-                <ResourceDictionary Source="/Style/Modal.xaml"/>
+                <ResourceDictionary Source="/Style/Text.xaml"/>
+                <ResourceDictionary Source="/Style/Layout.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

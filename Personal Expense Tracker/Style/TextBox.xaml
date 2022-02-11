@@ -6,36 +6,39 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Height" Value="48"/>
-        <Setter Property="Foreground" Value="{StaticResource TextBoxInputBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource OnSurfaceColourFullBrush}"/>
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="AllowDrop" Value="True"/>
+        <Setter Property="AcceptsTab" Value="False"/>
+        <Setter Property="AcceptsReturn" Value="False"/>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
                     <Grid>
+                        <TextBlock
+                            x:Name="Tag"
+                            Foreground="{StaticResource OutlineColourLight75Brush}"
+                            FontSize="10"
+                            Padding="14 5 14 0"
+                            Text="{TemplateBinding Tag}"/>
+                        
                         <Border
                             x:Name="Border"
                             Background="Transparent"
                             BorderThickness="1"
-                            BorderBrush="{StaticResource TextBoxInactiveOutlineBrush}"
+                            BorderBrush="{StaticResource OutlineColourLight75Brush}"
                             CornerRadius="4"
                             MinWidth="100"
                             Padding="11 15 11 0">
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            <ScrollViewer x:Name="PART_ContentHost"/>
                         </Border>
-
-                        <TextBlock
-                            x:Name="Tag"
-                            Foreground="{StaticResource TextBoxInactiveOutlineBrush}"
-                            FontSize="10"
-                            Padding="14 05 14 0"
-                            Text="{TemplateBinding Tag}"/>
                     </Grid>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource TextBoxHoverOutlineBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource PrimaryColourFullBrush}"/>
                         </Trigger>
 
                         <MultiTrigger>
@@ -68,8 +71,8 @@
                         </MultiTrigger>
 
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource TextBoxActiveOutlineBrush}"/>
-                            <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource TextBoxActiveOutlineBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource PrimaryColourFullBrush}"/>
 
                             <Trigger.EnterActions>
                                 <BeginStoryboard>

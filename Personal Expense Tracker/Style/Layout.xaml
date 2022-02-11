@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="ModalCoverStyle" TargetType="Grid">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Panel.ZIndex" Value="10"/>
+        <Setter Property="Background" Value="{StaticResource ShadowColourBrush}"/>
+    </Style>
+
+    <Style x:Key="ModalWrapperStyle" TargetType="Border">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="CornerRadius" Value="28"/>
+        <Setter Property="Background" Value="{StaticResource SurfaceColourFullBrush}"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ModalWrapperDarkStyle" TargetType="Border">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="CornerRadius" Value="28"/>
+        <Setter Property="Background" Value="{StaticResource SurfaceVariantColourFullBrush}"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ModalContentStyle" TargetType="Grid">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Margin" Value="24 24"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="MinWidth" Value="280"/>
+        <Setter Property="MaxWidth" Value="840"/>
+    </Style>
+
+    <Style x:Key="ModalSurfaceStyle" TargetType="Border">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Padding" Value="24 24"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource OutlineColourLight30Brush}"/>
+        <Setter Property="CornerRadius" Value="14"/>
+        <Setter Property="Background" Value="{StaticResource SurfaceColourFullBrush}"/>
+    </Style>
+
+    <Style x:Key="WindowSurfaceStyle" TargetType="Border">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource OutlineColourLight30Brush}"/>
+        <Setter Property="Background" Value="{StaticResource SurfaceColourFullBrush}"/>
+    </Style>
+
+</ResourceDictionary>

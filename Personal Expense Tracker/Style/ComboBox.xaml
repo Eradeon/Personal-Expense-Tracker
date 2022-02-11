@@ -13,9 +13,9 @@
             <Border
                 x:Name="Border"
                 Grid.ColumnSpan="2"
-                Background="{StaticResource ComboBoxToggleButtonSurfaceBrush}"
+                Background="{StaticResource SurfaceVariantColourFullBrush}"
                 BorderThickness="0 0 0 1"
-                BorderBrush="{StaticResource ComboBoxToggleButtonInactiveOutlineBrush}"
+                BorderBrush="{StaticResource OutlineColourFullBrush}"
                 CornerRadius="4 4 0 0">
                 <Border x:Name="StateLayer" Background="Transparent" CornerRadius="4 4 0 0"/>
             </Border>
@@ -25,7 +25,7 @@
                 Grid.Column="0"
                 FontFamily="{StaticResource Roboto}"
                 FontSize="10"
-                Foreground="{StaticResource ComboBoxToggleButtonInactiveOutlineBrush}"
+                Foreground="{StaticResource OutlineColourFullBrush}"
                 Padding="16 6 0 0"
                 Text="{TemplateBinding Tag}"/>
 
@@ -35,7 +35,7 @@
                 FontFamily="{StaticResource MaterialIconsFilled}"
                 FontSize="18"
                 Text="&#xe5c5;"
-                Foreground="{StaticResource ComboBoxToggleButtonInactiveOutlineBrush}"
+                Foreground="{StaticResource OutlineColourFullBrush}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
                 <TextBlock.RenderTransform>
@@ -46,23 +46,23 @@
 
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource ComboBoxToggleButtonStateBrush}"/>
+                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
             </Trigger>
 
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}, Path=IsFocused}" Value="True">
                 <Setter Property="BorderThickness" TargetName="Border" Value="0 0 0 2"/>
-                <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource ComboBoxToggleButtonActiveOutlineBrush}"/>
-                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource ComboBoxToggleButtonStateBrush}"/>
-                <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource ComboBoxToggleButtonActiveOutlineBrush}"/>
-                <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource ComboBoxToggleButtonActiveOutlineBrush}"/>
+                <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource PrimaryColourFullBrush}"/>
+                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource PrimaryColourFullBrush}"/>
+                <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource PrimaryColourFullBrush}"/>
             </DataTrigger>
 
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="BorderThickness" TargetName="Border" Value="0 0 0 2"/>
-                <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource ComboBoxToggleButtonActiveOutlineBrush}"/>
-                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource ComboBoxToggleButtonStateBrush}"/>
-                <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource ComboBoxToggleButtonActiveOutlineBrush}"/>
-                <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource ComboBoxToggleButtonActiveOutlineBrush}"/>
+                <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource PrimaryColourFullBrush}"/>
+                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource PrimaryColourFullBrush}"/>
+                <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource PrimaryColourFullBrush}"/>
 
                 <Trigger.EnterActions>
                     <BeginStoryboard>
@@ -94,10 +94,10 @@
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" TargetName="Border" Value="{StaticResource ComboBoxToggleButtonDisabledSurfaceBrush}"/>
-                <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource ComboBoxToggleButtonDisabledOutlineBrush}"/>
-                <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource ComboBoxToggleButtonDisabledOutlineBrush}"/>
-                <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource ComboBoxToggleButtonDisabledOutlineBrush}"/>
+                <Setter Property="Background" TargetName="Border" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
+                <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -108,13 +108,13 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="TextBlock.FontFamily" Value="{StaticResource Roboto}"/>
         <Setter Property="TextBlock.FontSize" Value="16"/>
-        <Setter Property="TextBlock.Foreground" Value="{StaticResource ComboBoxToggleButtonContentBrush}"/>
+        <Setter Property="TextBlock.Foreground" Value="{StaticResource OnSurfaceVariantColourFullBrush}"/>
         <Setter Property="TextBlock.Margin" Value="31 16 16 0"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
 
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="TextBlock.Foreground" Value="{StaticResource ComboBoxToggleButtonDisabledOutlineBrush}"/>
+                <Setter Property="TextBlock.Foreground" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -129,7 +129,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBoxItem">
-                    <Grid Background="{StaticResource ComboBoxItemSurfaceBrush}">
+                    <Grid Background="{StaticResource SurfaceColourFullBrush}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="16"/>
                             <ColumnDefinition Width="*"/>
@@ -148,18 +148,18 @@
                         <ContentPresenter Grid.Column="1" Grid.Row="1"
                             TextBlock.FontFamily="{StaticResource Roboto}"
                             TextBlock.FontSize="14"
-                            TextBlock.Foreground="{StaticResource ComboBoxItemContentBrush}"
+                            TextBlock.Foreground="{StaticResource OnSurfaceColourFullBrush}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"/>
                     </Grid>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource ComboBoxItemHoverStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource ComboBoxItemHoverStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

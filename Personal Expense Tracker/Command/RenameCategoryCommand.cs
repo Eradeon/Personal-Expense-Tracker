@@ -48,11 +48,11 @@ namespace Personal_Expense_Tracker.Command
                 _mainViewModel.RenamedCategoryName = string.Empty;
                 _mainViewModel.DeleteCategoryConfirmation = false;
 
-                //message - renamed
+                _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, "Kategorie byla úspěšně přejmenována.");
             }
             else
             {
-                //message - category exists
+                _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Kategorie s tímto názvem již existuje.");
             }
         }
 

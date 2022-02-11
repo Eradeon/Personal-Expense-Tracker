@@ -26,7 +26,7 @@
                                 x:Name="Content"
                                 TextBlock.FontSize="14"
                                 TextBlock.FontFamily="{StaticResource Roboto}"
-                                TextBlock.Foreground="{StaticResource DatePickerButtonLabelBrush}"
+                                TextBlock.Foreground="{StaticResource OnSurfaceColourFullBrush}"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"/>
                         </Border>
@@ -39,8 +39,8 @@
                                 <Condition Property="IsInactive" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" TargetName="Border" Value="{StaticResource DatePickerButtonActiveStateBrush}"/>
-                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource DatePickerButtonActiveLabelBrush}"/>
+                                <Setter Property="Background" TargetName="Border" Value="{StaticResource PrimaryColourFullBrush}"/>
+                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource OnPrimaryColourFullBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         
@@ -50,8 +50,8 @@
                                 <Condition Property="IsInactive" Value="True"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" TargetName="Border" Value="{StaticResource DatePickerButtonDisabledLabelBrush}"/>
-                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource DatePickerButtonActiveLabelBrush}"/>
+                                <Setter Property="Background" TargetName="Border" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource OnPrimaryColourFullBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
@@ -61,7 +61,7 @@
                                 <Condition Property="IsSelected" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource DatePickerOutlineBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource OutlineColourFullBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
@@ -71,7 +71,7 @@
                                 <Condition Property="IsSelected" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" TargetName="Border" Value="{StaticResource DatePickerButtonHoverStateBrush}"/>
+                                <Setter Property="Background" TargetName="Border" Value="{StaticResource PrimaryColourPressedBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
@@ -81,12 +81,12 @@
                                 <Condition Property="IsSelected" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource DatePickerButtonDisabledLabelBrush}"/>
+                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource DatePickerButtonDisabledLabelBrush}"/>
+                            <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -118,7 +118,7 @@
                                 x:Name="Content"
                                 TextBlock.FontSize="14"
                                 TextBlock.FontFamily="{StaticResource Roboto}"
-                                TextBlock.Foreground="{StaticResource DatePickerButtonLabelBrush}"
+                                TextBlock.Foreground="{StaticResource OnSurfaceColourFullBrush}"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"/>
                         </Border>
@@ -131,8 +131,8 @@
                                 <Condition Property="IsInactive" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" TargetName="Border" Value="{StaticResource DatePickerButtonActiveStateBrush}"/>
-                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource DatePickerButtonActiveLabelBrush}"/>
+                                <Setter Property="Background" TargetName="Border" Value="{StaticResource PrimaryColourFullBrush}"/>
+                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource OnPrimaryColourFullBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
@@ -142,8 +142,8 @@
                                 <Condition Property="IsInactive" Value="True"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" TargetName="Border" Value="{StaticResource DatePickerButtonDisabledLabelBrush}"/>
-                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource DatePickerButtonActiveLabelBrush}"/>
+                                <Setter Property="Background" TargetName="Border" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource OnPrimaryColourFullBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
@@ -153,7 +153,7 @@
                                 <Condition Property="IsFocused" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" TargetName="Border" Value="{StaticResource DatePickerButtonHoverStateBrush}"/>
+                                <Setter Property="Background" TargetName="Border" Value="{StaticResource PrimaryColourPressedBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
@@ -163,12 +163,12 @@
                                 <Condition Property="IsFocused" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource DatePickerButtonDisabledLabelBrush}"/>
+                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource DatePickerButtonDisabledLabelBrush}"/>
+                            <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -197,7 +197,7 @@
                         <TextBlock
                             FontSize="14"
                             FontWeight="SemiBold"
-                            Foreground="{StaticResource DatePickerHeaderLabelBrush}"
+                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
                             FontFamily="{StaticResource Roboto}"
                             Text="{TemplateBinding Content}"
                             HorizontalAlignment="Left"
@@ -207,11 +207,11 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DatePickerButtonHoverStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DatePickerButtonPressedStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourPressedBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -241,7 +241,7 @@
                         VerticalAlignment="Center">
                         <TextBlock
                             FontSize="18"
-                            Foreground="{StaticResource DatePickerHeaderLabelBrush}"
+                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
                             FontFamily="{StaticResource MaterialIconsFilled}"
                             Text="&#xe408;"
                             HorizontalAlignment="Center"
@@ -250,11 +250,11 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DatePickerButtonHoverStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DatePickerButtonPressedStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourPressedBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -284,7 +284,7 @@
                         VerticalAlignment="Center">
                         <TextBlock
                             FontSize="18"
-                            Foreground="{StaticResource DatePickerHeaderLabelBrush}"
+                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
                             FontFamily="{StaticResource MaterialIconsFilled}"
                             Text="&#xe409;"
                             HorizontalAlignment="Center"
@@ -293,11 +293,11 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DatePickerButtonHoverStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DatePickerButtonPressedStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourPressedBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -311,7 +311,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
-        <Setter Property="Foreground" Value="{StaticResource DatePickerDaysOfWeekBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource OnSurfaceColourInactiveBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="0 0 0 16"/>
@@ -331,7 +331,7 @@
                         </DataTemplate>
                     </ControlTemplate.Resources>
 
-                    <Grid x:Name="PART_Root" Background="{StaticResource DatePickerDropDownSurfaceBrush}">
+                    <Grid x:Name="PART_Root" Background="{StaticResource SurfaceColourFullBrush}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
@@ -503,9 +503,9 @@
                         <Border
                             x:Name="Border"
                             Grid.Column="0" Grid.ColumnSpan="2"
-                            Background="{StaticResource DatePickerTextBoxSurfaceBrush}"
+                            Background="{StaticResource SurfaceVariantColourFullBrush}"
                             BorderThickness="0 0 0 1"
-                            BorderBrush="{StaticResource DatePickerTextBoxInactiveOutlineBrush}"
+                            BorderBrush="{StaticResource OutlineColourFullBrush}"
                             CornerRadius="4 4 0 0">
                             <Border x:Name="BorderStateLayer" Background="Transparent" CornerRadius="4 4 0 0"/>
                         </Border>
@@ -527,7 +527,7 @@
                             Grid.Column="0"
                             FontFamily="{StaticResource Roboto}"
                             FontSize="10"
-                            Foreground="{StaticResource DatePickerTextBoxInactiveOutlineBrush}"
+                            Foreground="{StaticResource OutlineColourFullBrush}"
                             Padding="16 6 0 0"
                             Text="Datum"/>
                     </Grid>
@@ -539,7 +539,7 @@
                                 <Condition Property="IsFocused" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" TargetName="TextBoxStateLayer" Value="{StaticResource DatePickerTextBoxStateBrush}"/>
+                                <Setter Property="Background" TargetName="TextBoxStateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
@@ -573,10 +573,10 @@
                         </MultiTrigger>
                         
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="BorderStateLayer" Value="{StaticResource DatePickerTextBoxStateBrush}"/>
+                            <Setter Property="Background" TargetName="BorderStateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
                             <Setter Property="BorderThickness" TargetName="Border" Value="0 0 0 2"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource DatePickerTextBoxActiveOutlineBrush}"/>
-                            <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource DatePickerTextBoxActiveOutlineBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource PrimaryColourFullBrush}"/>
 
                             <Trigger.EnterActions>
                                 <StopStoryboard BeginStoryboardName="NotFocusedEmpty"/>
@@ -600,10 +600,10 @@
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" TargetName="Border" Value="{StaticResource DatePickerTextBoxDisabledSurfaceBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource DatePickerTextBoxDisabledOutlineBrush}"/>
-                            <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource DatePickerTextBoxDisabledOutlineBrush}"/>
-                            <Setter Property="Foreground" TargetName="PART_ContentHost" Value="{StaticResource DatePickerTextBoxDisabledOutlineBrush}"/>
+                            <Setter Property="Background" TargetName="Border" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Foreground" TargetName="Tag" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Foreground" TargetName="PART_ContentHost" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -632,7 +632,7 @@
                             Grid.Column="1"
                             FontFamily="{StaticResource MaterialIconsFilled}"
                             FontSize="22"
-                            Foreground="{StaticResource DatePickerTextBoxInactiveOutlineBrush}"
+                            Foreground="{StaticResource OutlineColourFullBrush}"
                             Text="&#xebcc;"
                             VerticalAlignment="Center"
                             Padding="14 0 0 0"/>
@@ -640,16 +640,16 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource DatePickerCalendarButtonHoverBrush}"/>
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DatePickerTextBoxStateBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource DatePickerCalendarButtonPressedBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource PrimaryColourAlternatePressedBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource DatePickerTextBoxDisabledOutlineBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -674,7 +674,7 @@
                             x:Name="PART_TextBox"
                             FontSize="16"
                             FontFamily="{StaticResource Roboto}"
-                            Foreground="{StaticResource DatePickerTextBoxContentBrush}"
+                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
                             Style="{StaticResource DatePickerTextBoxStyle}"/>
 
                         <Button

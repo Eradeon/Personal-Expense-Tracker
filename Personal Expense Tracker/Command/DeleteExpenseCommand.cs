@@ -23,6 +23,10 @@ namespace Personal_Expense_Tracker.Command
                 {
                     if (_mainViewModel.SelectedRow != null)
                     {
+                        string date = _mainViewModel.SelectedRow.Date.ToString();
+                        string name = _mainViewModel.SelectedRow.Name.ToString();
+                        string amount = _mainViewModel.SelectedRow.Amount.ToString("N2");
+
                         _databaseService.DeleteExpense
                         (
                             _mainViewModel.SelectedRow.Id,
@@ -30,6 +34,8 @@ namespace Personal_Expense_Tracker.Command
                         );
 
                         _mainViewModel.ExpenseCollection.Remove(_mainViewModel.SelectedRow);
+
+                        _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Výdaj {name} z {date} ve výši {amount} byl úspěšně odstraněn.");
 
                         _mainViewModel.DeleteExpenseConfirmation = false;
                         _mainViewModel.DeleteExpenseModalVisible = false;

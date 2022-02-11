@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:services="clr-namespace:Personal_Expense_Tracker.Service.XAML"
-        Title="MainWindow" Height="900" Width="1600">
-    <Grid>
+        Title="Výdaje" Height="900" Width="1600">
+    <Grid Background="{StaticResource SurfaceVariantColourFullBrush}">
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <services:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
@@ -34,9 +34,9 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Správa kategorií" Style="{StaticResource ModalHeadlineStyle}"/>
+                    <TextBlock Grid.Row="0" Text="Správa kategorií" Style="{StaticResource TextHeadline5Style}"/>
 
-                    <TextBlock Grid.Row="2" Text="Přidat kategorii" Style="{StaticResource ModalSubtitleStyle}"/>
+                    <TextBlock Grid.Row="2" Text="Přidat kategorii" Style="{StaticResource TextHeadline6Style}"/>
 
                     <Border x:Name="AddCategoryGrid" Grid.Row="3" Style="{StaticResource ModalSurfaceStyle}">
                         <Grid>
@@ -82,7 +82,7 @@
                         </Grid>
                     </Border>
 
-                    <TextBlock Grid.Row="5" Text="Odstranit / přejmenovat kategorii" Style="{StaticResource ModalSubtitleStyle}"/>
+                    <TextBlock Grid.Row="5" Text="Odstranit / přejmenovat kategorii" Style="{StaticResource TextHeadline6Style}"/>
 
                     <Border x:Name="EditDeleteCategoryGrid" Grid.Row="6" Style="{StaticResource ModalSurfaceStyle}">
                         <Grid>
@@ -134,7 +134,7 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Text="Odstranění kategorie"
-                                        Style="{StaticResource ModalSubtitleSmallStyle}" HorizontalAlignment="Center"/>
+                                        Style="{StaticResource TextSubtitle1Style}" HorizontalAlignment="Center"/>
 
                                     <Button x:Name="DeleteCategoryButton"
                                         Grid.Column="0" Grid.Row="1"
@@ -166,7 +166,7 @@
                                 <Separator Grid.Column="1"
                                            Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
                                            BorderThickness="1"
-                                           Background="{StaticResource ModalSeperatorBrush}"/>
+                                           Background="{StaticResource SurfaceVariantColourFullBrush}"/>
 
                                 <Grid Grid.Column="2">
                                     <Grid.ColumnDefinitions>
@@ -182,7 +182,7 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Text="Přejmenování kategorie" Grid.Column="1"
-                                           Style="{StaticResource ModalSubtitleSmallStyle}" HorizontalAlignment="Center"/>
+                                           Style="{StaticResource TextSubtitle1Style}" HorizontalAlignment="Center"/>
 
                                     <TextBox x:Name="RenameCategoryInput"
                                         Grid.Column="1" Grid.Row="1"
@@ -237,11 +237,11 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Odstranění záznamu" Style="{StaticResource ModalHeadlineStyle}"/>
+                    <TextBlock Grid.Row="0" Text="Odstranění záznamu" Style="{StaticResource TextHeadline5Style}"/>
 
                     <TextBlock Grid.Row="2"
                                Text="Opravdu chcete odstranit tuto položku?"
-                               Style="{StaticResource ModalSupportingTextStyle}"/>
+                               Style="{StaticResource TextBody2Style}"/>
 
                     <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button x:Name="CancelDeleteExpenseButton"
@@ -278,7 +278,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Upravení záznamu" Style="{StaticResource ModalHeadlineStyle}"/>
+                    <TextBlock Grid.Row="0" Text="Upravení záznamu" Style="{StaticResource TextHeadline5Style}"/>
 
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -337,210 +337,385 @@
                 </Grid>
             </Grid>
         </Grid>
-        
+
+        <Grid x:Name="MessagePopup"
+            Visibility="{Binding MessageBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+            Panel.ZIndex="100">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <Trigger Property="Visibility" Value="Visible">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="EnterVisibility">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0"
+                                            To="1"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                        <ThicknessAnimation
+                                            Storyboard.TargetProperty="Margin"
+                                            From="0 0 0 -30"
+                                            To="0 0 0 0"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsMessageBoxClosing}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard x:Name="ExitVisibility">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="1"
+                                            To="0"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                        <ThicknessAnimation
+                                            Storyboard.TargetProperty="Margin"
+                                            From="0 0 0 0"
+                                            To="0 0 0 -30"
+                                            Duration="00:00:00.15"
+                                            BeginTime="00:00:00"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="ExitVisibility"/>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border
+                x:Name="MessageContainer"
+                Grid.Row="1"
+                BorderThickness="0 1 0 0"
+                BorderBrush="{StaticResource OutlineColourLight30Brush}"
+                HorizontalAlignment="Stretch">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding MessageBoxType}" Value="Information">
+                                <Setter Property="Background" Value="{StaticResource InfoContainerColourFullBrush}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MessageBoxType}" Value="Warning">
+                                <Setter Property="Background" Value="{StaticResource WarningContainerColourFullBrush}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MessageBoxType}" Value="Error">
+                                <Setter Property="Background" Value="{StaticResource ErrorContainerColourFullBrush}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="16"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="16"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        x:Name="MessageText"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        FontFamily="{StaticResource Roboto}"
+                        FontSize="14"
+                        LineHeight="20"
+                        Text="{Binding MessageText}"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MessageBoxType}" Value="Information">
+                                        <Setter Property="Foreground" Value="{StaticResource OnInfoContainerColourFullBrush}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MessageBoxType}" Value="Warning">
+                                        <Setter Property="Foreground" Value="{StaticResource OnWarningContainerColourFullBrush}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MessageBoxType}" Value="Error">
+                                        <Setter Property="Foreground" Value="{StaticResource OnErrorContainerColourFullBrush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Button
+                        x:Name="CloseMessageContainerButton"
+                        Grid.Column="3"
+                        Grid.RowSpan="3"
+                        Command="{Binding CloseMessageBox}"
+                        Style="{StaticResource MessageBoxCloseButtonStyle}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </Grid>
+
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="56"/>
-                <RowDefinition Height="56"/>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="86"/>
+                <RowDefinition Height="16"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid x:Name="MainPanelGrid" Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="300"/>
-                </Grid.ColumnDefinitions>
+            <Border x:Name="DateSelectorGrid" Grid.Row="1"
+                Margin="16 0"
+                Style="{StaticResource WindowSurfaceStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition MinWidth="240" Width="20*"/>
+                        <ColumnDefinition MinWidth="240" Width="20*"/>
+                        <ColumnDefinition MinWidth="240" Width="20*"/>
+                        <ColumnDefinition Width="160"/>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="16"/>
+                    </Grid.ColumnDefinitions>
 
-                <ComboBox x:Name="CategoryComboBox" Grid.Column="0"
-                          ItemsSource="{Binding CategoryCollection}"
-                          SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"
-                          Style="{StaticResource ComboBoxStyle}"
-                          Tag="Kategorie">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding DisplayName}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                    <Behaviors:Interaction.Triggers>
-                        <Behaviors:EventTrigger EventName="SelectionChanged">
-                            <Behaviors:InvokeCommandAction Command="{Binding CategoryChanged}"/>
-                            <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
-                        </Behaviors:EventTrigger>
-                    </Behaviors:Interaction.Triggers>
-                </ComboBox>
-                <Button x:Name="ManageCategoryButton" Grid.Column="1"
+                    <ComboBox x:Name="CategoryComboBox" Grid.Column="1"
+                        ItemsSource="{Binding CategoryCollection}"
+                        SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource ComboBoxStyle}"
+                        Tag="Kategorie">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding DisplayName}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="SelectionChanged">
+                                <Behaviors:InvokeCommandAction Command="{Binding CategoryChanged}"/>
+                                <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </ComboBox>
+                    
+                    <ComboBox
+                        x:Name="YearComboBox"
+                        Grid.Column="2"
+                        ItemsSource="{Binding YearList}"
+                        SelectedIndex="{Binding SelectedYear, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource ComboBoxStyle}"
+                        Tag="Rok">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="SelectionChanged">
+                                <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </ComboBox>
+                    
+                    <ComboBox
+                        x:Name="MonthComboBox"
+                        Grid.Column="3"
+                        ItemsSource="{Binding MonthList}"
+                        DisplayMemberPath="Value"
+                        SelectedIndex="{Binding SelectedMonth, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource ComboBoxStyle}"
+                        Tag="Měsíc">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="SelectionChanged">
+                                <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </ComboBox>
+                    
+                    <CheckBox
+                        x:Name="GroupByMonthCheckBox"
+                        Grid.Column="4"
+                        Style="{StaticResource CheckBoxStyle}"
+                        Content="Seskupit po měsících"
+                        IsChecked="{Binding GroupByMonth, UpdateSourceTrigger=PropertyChanged}">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Click">
+                                <Behaviors:InvokeCommandAction Command="{Binding UpdateCategoryGroupByMonth}"/>
+                                <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </CheckBox>
+
+                    <Button x:Name="ManageCategoryButton" Grid.Column="6"
                         Content="Spravovat kategorie"
                         Command="{Binding ShowCategoryManagement}"
                         Tag="&#xe8b8;"
                         FontFamily="{StaticResource MaterialIconsFilled}"
                         Style="{StaticResource TextButtonStyle}"/>
-            </Grid>
+                </Grid>
+            </Border>
 
-            <Grid x:Name="DateSelectorGrid" Grid.Row="1">
+            <Grid x:Name="DataDisplayGrid" Grid.Row="3">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition MinWidth="615" Width="*"/>
+                    <ColumnDefinition Width="16"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
                 </Grid.ColumnDefinitions>
 
-                <ComboBox x:Name="YearComboBox" Grid.Column="0"
-                          ItemsSource="{Binding YearList}"
-                          SelectedIndex="{Binding SelectedYear, UpdateSourceTrigger=PropertyChanged}"
-                          Style="{StaticResource ComboBoxStyle}"
-                          Tag="Rok">
-                    <Behaviors:Interaction.Triggers>
-                        <Behaviors:EventTrigger EventName="SelectionChanged">
-                            <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
-                        </Behaviors:EventTrigger>
-                    </Behaviors:Interaction.Triggers>
-                </ComboBox>
-                <ComboBox x:Name="MonthComboBox" Grid.Column="1"
-                          ItemsSource="{Binding MonthList}"
-                          DisplayMemberPath="Value"
-                          SelectedIndex="{Binding SelectedMonth, UpdateSourceTrigger=PropertyChanged}"
-                          Style="{StaticResource ComboBoxStyle}"
-                          Tag="Měsíc">
-                    <Behaviors:Interaction.Triggers>
-                        <Behaviors:EventTrigger EventName="SelectionChanged">
-                            <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
-                        </Behaviors:EventTrigger>
-                    </Behaviors:Interaction.Triggers>
-                </ComboBox>
-                <CheckBox x:Name="GroupByMonthCheckBox" Grid.Column="2" Style="{StaticResource CheckBoxStyle}"
-                          Content="Seskupit po měsících"
-                          IsChecked="{Binding GroupByMonth, UpdateSourceTrigger=PropertyChanged}">
-                    <Behaviors:Interaction.Triggers>
-                        <Behaviors:EventTrigger EventName="Click">
-                            <Behaviors:InvokeCommandAction Command="{Binding UpdateCategoryGroupByMonth}"/>
-                            <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
-                        </Behaviors:EventTrigger>
-                    </Behaviors:Interaction.Triggers>
-                </CheckBox>
-            </Grid>
+                <Border x:Name="TableDataGrid" Grid.Column="1"
+                    Style="{StaticResource WindowSurfaceStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="86"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-            <Grid x:Name="DataDisplayGrid" Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                        <Grid x:Name="DataInputGrid" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8"/>
+                                <ColumnDefinition MinWidth="190" Width="30*"/>
+                                <ColumnDefinition Width="8"/>
+                                <ColumnDefinition MinWidth="130" Width="30*"/>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition MinWidth="100" Width="30*"/>
+                                <ColumnDefinition MinWidth="32" Width="10*"/>
+                                <ColumnDefinition Width="105"/>
+                                <ColumnDefinition Width="16"/>
+                            </Grid.ColumnDefinitions>
 
-                <Grid x:Name="TableDataGrid" Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="56"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid x:Name="DataInputGrid" Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <DatePicker x:Name="ExpenseDateInput" Grid.Column="0"
-                                    Style="{StaticResource DatePickerStyle}"
-                                    SelectedDateFormat="Short"
-                                    SelectedDate="{Binding ExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBox x:Name="ExpenseNameInput" Grid.Column="1"
-                                 Style="{StaticResource TextBoxStyle}"
-                                 Tag="Název"
-                                 Text="{Binding ExpenseName, UpdateSourceTrigger=PropertyChanged}">
-                            <TextBox.InputBindings>
-                                <KeyBinding Key="Return" Command="{Binding AddExpense, UpdateSourceTrigger=PropertyChanged}"/>
-                            </TextBox.InputBindings>
-                        </TextBox>
-                        <TextBox x:Name="ExpenseAmountInput" Grid.Column="2"
-                                 Style="{StaticResource TextBoxStyle}"
-                                 Tag="Částka"
-                                 Text="{Binding ExpenseAmount, UpdateSourceTrigger=PropertyChanged}">
-                            <TextBox.InputBindings>
-                                <KeyBinding Key="Return" Command="{Binding AddExpense, UpdateSourceTrigger=PropertyChanged}"/>
-                            </TextBox.InputBindings>
-                        </TextBox>
-                        <Button x:Name="ConfirmExpenseInputButton" Grid.Column="3"
+                            <DatePicker
+                                x:Name="ExpenseDateInput"
+                                Grid.Column="1"
+                                Style="{StaticResource DatePickerStyle}"
+                                SelectedDateFormat="Short"
+                                SelectedDate="{Binding ExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox
+                                x:Name="ExpenseNameInput"
+                                Grid.Column="3"
+                                Style="{StaticResource TextBoxStyle}"
+                                Tag="Název"
+                                Text="{Binding ExpenseName, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Return" Command="{Binding AddExpense, UpdateSourceTrigger=PropertyChanged}"/>
+                                </TextBox.InputBindings>
+                            </TextBox>
+                            <TextBox
+                                x:Name="ExpenseAmountInput"
+                                Grid.Column="5"
+                                Style="{StaticResource TextBoxStyle}"
+                                Tag="Částka"
+                                Text="{Binding ExpenseAmount, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Return" Command="{Binding AddExpense, UpdateSourceTrigger=PropertyChanged}"/>
+                                </TextBox.InputBindings>
+                            </TextBox>
+                            <Button
+                                x:Name="ConfirmExpenseInputButton"
+                                Grid.Column="7"
                                 Style="{StaticResource FilledButtonStyle}"
                                 Tag="&#xe145;"
                                 FontFamily="{StaticResource MaterialIconsOutlined}"
                                 Content="Vložit" Command="{Binding AddExpense}"/>
-                    </Grid>
+                        </Grid>
 
-                    <DataGrid x:Name="ExpenseDataGrid" Grid.Row="1"
-                              ItemsSource="{Binding ExpenseLiveCollectionView}"
-                              SelectedItem="{Binding SelectedRow}"
-                              IsReadOnly="True"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              CanUserReorderColumns="False"
-                              CanUserSortColumns="True"
-                              CanUserResizeColumns="False"
-                              CanUserResizeRows="False"
-                              AutoGenerateColumns="False"
-                              SelectionMode="Single"
-                              Style="{StaticResource DataGridStyle}">
-                        <Behaviors:Interaction.Triggers>
-                            <Behaviors:EventTrigger EventName="Loaded">
-                                <Behaviors:InvokeCommandAction Command="{Binding DefaultDataGridSorting}"
+                        <DataGrid
+                            x:Name="ExpenseDataGrid"
+                            Grid.Row="1"
+                            ItemsSource="{Binding ExpenseLiveCollectionView}"
+                            SelectedItem="{Binding SelectedRow}"
+                            IsReadOnly="True"
+                            CanUserAddRows="False"
+                            CanUserDeleteRows="False"
+                            CanUserReorderColumns="False"
+                            CanUserSortColumns="True"
+                            CanUserResizeColumns="False"
+                            CanUserResizeRows="False"
+                            AutoGenerateColumns="False"
+                            SelectionMode="Single"
+                            Style="{StaticResource DataGridStyle}">
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="Loaded">
+                                    <Behaviors:InvokeCommandAction Command="{Binding DefaultDataGridSorting}"
                                                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"/>
-                            </Behaviors:EventTrigger>
-                        </Behaviors:Interaction.Triggers>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="DateColumn"
-                                                MinWidth="110"
-                                                Width="2*"
-                                                Header="Datum"
-                                                Binding="{Binding Date}"/>
-                            <DataGridTextColumn x:Name="NameColumn"
-                                                MinWidth="130"
-                                                Width="6*"
-                                                Header="Název"
-                                                Binding="{Binding Name}"/>
-                            <DataGridTextColumn x:Name="AmountColumn"
-                                                MinWidth="110"
-                                                Width="2*"
-                                                Header="Částka"
-                                                CellStyle="{StaticResource DataGridRightAlignedCellStyle}"
-                                                HeaderStyle="{StaticResource DataGridRightAlignedColumnHeaderStyle}"
-                                                Binding="{Binding Amount, StringFormat=N2}"/>
-                            <DataGridTemplateColumn
-                                x:Name="EditColumn"
-                                MinWidth="48"
-                                Width="48"
-                                HeaderStyle="{StaticResource DataGridEmptyColumnHeaderStyle}"
-                                CellStyle="{StaticResource DataGridIconButtonCellStyle}">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button x:Name="EditRowButton"
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    x:Name="DateColumn"
+                                    MinWidth="110"
+                                    Width="2*"
+                                    Header="Datum"
+                                    Binding="{Binding Date}"/>
+                                <DataGridTextColumn
+                                    x:Name="NameColumn"
+                                    MinWidth="130"
+                                    Width="6*"
+                                    Header="Název"
+                                    Binding="{Binding Name}"/>
+                                <DataGridTextColumn
+                                    x:Name="AmountColumn"
+                                    MinWidth="110"
+                                    Width="2*"
+                                    Header="Částka"
+                                    CellStyle="{StaticResource DataGridRightAlignedCellStyle}"
+                                    HeaderStyle="{StaticResource DataGridRightAlignedColumnHeaderStyle}"
+                                    Binding="{Binding Amount, StringFormat=N2}"/>
+                                <DataGridTemplateColumn
+                                    x:Name="EditColumn"
+                                    MinWidth="48"
+                                    Width="48"
+                                    HeaderStyle="{StaticResource DataGridEmptyColumnHeaderStyle}"
+                                    CellStyle="{StaticResource DataGridIconButtonCellStyle}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                x:Name="EditRowButton"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
                                                                   Path=DataContext.EditExpense}"
                                                 Style="{StaticResource DataGridEditButton}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn
-                                x:Name="DeleteColumn"
-                                MinWidth="48"
-                                Width="48"
-                                HeaderStyle="{StaticResource DataGridEmptyColumnHeaderStyle}"
-                                CellStyle="{StaticResource DataGridIconButtonCellStyle}">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button x:Name="DeleteRowButton"
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn
+                                    x:Name="DeleteColumn"
+                                    MinWidth="48"
+                                    Width="48"
+                                    HeaderStyle="{StaticResource DataGridEmptyColumnHeaderStyle}"
+                                    CellStyle="{StaticResource DataGridIconButtonCellStyle}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                x:Name="DeleteRowButton"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
                                                                   Path=DataContext.DeleteExpense}"
                                                 Style="{StaticResource DataGridDeleteButton}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-                
-                <Grid x:Name="GraphDataGrid" Grid.Column="1">
-                    
-                </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
+                <Border x:Name="GraphDataGrid" Grid.Column="3"
+                    Style="{StaticResource WindowSurfaceStyle}">
+                    <Grid>
+
+                    </Grid>
+                </Border>
             </Grid>
         </Grid>
     </Grid>

@@ -21,6 +21,8 @@ namespace Personal_Expense_Tracker.Command
             {
                 if (_mainViewModel.CategoryCollection.Count > 1 && _mainViewModel.SelectedEditCategory != null)
                 {
+                    string categoryName = _mainViewModel.SelectedEditCategory.DisplayName;
+
                     _databaseService.DeleteCategory
                     (
                         _mainViewModel.SelectedEditCategory.Id,
@@ -42,12 +44,12 @@ namespace Personal_Expense_Tracker.Command
 
                     _mainViewModel.CategoryCollection.RemoveAt(collectionId);
 
-                    //Show message..
+                    _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Kategorie {categoryName} byla úspěšně odstraněna.");
                     _mainViewModel.DeleteCategoryConfirmation = false;
                 }
                 else
                 {
-                    //error - can't have less than 1
+                    _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Nelze odstranit výchozí kategoii. Vytvořte novou kategorii a poté odstraňte tuto.");
                 }
             }
             else

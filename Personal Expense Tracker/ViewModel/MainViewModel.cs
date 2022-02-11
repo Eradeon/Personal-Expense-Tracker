@@ -10,12 +10,20 @@ using Personal_Expense_Tracker.Service;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
+    internal enum MessageType
+    {
+        Information,
+        Warning,
+        Error
+    }
+
     internal class MainViewModel : BaseViewModel
     {
         #region Services
         private readonly DatabaseService _databaseService;
         private readonly DataLoadingService _dataLoadingService;
         private readonly FormattingService _formattingService;
+        public readonly MessageBoxService MessageBoxService;
         #endregion Services
 
         #region Collection Properties
@@ -251,6 +259,36 @@ namespace Personal_Expense_Tracker.ViewModel
         }
         #endregion Category Management Properties
 
+        #region Message Box Properties
+        private bool _messageBoxVisible;
+        public bool MessageBoxVisible
+        {
+            get { return _messageBoxVisible; }
+            set { _messageBoxVisible = value; RaisePropertyChanged(); }
+        }
+
+        private MessageType _messageBoxType;
+        public MessageType MessageBoxType
+        {
+            get { return _messageBoxType; }
+            set { _messageBoxType = value; RaisePropertyChanged(); }
+        }
+
+        private string _messageText = string.Empty;
+        public string MessageText
+        {
+            get { return _messageText; }
+            set { _messageText = value; RaisePropertyChanged(); }
+        }
+
+        private bool _isMessageBoxClosing = false;
+        public bool IsMessageBoxClosing
+        {
+            get { return _isMessageBoxClosing; }
+            set { _isMessageBoxClosing= value; RaisePropertyChanged(); }
+        }
+        #endregion Message Box Properties
+
         #region Commands
         public ICommand ShowCategoryManagement { get; }
         public ICommand HideCategoryManagement { get; }
@@ -269,6 +307,8 @@ namespace Personal_Expense_Tracker.ViewModel
         public ICommand HideEditExpense { get; }
 
         public ICommand DefaultDataGridSorting { get; }
+
+        public ICommand CloseMessageBox { get; }
         #endregion Commands
         
         public MainViewModel(DatabaseService databaseService, DataLoadingService dataLoadingService, FormattingService formattingService)
@@ -276,6 +316,7 @@ namespace Personal_Expense_Tracker.ViewModel
             _databaseService = databaseService;
             _dataLoadingService = dataLoadingService;
             _formattingService = formattingService;
+            MessageBoxService = new MessageBoxService(this);
 
             //Setting up the basics
             _categoryCollection = _dataLoadingService.LoadCategories();
@@ -310,6 +351,8 @@ namespace Personal_Expense_Tracker.ViewModel
             HideEditExpense = new HideEditExpenseModalCommand(this);
 
             DefaultDataGridSorting = new DefaultDataGridSortingCommand();
+
+            CloseMessageBox = new CloseMessageBoxCommand(this);
 
             CategoryChanged.Execute(null);
             LoadExpenses.Execute(null);

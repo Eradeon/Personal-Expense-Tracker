@@ -61,6 +61,8 @@ namespace Personal_Expense_Tracker.Command
                         }
                     }
 
+                    _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, "Výdaj byl úspěšně upraven.");
+
                     _mainViewModel.EditExpenseName = string.Empty;
                     _mainViewModel.EditExpenseAmount = string.Empty;
 

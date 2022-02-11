@@ -29,7 +29,7 @@
                             TextBlock.FontSize="14"
                             TextBlock.FontWeight="SemiBold"
                             TextBlock.FontFamily="{StaticResource Roboto}"
-                            TextBlock.Foreground="{StaticResource DataGridHeaderContentBrush}"
+                            TextBlock.Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
                             Margin="16 0 0 0"
                             VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
@@ -38,7 +38,7 @@
                             Grid.Column="1"
                             FontSize="18"
                             FontFamily="{StaticResource MaterialIconsFilled}"
-                            Foreground="{StaticResource DataGridHeaderContentBrush}"
+                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Padding="8 0 0 0"
@@ -47,11 +47,11 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DataGridRowHoverStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DataGridRowPressedStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
                         </Trigger>
 
                         <Trigger Property="SortDirection" Value="Ascending">
@@ -98,7 +98,7 @@
                             TextBlock.FontSize="14"
                             TextBlock.FontWeight="SemiBold"
                             TextBlock.FontFamily="{StaticResource Roboto}"
-                            TextBlock.Foreground="{StaticResource DataGridHeaderContentBrush}"
+                            TextBlock.Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
                             Margin="0 0 16 0"
                             VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
@@ -107,7 +107,7 @@
                             Grid.Column="1"
                             FontSize="18"
                             FontFamily="{StaticResource MaterialIconsFilled}"
-                            Foreground="{StaticResource DataGridHeaderContentBrush}"
+                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Right"
                             Padding="0 0 8 0"
@@ -116,11 +116,11 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DataGridRowHoverStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DataGridRowPressedStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
                         </Trigger>
 
                         <Trigger Property="SortDirection" Value="Ascending">
@@ -200,17 +200,17 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsRowSelected" Value="False">
                             <Setter Property="Foreground" TargetName="Icon" Value="Transparent"/>
-                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{StaticResource CheckboxOutlineBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{StaticResource OutlineColourFullBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsRowSelected" Value="True">
-                            <Setter Property="Background" TargetName="IconBorder" Value="{StaticResource CheckboxCheckedContainerBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{StaticResource CheckboxCheckedContainerBrush}"/>
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource CheckboxIconBrush}"/>
+                            <Setter Property="Background" TargetName="IconBorder" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource OnPrimaryColourFullBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource CheckboxHoverStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourHoverBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -226,7 +226,7 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
-        <Setter Property="Foreground" Value="{StaticResource DataGridCellContentBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource OnSurfaceColourFullBrush}"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -252,7 +252,7 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="{StaticResource RobotoMono}"/>
-        <Setter Property="Foreground" Value="{StaticResource DataGridCellContentBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource OnSurfaceColourFullBrush}"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -306,7 +306,7 @@
                         x:Name="StateLayer"
                         Height="52"
                         BorderThickness="0 1 0 0"
-                        BorderBrush="{StaticResource DataGridSeperatorBrush}"
+                        BorderBrush="{StaticResource OnSurfaceVariantColourSeperatorBrush}"
                         Background="Transparent">
                         <SelectiveScrollingGrid>
                             <SelectiveScrollingGrid.ColumnDefinitions>
@@ -331,12 +331,12 @@
                                 <Condition Property="IsSelected" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DataGridRowHoverStateBrush}"/>
+                                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DataGridRowActiveStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourPressedBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -358,7 +358,7 @@
                         x:Name="Border"
                         Width="8" Height="Auto"
                         CornerRadius="4"
-                        Background="{StaticResource DataGridScrollBarSurfaceBrush}"
+                        Background="{StaticResource OnSurfaceVariantColourFullBrush}"
                         HorizontalAlignment="Center" VerticalAlignment="Stretch">
                         <Border
                             x:Name="StateLayer"
@@ -374,12 +374,12 @@
                                 <Condition Property="IsDragging" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DataGridScrollBarHoverStateBrush}"/>
+                                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource SurfaceColourHoverBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
                         <Trigger Property="IsDragging" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DataGridScrollBarDraggingStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource SurfaceColourDraggingBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -400,7 +400,7 @@
                         x:Name="Border"
                         Width="Auto" Height="8"
                         CornerRadius="4"
-                        Background="{StaticResource DataGridScrollBarSurfaceBrush}"
+                        Background="{StaticResource OnSurfaceVariantColourFullBrush}"
                         HorizontalAlignment="Stretch" VerticalAlignment="Center">
                         <Border
                             x:Name="StateLayer"
@@ -416,12 +416,12 @@
                                 <Condition Property="IsDragging" Value="False"/>
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DataGridScrollBarHoverStateBrush}"/>
+                                <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource SurfaceColourHoverBrush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
                         <Trigger Property="IsDragging" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource DataGridScrollBarDraggingStateBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource SurfaceColourDraggingBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -440,7 +440,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ScrollBar">
-                    <Grid Background="{StaticResource DataGridScrollBarBackgroundBrush}">
+                    <Grid Background="{StaticResource SurfaceVariantColourFullBrush}">
                         <Track
                             x:Name="PART_Track"
                             Focusable="False"
@@ -466,7 +466,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ScrollBar">
-                    <Grid Background="{StaticResource DataGridScrollBarBackgroundBrush}">
+                    <Grid Background="{StaticResource SurfaceVariantColourFullBrush}">
                         <Track
                             x:Name="PART_Track"
                             Focusable="False"
@@ -500,10 +500,9 @@
                 <ControlTemplate TargetType="DataGrid">
                     <Border
                         x:Name="Border"
-                        CornerRadius="4"
-                        BorderThickness="1"
-                        BorderBrush="{StaticResource DataGridSeperatorBrush}"
-                        Background="{StaticResource DataGridSurfaceBrush}">
+                        BorderThickness="0 1 0 0"
+                        BorderBrush="{StaticResource OnSurfaceVariantColourSeperatorBrush}"
+                        Background="{StaticResource SurfaceColourFullBrush}">
                         <ScrollViewer
                             x:Name="DG_ScrollViewer"
                             Focusable="False">
