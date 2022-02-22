@@ -64,4 +64,94 @@
         <Setter Property="Background" Value="{StaticResource SurfaceColourFullBrush}"/>
     </Style>
 
+    <Style x:Key="StatisticsCardStyle" TargetType="Border">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Background" Value="{StaticResource SurfaceColourFullBrush}"/>
+        <Setter Property="MinWidth" Value="390"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="StatisticsCardIconBorderStyle" TargetType="Border">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="CornerRadius" Value="30"/>
+        <Setter Property="Background" Value="{StaticResource PrimaryColourPressedBrush}"/>
+    </Style>
+
+    <Style x:Key="GraphBarStyle" TargetType="Border">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Background" Value="{StaticResource PrimaryColourFullBrush}"/>
+        <Setter Property="ToolTipService.Placement" Value="Mouse"/>
+        <Setter Property="ToolTipService.VerticalOffset" Value="0"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
+        <Setter Property="ToolTipService.ShowDuration" Value="4000"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource PrimaryColourAlternatePressedBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ScrollViewerStyle" TargetType="ScrollViewer">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollViewer">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border
+                            x:Name="Corner"
+                            Grid.Column="1" Grid.Row="1"
+                            Background="{StaticResource SurfaceVariantColourFullBrush}"/>
+
+                        <ScrollContentPresenter
+                            x:Name="PART_ScrollContentPresenter"
+                            Grid.Column="0" Grid.Row="0"
+                            CanContentScroll="{TemplateBinding CanContentScroll}"/>
+
+                        <ScrollBar
+                            x:Name="PART_VerticalScrollBar"
+                            Grid.Column="1" Grid.Row="0"
+                            Style="{StaticResource DataGridVerticalScrollBarStyle}"
+                            Value="{TemplateBinding VerticalOffset}"
+                            Maximum="{TemplateBinding ScrollableHeight}"
+                            ViewportSize="{TemplateBinding ViewportHeight}"
+                            Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+
+                        <ScrollBar
+                            x:Name="PART_HorizontalScrollBar"
+                            Grid.Column="0" Grid.Row="1"
+                            Orientation="Horizontal"
+                            Style="{StaticResource DataGridHorizontalScrollBarStyle}"
+                            Value="{TemplateBinding HorizontalOffset}"
+                            Maximum="{TemplateBinding ScrollableWidth}"
+                            ViewportSize="{TemplateBinding ViewportWidth}"
+                            Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

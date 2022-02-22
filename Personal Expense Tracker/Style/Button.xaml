@@ -253,83 +253,6 @@
         </Setter>
     </Style>
 
-    <Style x:Key="TooltipStyle" TargetType="ToolTip">
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ToolTip">
-                    <Border
-                        x:Name="Border"
-                        CornerRadius="4"
-                        Height="24"
-                        Background="{StaticResource OnSurfaceVariantColourFullBrush}"
-                        Padding="8 0"
-                        RenderTransformOrigin="0.5, 0.5">
-                        <Border.RenderTransform>
-                            <ScaleTransform
-                                ScaleX="0"
-                                ScaleY="0"/>
-                        </Border.RenderTransform>
-                        <TextBlock
-                            x:Name="Content"
-                            FontSize="12"
-                            FontFamily="{StaticResource Roboto}"
-                            Foreground="{StaticResource SurfaceVariantColourFullBrush}"
-                            Text="{TemplateBinding Content}"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Border>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsOpen" Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Border"
-                                            Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                            From="0.5"
-                                            To="1"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Border"
-                                            Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                            From="0.5"
-                                            To="1"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Border"
-                                            Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                            From="1"
-                                            To="0.5"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="Border"
-                                            Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                            From="1"
-                                            To="0.5"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    
     <Style x:Key="DataGridEditButton" TargetType="Button">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -389,7 +312,7 @@
             <Setter.Value>
                 <ToolTip
                     Content="Upravit"
-                    Style="{StaticResource TooltipStyle}"/>
+                    Style="{StaticResource BasicTooltipStyle}"/>
             </Setter.Value>
         </Setter>
     </Style>
@@ -453,7 +376,7 @@
             <Setter.Value>
                 <ToolTip
                     Content="Odstranit"
-                    Style="{StaticResource TooltipStyle}"/>
+                    Style="{StaticResource BasicTooltipStyle}"/>
             </Setter.Value>
         </Setter>
     </Style>

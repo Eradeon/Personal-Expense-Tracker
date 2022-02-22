@@ -7,8 +7,14 @@
         mc:Ignorable="d"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:services="clr-namespace:Personal_Expense_Tracker.Service.XAML"
-        Title="Výdaje" Height="900" Width="1600">
-    <Grid Background="{StaticResource SurfaceVariantColourFullBrush}">
+        Title="Výdaje" Height="1000" Width="1800">
+    <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
+        <Behaviors:Interaction.Triggers>
+            <Behaviors:EventTrigger EventName="MouseDown">
+                <!--Making it possible to deselect TextBox when empty space is clicked-->
+                <Behaviors:InvokeCommandAction Command="{Binding LoseFocusWhenEmptySpaceClicked}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
+            </Behaviors:EventTrigger>
+        </Behaviors:Interaction.Triggers>
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <services:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
@@ -16,8 +22,8 @@
 
         <Grid x:Name="CategoryManagementModal"
               Style="{StaticResource ModalCoverStyle}"
-              Visibility="{Binding CategoryManagementModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-
+              Visibility="{Binding CategoryManagementModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+              Focusable="True" FocusVisualStyle="{x:Null}">
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Border Style="{StaticResource ModalWrapperDarkStyle}"/>
 
@@ -34,9 +40,9 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Správa kategorií" Style="{StaticResource TextHeadline5Style}"/>
+                    <TextBlock Grid.Row="0" Text="Správa kategorií" Style="{StaticResource TextHeadline5Style}" Margin="0 0 0 8"/>
 
-                    <TextBlock Grid.Row="2" Text="Přidat kategorii" Style="{StaticResource TextHeadline6Style}"/>
+                    <TextBlock Grid.Row="2" Text="Přidat kategorii" Style="{StaticResource TextHeadline6Style}" Margin="0 0 0 8"/>
 
                     <Border x:Name="AddCategoryGrid" Grid.Row="3" Style="{StaticResource ModalSurfaceStyle}">
                         <Grid>
@@ -71,18 +77,30 @@
                                 VerticalAlignment="Center"
                                 Content="Seskupit po měsících"
                                 Style="{StaticResource CheckBoxStyle}"
-                                IsChecked="{Binding NewCategoryGroupByMonth, UpdateSourceTrigger=PropertyChanged}"/>
+                                IsChecked="{Binding NewCategoryGroupByMonth, UpdateSourceTrigger=PropertyChanged}">
+                                <Behaviors:Interaction.Triggers>
+                                    <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                        <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
+                                    </Behaviors:EventTrigger>
+                                </Behaviors:Interaction.Triggers>
+                            </CheckBox>
 
                             <Button x:Name="CreateNewCategoryButton" Grid.Column="4" Grid.Row="0"
                                 Content="Přidat kategorii"
                                 Command="{Binding AddCategory}"
                                 Style="{StaticResource FilledButtonStyle}"
                                 Tag="&#xe145;"
-                                FontFamily="{StaticResource MaterialIconsFilled}"/>
+                                FontFamily="{StaticResource MaterialIconsFilled}">
+                                <Behaviors:Interaction.Triggers>
+                                    <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                        <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
+                                    </Behaviors:EventTrigger>
+                                </Behaviors:Interaction.Triggers>
+                            </Button>
                         </Grid>
                     </Border>
 
-                    <TextBlock Grid.Row="5" Text="Odstranit / přejmenovat kategorii" Style="{StaticResource TextHeadline6Style}"/>
+                    <TextBlock Grid.Row="5" Text="Odstranit / přejmenovat kategorii" Style="{StaticResource TextHeadline6Style}" Margin="0 0 0 8"/>
 
                     <Border x:Name="EditDeleteCategoryGrid" Grid.Row="6" Style="{StaticResource ModalSurfaceStyle}">
                         <Grid>
@@ -134,7 +152,7 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Text="Odstranění kategorie"
-                                        Style="{StaticResource TextSubtitle1Style}" HorizontalAlignment="Center"/>
+                                        Style="{StaticResource TextSubtitle1Style}" Margin="0 0 0 12" HorizontalAlignment="Center"/>
 
                                     <Button x:Name="DeleteCategoryButton"
                                         Grid.Column="0" Grid.Row="1"
@@ -143,7 +161,13 @@
                                         Style="{StaticResource FilledWarningButtonStyle}"
                                         Tag="&#xe872;"
                                         FontFamily="{StaticResource MaterialIconsFilled}"
-                                        IsEnabled="{Binding DeleteCategoryConfirmation, Converter={StaticResource ReverseBooleanConverter}}"/>
+                                        IsEnabled="{Binding DeleteCategoryConfirmation, Converter={StaticResource ReverseBooleanConverter}}">
+                                        <Behaviors:Interaction.Triggers>
+                                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
+                                            </Behaviors:EventTrigger>
+                                        </Behaviors:Interaction.Triggers>
+                                    </Button>
 
                                     <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
                                         <Button x:Name="CancelDeleteCategoryButton" Content="Zrušit"
@@ -152,14 +176,26 @@
                                             Style="{StaticResource TextButtonStyle}"
                                             Tag="&#xe5c9;"
                                             FontFamily="{StaticResource MaterialIconsOutlined}"
-                                            Margin="0 0 8 0"/>
+                                            Margin="0 0 8 0">
+                                            <Behaviors:Interaction.Triggers>
+                                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
+                                                </Behaviors:EventTrigger>
+                                            </Behaviors:Interaction.Triggers>
+                                        </Button>
 
                                         <Button x:Name="ConfirmDeleteCategoryButton" Content="Potvrdit odstranění"
                                             Visibility="{Binding DeleteCategoryConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Command="{Binding DeleteCategory}"
                                             Style="{StaticResource FilledWarningButtonStyle}"
                                             Tag="&#xe92b;"
-                                            FontFamily="{StaticResource MaterialIconsFilled}"/>
+                                            FontFamily="{StaticResource MaterialIconsFilled}">
+                                            <Behaviors:Interaction.Triggers>
+                                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
+                                                </Behaviors:EventTrigger>
+                                            </Behaviors:Interaction.Triggers>
+                                        </Button>
                                     </StackPanel>
                                 </Grid>
 
@@ -181,7 +217,7 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Text="Přejmenování kategorie" Grid.Column="1"
+                                    <TextBlock Text="Přejmenování kategorie" Grid.Column="1" Margin="0 0 0 8"
                                            Style="{StaticResource TextSubtitle1Style}" HorizontalAlignment="Center"/>
 
                                     <TextBox x:Name="RenameCategoryInput"
@@ -206,7 +242,13 @@
                                         Command="{Binding RenameCategory}"
                                         Style="{StaticResource FilledButtonStyle}"
                                         Tag="&#xe3c9;"
-                                        FontFamily="{StaticResource MaterialIconsFilled}"/>
+                                        FontFamily="{StaticResource MaterialIconsFilled}">
+                                        <Behaviors:Interaction.Triggers>
+                                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
+                                            </Behaviors:EventTrigger>
+                                        </Behaviors:Interaction.Triggers>
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -217,7 +259,13 @@
                         Tag="&#xe5cd;"
                         FontFamily="{StaticResource MaterialIconsFilled}"
                         Style="{StaticResource TextButtonStyle}"
-                        Command="{Binding HideCategoryManagement}"/>
+                        Command="{Binding HideCategoryManagement}">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>
@@ -250,14 +298,26 @@
                             Style="{StaticResource TextButtonStyle}"
                             Tag="&#xe5c9;"
                             FontFamily="{StaticResource MaterialIconsOutlined}"
-                            Margin="0 0 8 0"/>
+                            Margin="0 0 8 0">
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+                        </Button>
 
                         <Button x:Name="ConfirmDeleteExpenseButton"
                             Content="Odstranit"
                             Command="{Binding DeleteExpense}"
                             Style="{StaticResource FilledWarningButtonStyle}"
                             Tag="&#xe92b;"
-                            FontFamily="{StaticResource MaterialIconsFilled}"/>
+                            FontFamily="{StaticResource MaterialIconsFilled}">
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -323,7 +383,13 @@
                             Style="{StaticResource TextButtonStyle}"
                             Tag="&#xe5c9;"
                             FontFamily="{StaticResource MaterialIconsOutlined}"
-                            Margin="0 0 8 0"/>
+                            Margin="0 0 8 0">
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+                        </Button>
 
                         <Button
                             x:Name="ConfirmEditExpenseInputButton"
@@ -332,7 +398,13 @@
                             Command="{Binding EditExpense}"
                             Style="{StaticResource FilledButtonStyle}"
                             Tag="&#xe3c9;"
-                            FontFamily="{StaticResource MaterialIconsFilled}"/>
+                            FontFamily="{StaticResource MaterialIconsFilled}">
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -466,7 +538,13 @@
                         Command="{Binding CloseMessageBox}"
                         Style="{StaticResource MessageBoxCloseButtonStyle}"
                         VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Center">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </Button>
                 </Grid>
             </Border>
         </Grid>
@@ -496,7 +574,7 @@
 
                     <ComboBox x:Name="CategoryComboBox" Grid.Column="1"
                         ItemsSource="{Binding CategoryCollection}"
-                        SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding SelectedCategory}"
                         Style="{StaticResource ComboBoxStyle}"
                         Tag="Kategorie">
                         <ComboBox.ItemTemplate>
@@ -513,12 +591,12 @@
                             </Behaviors:EventTrigger>
                         </Behaviors:Interaction.Triggers>
                     </ComboBox>
-                    
+
                     <ComboBox
                         x:Name="YearComboBox"
                         Grid.Column="2"
                         ItemsSource="{Binding YearList}"
-                        SelectedIndex="{Binding SelectedYear, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding SelectedYear}"
                         Style="{StaticResource ComboBoxStyle}"
                         Tag="Rok">
                         <Behaviors:Interaction.Triggers>
@@ -527,32 +605,36 @@
                             </Behaviors:EventTrigger>
                         </Behaviors:Interaction.Triggers>
                     </ComboBox>
-                    
+
                     <ComboBox
                         x:Name="MonthComboBox"
                         Grid.Column="3"
                         ItemsSource="{Binding MonthList}"
                         DisplayMemberPath="Value"
-                        SelectedIndex="{Binding SelectedMonth, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedIndex="{Binding SelectedMonth}"
                         Style="{StaticResource ComboBoxStyle}"
-                        Tag="Měsíc">
+                        Tag="Měsíc"
+                        IsEnabled="{Binding GroupByMonth}">
                         <Behaviors:Interaction.Triggers>
                             <Behaviors:EventTrigger EventName="SelectionChanged">
                                 <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
                             </Behaviors:EventTrigger>
                         </Behaviors:Interaction.Triggers>
                     </ComboBox>
-                    
+
                     <CheckBox
                         x:Name="GroupByMonthCheckBox"
                         Grid.Column="4"
                         Style="{StaticResource CheckBoxStyle}"
                         Content="Seskupit po měsících"
-                        IsChecked="{Binding GroupByMonth, UpdateSourceTrigger=PropertyChanged}">
+                        IsChecked="{Binding GroupByMonth}">
                         <Behaviors:Interaction.Triggers>
                             <Behaviors:EventTrigger EventName="Click">
                                 <Behaviors:InvokeCommandAction Command="{Binding UpdateCategoryGroupByMonth}"/>
                                 <Behaviors:InvokeCommandAction Command="{Binding LoadExpenses}"/>
+                            </Behaviors:EventTrigger>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
                             </Behaviors:EventTrigger>
                         </Behaviors:Interaction.Triggers>
                     </CheckBox>
@@ -562,14 +644,20 @@
                         Command="{Binding ShowCategoryManagement}"
                         Tag="&#xe8b8;"
                         FontFamily="{StaticResource MaterialIconsFilled}"
-                        Style="{StaticResource TextButtonStyle}"/>
+                        Style="{StaticResource TextButtonStyle}">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </Button>
                 </Grid>
             </Border>
 
             <Grid x:Name="DataDisplayGrid" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="16"/>
-                    <ColumnDefinition MinWidth="615" Width="*"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="16"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="16"/>
@@ -596,12 +684,14 @@
                                 <ColumnDefinition Width="16"/>
                             </Grid.ColumnDefinitions>
 
-                            <DatePicker
-                                x:Name="ExpenseDateInput"
-                                Grid.Column="1"
-                                Style="{StaticResource DatePickerStyle}"
-                                SelectedDateFormat="Short"
-                                SelectedDate="{Binding ExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <Border Grid.Column="1" VerticalAlignment="Center">
+                                <DatePicker
+                                    x:Name="ExpenseDateInput"
+                                    Style="{StaticResource DatePickerStyle}"
+                                    SelectedDateFormat="Short"
+                                    SelectedDate="{Binding ExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Border>
                             <TextBox
                                 x:Name="ExpenseNameInput"
                                 Grid.Column="3"
@@ -628,11 +718,16 @@
                                 Style="{StaticResource FilledButtonStyle}"
                                 Tag="&#xe145;"
                                 FontFamily="{StaticResource MaterialIconsOutlined}"
-                                Content="Vložit" Command="{Binding AddExpense}"/>
+                                Content="Vložit" Command="{Binding AddExpense}">
+                                <Behaviors:Interaction.Triggers>
+                                    <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                        <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                    </Behaviors:EventTrigger>
+                                </Behaviors:Interaction.Triggers>
+                            </Button>
                         </Grid>
 
-                        <DataGrid
-                            x:Name="ExpenseDataGrid"
+                        <DataGrid x:Name="ExpenseDataGrid"
                             Grid.Row="1"
                             ItemsSource="{Binding ExpenseLiveCollectionView}"
                             SelectedItem="{Binding SelectedRow}"
@@ -649,7 +744,7 @@
                             <Behaviors:Interaction.Triggers>
                                 <Behaviors:EventTrigger EventName="Loaded">
                                     <Behaviors:InvokeCommandAction Command="{Binding DefaultDataGridSorting}"
-                                                               CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"/>
+                                                                   CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"/>
                                 </Behaviors:EventTrigger>
                             </Behaviors:Interaction.Triggers>
                             <DataGrid.Columns>
@@ -669,10 +764,15 @@
                                     x:Name="AmountColumn"
                                     MinWidth="110"
                                     Width="2*"
-                                    Header="Částka"
                                     CellStyle="{StaticResource DataGridRightAlignedCellStyle}"
                                     HeaderStyle="{StaticResource DataGridRightAlignedColumnHeaderStyle}"
-                                    Binding="{Binding Amount, StringFormat=N2}"/>
+                                    Binding="{Binding Amount, StringFormat=N2}">
+                                    <DataGridTextColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.DatagridAmountHeader}"/>
+                                        </DataTemplate>
+                                    </DataGridTextColumn.HeaderTemplate>
+                                </DataGridTextColumn>
                                 <DataGridTemplateColumn
                                     x:Name="EditColumn"
                                     MinWidth="48"
@@ -685,7 +785,14 @@
                                                 x:Name="EditRowButton"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
                                                                   Path=DataContext.EditExpense}"
-                                                Style="{StaticResource DataGridEditButton}"/>
+                                                Style="{StaticResource DataGridEditButton}">
+                                                <Behaviors:Interaction.Triggers>
+                                                    <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                                        <Behaviors:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.UnfocusElementUponMouseClick}"
+                                                                                       CommandParameter="{Binding ElementName=MainGrid}"/>
+                                                    </Behaviors:EventTrigger>
+                                                </Behaviors:Interaction.Triggers>
+                                            </Button>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -701,7 +808,14 @@
                                                 x:Name="DeleteRowButton"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
                                                                   Path=DataContext.DeleteExpense}"
-                                                Style="{StaticResource DataGridDeleteButton}"/>
+                                                Style="{StaticResource DataGridDeleteButton}">
+                                                <Behaviors:Interaction.Triggers>
+                                                    <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                                        <Behaviors:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.UnfocusElementUponMouseClick}"
+                                                                                       CommandParameter="{Binding ElementName=MainGrid}"/>
+                                                    </Behaviors:EventTrigger>
+                                                </Behaviors:Interaction.Triggers>
+                                            </Button>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -710,11 +824,519 @@
                     </Grid>
                 </Border>
 
-                <Border x:Name="GraphDataGrid" Grid.Column="3"
+                <Border MinWidth="465" x:Name="StatisticsDataGrid" Grid.Column="3"
                     Style="{StaticResource WindowSurfaceStyle}">
-                    <Grid>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" Style="{StaticResource ScrollViewerStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="24"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="24"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="8"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="24"/>
+                            </Grid.RowDefinitions>
 
-                    </Grid>
+                            <Grid x:Name="StatisticsCardsGrid" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                                <WrapPanel x:Name="StatisticsCardWrapper" Orientation="Horizontal" HorizontalAlignment="Center" Margin="12 12 12 0">
+                                    <Grid x:Name="MostFrequentedCard" Grid.Column="0" HorizontalAlignment="Left" Margin="12 12">
+                                        <Border Style="{StaticResource StatisticsCardStyle}"/>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="24"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="16"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="24"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="24"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="24"/>
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource StatisticsCardIconBorderStyle}">
+                                                <TextBlock Text="&#xf099;" Style="{StaticResource TextStatisticsIconStyle}"/>
+                                            </Border>
+
+                                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock 
+                                                    Text="{Binding MostFrequentedExpenses[0].Item1}"
+                                                    Style="{StaticResource TextStatisticsHeaderLargeStyle}"
+                                                    ToolTipService.Placement="Center"
+                                                    ToolTipService.VerticalOffset="80"
+                                                    ToolTipService.InitialShowDelay="0"
+                                                    ToolTipService.ShowDuration="4000">
+                                                    <TextBlock.ToolTip>
+                                                        <ToolTip>
+                                                            <ToolTip.Style>
+                                                                <Style TargetType="ToolTip">
+                                                                    <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                                                    <Setter Property="SnapsToDevicePixels" Value="True"/>
+
+                                                                    <Setter Property="Template">
+                                                                        <Setter.Value>
+                                                                            <ControlTemplate TargetType="ToolTip">
+                                                                                <Grid x:Name="FrequentedExpensesToolTipWrapper" RenderTransformOrigin="0.5,0.5" Margin="8 8">
+                                                                                    <Grid.RenderTransform>
+                                                                                        <ScaleTransform ScaleX="0" ScaleY="0"/>
+                                                                                    </Grid.RenderTransform>
+                                                                                    <Border
+                                                                                        CornerRadius="4"
+                                                                                        Background="{StaticResource SurfaceColourFullBrush}"
+                                                                                        Padding="8 0">
+                                                                                        <Border.Effect>
+                                                                                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.5"/>
+                                                                                        </Border.Effect>
+                                                                                    </Border>
+                                                                                    <Grid>
+                                                                                        <Grid.ColumnDefinitions>
+                                                                                            <ColumnDefinition Width="16"/>
+                                                                                            <ColumnDefinition Width="Auto"/>
+                                                                                            <ColumnDefinition Width="32"/>
+                                                                                            <ColumnDefinition Width="Auto"/>
+                                                                                            <ColumnDefinition Width="16"/>
+                                                                                        </Grid.ColumnDefinitions>
+                                                                                        <Grid.RowDefinitions>
+                                                                                            <RowDefinition Height="16"/>
+                                                                                            <RowDefinition Height="Auto"/>
+                                                                                            <RowDefinition Height="Auto"/>
+                                                                                            <RowDefinition Height="16"/>
+                                                                                            <RowDefinition Height="Auto"/>
+                                                                                            <RowDefinition Height="Auto"/>
+                                                                                            <RowDefinition Height="16"/>
+                                                                                        </Grid.RowDefinitions>
+
+                                                                                        <!--2nd-->
+                                                                                        <TextBlock
+                                                                                            Grid.Column="1" Grid.Row="1"
+                                                                                            FontSize="12"
+                                                                                            FontWeight="Regular"
+                                                                                            FontFamily="{StaticResource Roboto}"
+                                                                                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                                                                                            Text="2. místo"
+                                                                                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+                                                                                        <TextBlock
+                                                                                            Grid.Column="1" Grid.Row="2"
+                                                                                            FontSize="20"
+                                                                                            FontWeight="Regular"
+                                                                                            FontFamily="{StaticResource Roboto}"
+                                                                                            Foreground="{StaticResource PrimaryColourFullBrush}"
+                                                                                            Text="{Binding MostFrequentedExpenses[1].Item1}"
+                                                                                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                                                                        
+                                                                                        <TextBlock
+                                                                                            Grid.Column="3" Grid.Row="2"
+                                                                                            FontSize="18"
+                                                                                            FontWeight="Regular"
+                                                                                            FontFamily="{StaticResource Roboto}"
+                                                                                            Foreground="{StaticResource PrimaryColourFullBrush}"
+                                                                                            Text="{Binding MostFrequentedExpenses[1].Item2}"
+                                                                                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                                                                                        <!--3rd-->
+                                                                                        <TextBlock
+                                                                                            Grid.Column="1" Grid.Row="4"
+                                                                                            FontSize="12"
+                                                                                            FontWeight="Regular"
+                                                                                            FontFamily="{StaticResource Roboto}"
+                                                                                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                                                                                            Text="3. místo"
+                                                                                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+                                                                                        <TextBlock
+                                                                                            Grid.Column="1" Grid.Row="5"
+                                                                                            FontSize="20"
+                                                                                            FontWeight="Regular"
+                                                                                            FontFamily="{StaticResource Roboto}"
+                                                                                            Foreground="{StaticResource PrimaryColourFullBrush}"
+                                                                                            Text="{Binding MostFrequentedExpenses[2].Item1}"
+                                                                                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+                                                                                        <TextBlock
+                                                                                            Grid.Column="3" Grid.Row="5"
+                                                                                            FontSize="18"
+                                                                                            FontWeight="Regular"
+                                                                                            FontFamily="{StaticResource Roboto}"
+                                                                                            Foreground="{StaticResource PrimaryColourFullBrush}"
+                                                                                            Text="{Binding MostFrequentedExpenses[2].Item2}"
+                                                                                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                                                    </Grid>
+                                                                                </Grid>
+                                                                                <ControlTemplate.Triggers>
+                                                                                    <Trigger Property="IsOpen" Value="True">
+                                                                                        <Trigger.EnterActions>
+                                                                                            <BeginStoryboard>
+                                                                                                <Storyboard>
+                                                                                                    <DoubleAnimation
+                                                                                                        Storyboard.TargetName="FrequentedExpensesToolTipWrapper"
+                                                                                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                                                                                        From="0.5"
+                                                                                                        To="1"
+                                                                                                        Duration="00:00:00.15"
+                                                                                                        BeginTime="00:00:00"/>
+                                                                                                    <DoubleAnimation
+                                                                                                        Storyboard.TargetName="FrequentedExpensesToolTipWrapper"
+                                                                                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                                                                                        From="0.5"
+                                                                                                        To="1"
+                                                                                                        Duration="00:00:00.15"
+                                                                                                        BeginTime="00:00:00"/>
+                                                                                                </Storyboard>
+                                                                                            </BeginStoryboard>
+                                                                                        </Trigger.EnterActions>
+                                                                                        <Trigger.ExitActions>
+                                                                                            <BeginStoryboard>
+                                                                                                <Storyboard>
+                                                                                                    <DoubleAnimation
+                                                                                                        Storyboard.TargetName="FrequentedExpensesToolTipWrapper"
+                                                                                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                                                                                        From="1"
+                                                                                                        To="0.5"
+                                                                                                        Duration="00:00:00.15"
+                                                                                                        BeginTime="00:00:00"/>
+                                                                                                    <DoubleAnimation
+                                                                                                        Storyboard.TargetName="FrequentedExpensesToolTipWrapper"
+                                                                                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                                                                                        From="1"
+                                                                                                        To="0.5"
+                                                                                                        Duration="00:00:00.15"
+                                                                                                        BeginTime="00:00:00"/>
+                                                                                                </Storyboard>
+                                                                                            </BeginStoryboard>
+                                                                                        </Trigger.ExitActions>
+                                                                                    </Trigger>
+                                                                                </ControlTemplate.Triggers>
+                                                                            </ControlTemplate>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </Style>
+                                                            </ToolTip.Style>
+                                                        </ToolTip>
+                                                    </TextBlock.ToolTip>
+                                                </TextBlock>
+                                                <TextBlock
+                                                    Text="Nejčastější výdaje"
+                                                    Style="{StaticResource TextStatisticsSupportStyle}"/>
+                                            </StackPanel>
+
+                                            <TextBlock
+                                                Grid.Column="4" Grid.Row="1"
+                                                Text="{Binding MostFrequentedExpenses[0].Item2}"       
+                                                Style="{StaticResource TextStatisticsHeaderSmallStyle}">
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="Celkový počet položek" Style="{StaticResource BasicTooltipStyle}"/>
+                                                </TextBlock.ToolTip>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid x:Name="TotalAmountCard" Grid.Column="0" HorizontalAlignment="Left" Margin="12 12">
+                                        <Border Style="{StaticResource StatisticsCardStyle}"/>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="24"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="16"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="24"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="24"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="24"/>
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource StatisticsCardIconBorderStyle}">
+                                                <TextBlock Text="&#xe24a;" Style="{StaticResource TextStatisticsIconStyle}"/>
+                                            </Border>
+
+                                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock 
+                                                    Text="{Binding SumExpense.Item1, StringFormat=N2}"
+                                                    Style="{StaticResource TextStatisticsHeaderLargeStyle}"/>
+                                                <TextBlock
+                                                    Text="Celkové výdaje"
+                                                    Style="{StaticResource TextStatisticsSupportStyle}"/>
+                                            </StackPanel>
+
+                                            <TextBlock
+                                                Grid.Column="4" Grid.Row="1"
+                                                Text="{Binding SumExpense.Item2}"       
+                                                Style="{StaticResource TextStatisticsHeaderSmallStyle}">
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="Celkový počet položek" Style="{StaticResource BasicTooltipStyle}"/>
+                                                </TextBlock.ToolTip>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid x:Name="MinAmountCard" Grid.Column="0" HorizontalAlignment="Left" Margin="12 12">
+                                        <Border Style="{StaticResource StatisticsCardStyle}"/>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="24"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="16"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="24"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="24"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="24"/>
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource StatisticsCardIconBorderStyle}">
+                                                <TextBlock Text="&#xead0;" Style="{StaticResource TextStatisticsIconStyle}"/>
+                                            </Border>
+
+                                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock 
+                                                    Text="{Binding MinExpense.Item1, StringFormat=N2}"
+                                                    Style="{StaticResource TextStatisticsHeaderLargeStyle}"/>
+                                                <TextBlock
+                                                    Text="Nejnižší výdaj"
+                                                    Style="{StaticResource TextStatisticsSupportStyle}"/>
+                                            </StackPanel>
+
+                                            <TextBlock
+                                                Grid.Column="4" Grid.Row="1"
+                                                Text="{Binding MinExpense.Item2}"       
+                                                Style="{StaticResource TextStatisticsHeaderSmallStyle}">
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="Místo vzniku výdaje" Style="{StaticResource BasicTooltipStyle}"/>
+                                                </TextBlock.ToolTip>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid x:Name="MaxAmountCard" Grid.Column="0" HorizontalAlignment="Left" Margin="12 12">
+                                        <Border Style="{StaticResource StatisticsCardStyle}"/>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="24"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="16"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="24"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="24"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="24"/>
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource StatisticsCardIconBorderStyle}">
+                                                <TextBlock Text="&#xeacf;" Style="{StaticResource TextStatisticsIconStyle}"/>
+                                            </Border>
+
+                                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock 
+                                                    Text="{Binding MaxExpense.Item1, StringFormat=N2}"
+                                                    Style="{StaticResource TextStatisticsHeaderLargeStyle}"/>
+                                                <TextBlock
+                                                    Text="Nejvyšší výdaj"
+                                                    Style="{StaticResource TextStatisticsSupportStyle}"/>
+                                            </StackPanel>
+
+                                            <TextBlock
+                                                Grid.Column="4" Grid.Row="1"
+                                                Text="{Binding MaxExpense.Item2}"       
+                                                Style="{StaticResource TextStatisticsHeaderSmallStyle}">
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="Místo vzniku výdaje" Style="{StaticResource BasicTooltipStyle}"/>
+                                                </TextBlock.ToolTip>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid x:Name="MeanAmountCard" Grid.Column="0" HorizontalAlignment="Left" Margin="12 12">
+                                        <Border Style="{StaticResource StatisticsCardStyle}"/>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="24"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="16"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="24"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="24"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="24"/>
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource StatisticsCardIconBorderStyle}">
+                                                <TextBlock Text="μ" Style="{StaticResource TextStatisticsIconStyle}" Margin="0 0 0 16"/>
+                                            </Border>
+
+                                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock 
+                                                    Text="{Binding MeanExpense.Item1, StringFormat=N2}"
+                                                    Style="{StaticResource TextStatisticsHeaderLargeStyle}"/>
+                                                <TextBlock
+                                                    Text="Průměrný výdaj"
+                                                    Style="{StaticResource TextStatisticsSupportStyle}"/>
+                                            </StackPanel>
+
+                                            <TextBlock
+                                                Grid.Column="4" Grid.Row="1"
+                                                Text="{Binding MeanExpense.Item2}"       
+                                                Style="{StaticResource TextStatisticsHeaderSmallStyle}">
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="Průměrný výdaj na 1 den" Style="{StaticResource BasicTooltipStyle}"/>
+                                                </TextBlock.ToolTip>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Grid>
+                                </WrapPanel>
+                            </Grid>
+
+                            <Grid x:Name="StatisticsGraphGrid" Grid.Column="1" Grid.Row="3">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="16*"/>
+                                        <ColumnDefinition Width="80*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="36"/>
+                                        <RowDefinition MinHeight="350" Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid x:Name="FirstLastGraphLabelGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="16*"/>
+                                            <ColumnDefinition Width="16*"/>
+                                            <ColumnDefinition Width="60*"/>
+                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="4*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="24"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock
+                                        Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                                        Text="{Binding XAxisLabels.Item1, StringFormat=C0}"
+                                        Style="{StaticResource TextBody2Style}"
+                                        HorizontalAlignment="Center"
+                                        Margin="1 0 0 0"/>
+                                        <TextBlock
+                                        Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1"
+                                        Text="{Binding XAxisLabels.Item5, StringFormat=C0}"
+                                        Style="{StaticResource TextBody2Style}"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 0 1 0"/>
+                                    </Grid>
+
+                                    <Grid x:Name="InBetweenGraphLabelGrid" Grid.Column="1" Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="24"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource OutlineColourLight30Brush}" BorderThickness="1 0 1 1"/>
+                                        <Border Grid.Column="1" Grid.Row="0" BorderBrush="{StaticResource OutlineColourLight30Brush}" BorderThickness="0 0 1 1"/>
+                                        <Border Grid.Column="2" Grid.Row="0" BorderBrush="{StaticResource OutlineColourLight30Brush}" BorderThickness="0 0 1 1"/>
+                                        <Border Grid.Column="3" Grid.Row="0" BorderBrush="{StaticResource OutlineColourLight30Brush}" BorderThickness="0 0 1 1"/>
+
+                                        <TextBlock
+                                        Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                                        Text="{Binding XAxisLabels.Item2, StringFormat=C0}"
+                                        Style="{StaticResource TextBody2Style}"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 0 1 0"/>
+                                        <TextBlock
+                                        Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
+                                        Text="{Binding XAxisLabels.Item3, StringFormat=C0}"
+                                        Style="{StaticResource TextBody2Style}"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 0 1 0"/>
+                                        <TextBlock
+                                        Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1"
+                                        Text="{Binding XAxisLabels.Item4, StringFormat=C0}"
+                                        Style="{StaticResource TextBody2Style}"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 0 1 0"/>
+                                    </Grid>
+
+                                    <Border x:Name="GraphWrapperGrid" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="0 -16 0 0" Padding="0 0 0 24" VerticalAlignment="Bottom">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="12*"/>
+                                                <ColumnDefinition Width="80*"/>
+                                                <ColumnDefinition Width="4*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid x:Name="YAxisLabels" Grid.Column="1">
+                                                <ItemsControl ItemsSource="{Binding GraphData}" Focusable="False" FocusVisualStyle="{x:Null}">
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"/>
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate DataType="Border">
+                                                            <Border Height="35" Margin="0 16 0 0" Padding="0 0 8 0">
+                                                                <TextBlock
+                                                                    Text="{Binding Item1}"
+                                                                    Style="{StaticResource TextBody2Style}"
+                                                                    VerticalAlignment="Center"
+                                                                    HorizontalAlignment="Right"
+                                                                    TextWrapping="Wrap"/>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </Grid>
+
+                                            <Grid x:Name="GraphColumns" Grid.Column="2">
+                                                <ItemsControl ItemsSource="{Binding GraphData, NotifyOnTargetUpdated=True}" Focusable="False" FocusVisualStyle="{x:Null}">
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"/>
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate DataType="Grid">
+                                                            <Grid Height="35" Margin="0 16 0 0">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition MinWidth="2" Width="{Binding Item4}"/>
+                                                                    <ColumnDefinition Width="{Binding Item5}"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Border
+                                                                Grid.Column="0"
+                                                                Style="{StaticResource GraphBarStyle}">
+                                                                    <Border.ToolTip>
+                                                                        <ToolTip
+                                                                            Uid="{Binding Item1}"
+                                                                            Content="{Binding Item2}"
+                                                                            Tag="{Binding Item3}"
+                                                                            Style="{StaticResource GraphTooltipStyle}"/>
+                                                                    </Border.ToolTip>
+                                                                </Border>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </ScrollViewer>
                 </Border>
             </Grid>
         </Grid>

@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
-using Personal_Expense_Tracker.Command;
+using System.Windows;
+using System.Globalization;
+using Personal_Expense_Tracker.Command.General;
+using Personal_Expense_Tracker.Command.Home;
 using Personal_Expense_Tracker.Service;
+using Personal_Expense_Tracker.Extension;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
@@ -24,7 +29,17 @@ namespace Personal_Expense_Tracker.ViewModel
         private readonly DataLoadingService _dataLoadingService;
         private readonly FormattingService _formattingService;
         public readonly MessageBoxService MessageBoxService;
+        private readonly StatisticsService _statisticsService;
         #endregion Services
+
+        #region View Controls Properties
+        private string _datagridAmountHeader = string.Empty;
+        public string DatagridAmountHeader
+        {
+            get { return _datagridAmountHeader; }
+            set { _datagridAmountHeader = value; RaisePropertyChanged(); }
+        }
+        #endregion View Controls Properties
 
         #region Collection Properties
         private ObservableCollection<CategoryViewModel> _categoryCollection;
@@ -34,8 +49,8 @@ namespace Personal_Expense_Tracker.ViewModel
             set { _categoryCollection = value; RaisePropertyChanged(); }
         }
 
-        private List<string> _yearList;
-        public List<string> YearList
+        private List<int> _yearList;
+        public List<int> YearList
         {
             get { return _yearList; }
             set { _yearList = value; RaisePropertyChanged(); }
@@ -48,8 +63,8 @@ namespace Personal_Expense_Tracker.ViewModel
             set { _monthList = value; RaisePropertyChanged(); }
         }
 
-        private ObservableCollection<ExpenseViewModel> _expenseCollection;
-        public ObservableCollection<ExpenseViewModel> ExpenseCollection
+        private FullyObservableCollection<ExpenseViewModel> _expenseCollection;
+        public FullyObservableCollection<ExpenseViewModel> ExpenseCollection
         {
             get { return _expenseCollection; }
             set { _expenseCollection = value; RaisePropertyChanged(); }
@@ -289,6 +304,60 @@ namespace Personal_Expense_Tracker.ViewModel
         }
         #endregion Message Box Properties
 
+        #region Statistics Properties
+        public bool LoadingExpenses = false;
+
+        private List<Tuple<string, int>>? _mostFrequentedExpenses;
+        public List<Tuple<string, int>>? MostFrequentedExpenses
+        {
+            get { return _mostFrequentedExpenses; }
+            set { _mostFrequentedExpenses = value; RaisePropertyChanged(); }
+        }
+
+        private Tuple<string, int>? _sumExpense;
+        public Tuple<string, int>? SumExpense
+        {
+            get { return _sumExpense; }
+            set { _sumExpense = value; RaisePropertyChanged(); }
+        }
+
+        private Tuple<string, string>? _meanExpense;
+        public Tuple<string, string>? MeanExpense
+        {
+            get { return _meanExpense; }
+            set { _meanExpense = value; RaisePropertyChanged(); }
+        }
+
+        private Tuple<string, string>? _minExpense;
+        public Tuple<string, string>? MinExpense
+        {
+            get { return _minExpense; }
+            set { _minExpense = value; RaisePropertyChanged(); }
+        }
+
+        private Tuple<string, string>? _maxExpense;
+        public Tuple<string, string>? MaxExpense
+        {
+            get { return _maxExpense; }
+            set { _maxExpense = value; RaisePropertyChanged(); }
+        }
+
+        //Group name || Group sum amount || Item count in group || Group sum % of total sum || Number of (100 - % number)
+        private List<Tuple<string, string, int, GridLength, GridLength>>? _graphData;
+        public List<Tuple<string, string, int, GridLength, GridLength>>? GraphData
+        {
+            get { return _graphData; }
+            set { _graphData = value; RaisePropertyChanged(); }
+        }
+
+        private Tuple<int, int, int, int, int>? _xAxisLabels;
+        public Tuple<int, int, int, int, int>? XAxisLabels
+        {
+            get { return _xAxisLabels; }
+            set { _xAxisLabels = value; RaisePropertyChanged(); }
+        }
+        #endregion Statistics Properties
+
         #region Commands
         public ICommand ShowCategoryManagement { get; }
         public ICommand HideCategoryManagement { get; }
@@ -309,26 +378,36 @@ namespace Personal_Expense_Tracker.ViewModel
         public ICommand DefaultDataGridSorting { get; }
 
         public ICommand CloseMessageBox { get; }
+
+        public ICommand LoseFocusWhenEmptySpaceClicked { get; }
+        public ICommand UnfocusElementUponMouseClick { get; }
         #endregion Commands
-        
+
         public MainViewModel(DatabaseService databaseService, DataLoadingService dataLoadingService, FormattingService formattingService)
         {
             _databaseService = databaseService;
             _dataLoadingService = dataLoadingService;
             _formattingService = formattingService;
             MessageBoxService = new MessageBoxService(this);
+            _statisticsService = new StatisticsService(this);
 
             //Setting up the basics
+            _datagridAmountHeader = string.Concat
+            (
+                "Částka v ",
+                CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol
+            );
+
             _categoryCollection = _dataLoadingService.LoadCategories();
             _selectedCategory = _categoryCollection[0];
             _selectedEditCategory = _categoryCollection[0];
 
-            _yearList = Enumerable.Range(2014, DateTime.Now.Year - 2014 + 1).Select(y => y.ToString()).ToList();
-            _selectedYear = _yearList.Count()-1;
+            _yearList = Enumerable.Range(2014, DateTime.Now.Year - 2014 + 1).Select(y => y).ToList();
+            _selectedYear = _yearList.Last();
 
             _monthList = _dataLoadingService.LoadMonths();
 
-            _expenseCollection = new ObservableCollection<ExpenseViewModel>();
+            _expenseCollection = new FullyObservableCollection<ExpenseViewModel>();
             _expenseCollectionView = CollectionViewSource.GetDefaultView(ExpenseCollection);
             ExpenseLiveCollectionView = (ICollectionViewLiveShaping)_expenseCollectionView;
             ExpenseLiveCollectionView.IsLiveSorting = true;
@@ -354,12 +433,33 @@ namespace Personal_Expense_Tracker.ViewModel
 
             CloseMessageBox = new CloseMessageBoxCommand(this);
 
+            LoseFocusWhenEmptySpaceClicked = new LoseFocusWhenEmptySpaceClickedCommand();
+            UnfocusElementUponMouseClick = new UnfocusElementUponMouseClickCommand();
+
+            //Loading expense data
             CategoryChanged.Execute(null);
             LoadExpenses.Execute(null);
+            _statisticsService.CalculateStatistics();
+
+            //Setting up event listeners
+            ExpenseCollection.CollectionChanged += ExpenseCollectionChangedEventHandler;
+            ExpenseCollection.ItemPropertyChanged += ExpenseCollectionItemChangedEventHandler;
 
             //Testing Purposes
             //...
             //Testing Purposes
+        }
+
+        private void ExpenseCollectionChangedEventHandler(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (!LoadingExpenses)
+                _statisticsService.CalculateStatistics();
+        }
+
+        private void ExpenseCollectionItemChangedEventHandler(object? sender, ItemPropertyChangedEventArgs e)
+        {
+            if (!LoadingExpenses)
+                _statisticsService.CalculateStatistics();
         }
 
         public bool CategoryExists(string tableName)

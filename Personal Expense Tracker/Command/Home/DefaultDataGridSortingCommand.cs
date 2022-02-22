@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Controls;
 
-namespace Personal_Expense_Tracker.Command
+namespace Personal_Expense_Tracker.Command.Home
 {
     internal class DefaultDataGridSortingCommand : BaseCommand
     {

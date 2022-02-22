@@ -5,7 +5,7 @@ using Personal_Expense_Tracker.Model;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.ViewModel;
 
-namespace Personal_Expense_Tracker.Command
+namespace Personal_Expense_Tracker.Command.Home
 {
     internal class CreateExpenseCommand : BaseCommand
     {
@@ -47,15 +47,20 @@ namespace Personal_Expense_Tracker.Command
                         expenseAmount
                     );
 
-                    _mainViewModel.ExpenseCollection.Add(new ExpenseViewModel(new Expense
-                    (
-                        newExpenseId,
-                        expenseDate,
-                        expenseName,
-                        expenseAmount
-                    )));
+                    DateTime dateTime = DateTime.Parse(expenseDate);
 
-                    _mainViewModel.ExpenseDate = DateTime.Now;
+                    if ((_mainViewModel.GroupByMonth && dateTime.Month == _mainViewModel.SelectedMonth+1 && dateTime.Year == _mainViewModel.SelectedYear) ||
+                        (!_mainViewModel.GroupByMonth && dateTime.Year == _mainViewModel.SelectedYear))
+                    {
+                        _mainViewModel.ExpenseCollection.Add(new ExpenseViewModel(new Expense
+                        (
+                            newExpenseId,
+                            expenseDate,
+                            expenseName,
+                            expenseAmount
+                        )));
+                    }
+
                     _mainViewModel.ExpenseName = string.Empty;
                     _mainViewModel.ExpenseAmount = string.Empty;
                 }

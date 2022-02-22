@@ -5,7 +5,7 @@ using Personal_Expense_Tracker.ViewModel;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.Model;
 
-namespace Personal_Expense_Tracker.Command
+namespace Personal_Expense_Tracker.Command.Home
 {
     internal class LoadExpenseDataCommand : BaseCommand
     {
@@ -29,7 +29,7 @@ namespace Personal_Expense_Tracker.Command
                     DataTable dataTable = _databaseService.QueryDatabase(_databaseService.BuildExpenseQuery
                     (
                         _mainViewModel.SelectedCategory.Name,
-                        _mainViewModel.YearList.ElementAt(_mainViewModel.SelectedYear),
+                        _mainViewModel.SelectedYear.ToString(),
                         _mainViewModel.MonthList.ElementAt(_mainViewModel.SelectedMonth).Key
                     ));
 
@@ -40,7 +40,7 @@ namespace Personal_Expense_Tracker.Command
                     DataTable dataTable = _databaseService.QueryDatabase(_databaseService.BuildExpenseQuery
                     (
                         _mainViewModel.SelectedCategory.Name,
-                        _mainViewModel.YearList.ElementAt(_mainViewModel.SelectedYear),
+                        _mainViewModel.SelectedYear.ToString(),
                         string.Empty
                     ));
 
@@ -53,8 +53,18 @@ namespace Personal_Expense_Tracker.Command
         {
             if (dataTable != null)
             {
+                if (dataTable.Rows.Count > 0)
+                    _mainViewModel.LoadingExpenses = true;
+
+                int index = 1;
+
                 foreach (DataRow row in dataTable.Rows)
                 {
+                    if (index == dataTable.Rows.Count)
+                    {
+                        _mainViewModel.LoadingExpenses = false;
+                    }
+
                     _mainViewModel.ExpenseCollection.Add(new ExpenseViewModel(new Expense
                     (
                         int.Parse(row["expense_id"].ToString()),
@@ -62,6 +72,8 @@ namespace Personal_Expense_Tracker.Command
                         row["expense_name"].ToString(),
                         double.Parse(row["expense_amount"].ToString())
                     )));
+
+                    index++;
                 }
             }
         }

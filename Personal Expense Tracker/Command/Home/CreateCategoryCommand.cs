@@ -6,7 +6,7 @@ using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.Extension;
 using System.ComponentModel;
 
-namespace Personal_Expense_Tracker.Command
+namespace Personal_Expense_Tracker.Command.Home
 {
     internal class CreateCategoryCommand : BaseCommand
     {

@@ -2,7 +2,7 @@
 using Personal_Expense_Tracker.ViewModel;
 using Personal_Expense_Tracker.Service;
 
-namespace Personal_Expense_Tracker.Command
+namespace Personal_Expense_Tracker.Command.Home
 {
     internal class UpdateCategoryGroupByMonthCommand : BaseCommand
     {
