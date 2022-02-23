@@ -29,7 +29,9 @@ namespace Personal_Expense_Tracker.Command.Home
 
         public override void Execute(object? parameter)
         {
-            if (!_mainViewModel.CategoryExists(_mainViewModel.RenamedCategoryTableName) && _mainViewModel.SelectedEditCategory != null)
+            string newTableName = _formattingService.FormatCategoryTableName(_mainViewModel.RenamedCategoryName);
+
+            if (!_mainViewModel.CategoryExists(newTableName) && _mainViewModel.SelectedEditCategory != null)
             {
                 string newDisplayName = _formattingService.FormatCategoryDisplayName(_mainViewModel.RenamedCategoryName);
 
@@ -37,12 +39,12 @@ namespace Personal_Expense_Tracker.Command.Home
                 (
                     _mainViewModel.SelectedEditCategory.Id,
                     _mainViewModel.SelectedEditCategory.Name,
-                    _mainViewModel.RenamedCategoryTableName,
+                    newTableName,
                     newDisplayName
                     
                 );
 
-                _mainViewModel.SelectedEditCategory.Name = _mainViewModel.RenamedCategoryTableName;
+                _mainViewModel.SelectedEditCategory.Name = newTableName;
                 _mainViewModel.SelectedEditCategory.DisplayName = newDisplayName;
 
                 _mainViewModel.RenamedCategoryName = string.Empty;

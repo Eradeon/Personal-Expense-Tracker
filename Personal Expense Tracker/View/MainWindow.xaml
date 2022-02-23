@@ -56,7 +56,6 @@
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <TextBox x:Name="NewCategoryNameInput" Grid.Column="0" Grid.Row="0"
@@ -68,11 +67,6 @@
                                 </TextBox.InputBindings>
                             </TextBox>
 
-                            <Label x:Name="NewCategoryTableNamePreview" Grid.Column="0" Grid.Row="1"
-                                Style="{StaticResource DatabaseNameLabelStyle}"
-                                Tag="Název DB:"
-                                Content="{Binding NewCategoryTableName}"/>
-
                             <CheckBox x:Name="NewCategoryGroupByMonthCheckBox" Grid.Column="2" Grid.Row="0"
                                 VerticalAlignment="Center"
                                 Content="Seskupit po měsících"
@@ -83,6 +77,9 @@
                                         <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
                                     </Behaviors:EventTrigger>
                                 </Behaviors:Interaction.Triggers>
+                                <CheckBox.InputBindings>
+                                    <KeyBinding Key="Return" Command="{Binding AddCategory, UpdateSourceTrigger=PropertyChanged}"/>
+                                </CheckBox.InputBindings>
                             </CheckBox>
 
                             <Button x:Name="CreateNewCategoryButton" Grid.Column="4" Grid.Row="0"
@@ -212,8 +209,7 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="8"/>
+                                        <RowDefinition Height="16"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
@@ -230,14 +226,8 @@
                                         </TextBox.InputBindings>
                                     </TextBox>
 
-                                    <Label x:Name="RenameCategoryTableNamePreview"
-                                        Grid.Column="1" Grid.Row="2"
-                                        Style="{StaticResource DatabaseNameLabelStyle}"
-                                        Tag="Název DB:"
-                                        Content="{Binding RenamedCategoryTableName}"/>
-
                                     <Button x:Name="RenameCategoryButton"
-                                        Grid.Column="1" Grid.Row="4"
+                                        Grid.Column="1" Grid.Row="3"
                                         Content="Přejmenovat kategorii"
                                         Command="{Binding RenameCategory}"
                                         Style="{StaticResource FilledButtonStyle}"

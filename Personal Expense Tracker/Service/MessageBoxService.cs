@@ -4,6 +4,13 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Service
 {
+    internal enum MessageType
+    {
+        Information,
+        Warning,
+        Error
+    }
+
     internal class MessageBoxService
     {
         private readonly MainViewModel _mainViewModel;

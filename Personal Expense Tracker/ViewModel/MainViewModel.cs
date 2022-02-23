@@ -15,13 +15,6 @@ using Personal_Expense_Tracker.Extension;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal enum MessageType
-    {
-        Information,
-        Warning,
-        Error
-    }
-
     internal class MainViewModel : BaseViewModel
     {
         #region Services
@@ -225,18 +218,7 @@ namespace Personal_Expense_Tracker.ViewModel
         public string NewCategoryName
         {
             get { return _newCategoryName; }
-            set { _newCategoryName = value; RaisePropertyChanged(); NewCategoryTableName = _formattingService.FormatCategoryTableName(value); }
-        }
-
-        private string _newCategoryTableName = string.Empty;
-        public string NewCategoryTableName
-        {
-            get { return _newCategoryTableName; }
-            set
-            {
-                if (value == "_expenses") { _newCategoryTableName = string.Empty; RaisePropertyChanged(); }
-                else { _newCategoryTableName = value; RaisePropertyChanged(); }
-            }
+            set { _newCategoryName = value; RaisePropertyChanged(); }
         }
 
         private bool _newCategoryGroupByMonth;
@@ -259,18 +241,7 @@ namespace Personal_Expense_Tracker.ViewModel
         public string RenamedCategoryName
         {
             get { return _renamedCategoryName; }
-            set { _renamedCategoryName = value; RaisePropertyChanged(); RenamedCategoryTableName = _formattingService.FormatCategoryTableName(value); }
-        }
-
-        private string _renamedCategoryTableName = string.Empty;
-        public string RenamedCategoryTableName
-        {
-            get { return _renamedCategoryTableName; }
-            set
-            {
-                if (value == "_expenses") { _renamedCategoryTableName = string.Empty; RaisePropertyChanged(); }
-                else { _renamedCategoryTableName = value; RaisePropertyChanged(); }
-            }
+            set { _renamedCategoryName = value; RaisePropertyChanged(); }
         }
         #endregion Category Management Properties
 
