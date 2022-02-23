@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows;
@@ -12,6 +11,7 @@ using Personal_Expense_Tracker.Command.General;
 using Personal_Expense_Tracker.Command.Home;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.Extension;
+using System.Data;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
@@ -42,8 +42,8 @@ namespace Personal_Expense_Tracker.ViewModel
             set { _categoryCollection = value; RaisePropertyChanged(); }
         }
 
-        private List<int> _yearList;
-        public List<int> YearList
+        private ObservableCollection<int> _yearList = new ObservableCollection<int>();
+        public ObservableCollection<int> YearList
         {
             get { return _yearList; }
             set { _yearList = value; RaisePropertyChanged(); }
@@ -369,10 +369,7 @@ namespace Personal_Expense_Tracker.ViewModel
             _selectedCategory = _categoryCollection[0];
             _selectedEditCategory = _categoryCollection[0];
 
-            _yearList = Enumerable.Range(2014, DateTime.Now.Year - 2014 + 1).Select(y => y).ToList();
-            _selectedYear = _yearList.Last();
-
-            _monthList = _dataLoadingService.LoadMonths();
+            _monthList = LoadMonths();
 
             _expenseCollection = new FullyObservableCollection<ExpenseViewModel>();
             _expenseCollectionView = CollectionViewSource.GetDefaultView(ExpenseCollection);
@@ -431,13 +428,87 @@ namespace Personal_Expense_Tracker.ViewModel
 
         public bool CategoryExists(string tableName)
         {
-            foreach(var category in _categoryCollection)
+            foreach (var category in _categoryCollection)
             {
                 if (category.Name == tableName)
                     return true;
             }
 
             return false;
+        }
+
+        public void LoadYears()
+        {
+            if (_yearList.Count > 0)
+                YearList.Clear();
+
+            if (_selectedCategory != null)
+            {
+                int currentYear = DateTime.Now.Year;
+
+                DataTable dataTable = _databaseService.QueryDatabase($"SELECT DISTINCT strftime('%Y', expense_date) year_list FROM {_selectedCategory.Name} ORDER BY year_list ASC;");
+
+                if (dataTable == null || dataTable.Rows.Count == 0)
+                    YearList.Add(currentYear);
+                else
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        YearList.Add(int.Parse(row["year_list"].ToString()));
+                    }
+
+                    AddYear(currentYear);
+                }
+
+                SelectedYear = currentYear;
+            }
+        }
+
+        public void AddYear(int year)
+        {
+            int j = 1;
+
+            for (int i = 0; i < _yearList.Count; i++)
+            {
+                if (_yearList[i] == year)
+                    break;
+                else if (_yearList[0] > year)
+                {
+                    YearList.Insert(0, year);
+                    break;
+                }
+                else if (_yearList[_yearList.Count-1] < year)
+                {
+                    YearList.Add(year);
+                    break;
+                }
+                else if (_yearList[i] < year && _yearList[j] > year)
+                {
+                    YearList.Insert(j, year);
+                    break;
+                }
+
+                j++;
+            }
+        }
+
+        private Dictionary<string, string> LoadMonths()
+        {
+            Dictionary<string, string> months = new Dictionary<string, string>();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                if (i <= 9)
+                {
+                    months.Add("0" + i, CultureInfo.CurrentCulture.TextInfo.ToTitleCase(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)));
+                }
+                else
+                {
+                    months.Add(i.ToString(), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)));
+                }
+            }
+
+            return months;
         }
     }
 }

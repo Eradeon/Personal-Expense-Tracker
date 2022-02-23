@@ -515,21 +515,21 @@
                             Grid.Column="0"
                             Background="Transparent"
                             CornerRadius="4 0 0 0">
-                            <ScrollViewer
-                                x:Name="PART_ContentHost"
-                                Margin="14 16 0 0"
-                                HorizontalAlignment="Left"
-                                HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            <Grid>
+                                <TextBlock
+                                    x:Name="Tag"
+                                    FontFamily="{StaticResource Roboto}"
+                                    FontSize="10"
+                                    Foreground="{StaticResource OutlineColourFullBrush}"
+                                    Padding="16 6 0 0"
+                                    Text="Datum"/>
+                                <ScrollViewer
+                                    x:Name="PART_ContentHost"
+                                    Margin="14 16 0 0"
+                                    HorizontalAlignment="Left"
+                                    HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            </Grid>
                         </Border>
-
-                        <TextBlock
-                            x:Name="Tag"
-                            Grid.Column="0"
-                            FontFamily="{StaticResource Roboto}"
-                            FontSize="10"
-                            Foreground="{StaticResource OutlineColourFullBrush}"
-                            Padding="16 6 0 0"
-                            Text="Datum"/>
                     </Grid>
 
                     <ControlTemplate.Triggers>

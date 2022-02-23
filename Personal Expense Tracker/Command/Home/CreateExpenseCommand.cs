@@ -59,6 +59,8 @@ namespace Personal_Expense_Tracker.Command.Home
                         )));
                     }
 
+                    _mainViewModel.AddYear(expenseDate.Year);
+
                     _mainViewModel.ExpenseName = string.Empty;
                     _mainViewModel.ExpenseAmount = string.Empty;
                 }

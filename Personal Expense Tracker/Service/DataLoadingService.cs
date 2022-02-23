@@ -59,24 +59,5 @@ namespace Personal_Expense_Tracker.Service
 
             return categoryCollection;
         }
-
-        public Dictionary<string, string> LoadMonths()
-        {
-            Dictionary<string, string> months = new Dictionary<string,string>();
-
-            for (int i = 1; i <= 12; i++)
-            {
-                if (i <= 9)
-                {
-                    months.Add("0" + i, CultureInfo.CurrentCulture.TextInfo.ToTitleCase(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)));
-                }
-                else
-                {
-                    months.Add(i.ToString(), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)));
-                }
-            }
-
-            return months;
-        }
     }
 }
