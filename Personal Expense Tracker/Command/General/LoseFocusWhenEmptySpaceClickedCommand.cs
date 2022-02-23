@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Windows.Controls;
+using System.Windows;
 
 namespace Personal_Expense_Tracker.Command.General
 {
@@ -7,9 +7,12 @@ namespace Personal_Expense_Tracker.Command.General
     {
         public override void Execute(object? parameter)
         {
-            if (parameter != null && parameter is Grid)
+            if (parameter != null && parameter is UIElement)
             {
-                ((Grid)parameter).Focus();
+                UIElement uiElement = (UIElement)parameter;
+
+                if (uiElement.Focusable)
+                    uiElement.Focus();
             }
         }
     }

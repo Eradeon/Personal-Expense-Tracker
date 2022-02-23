@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Personal_Expense_Tracker.Command.General
@@ -13,11 +8,14 @@ namespace Personal_Expense_Tracker.Command.General
     {
         public override void Execute(object? parameter)
         {
-            if (parameter != null)
+            if (!Keyboard.PrimaryDevice.IsKeyDown(Key.Tab))
             {
-                if (!Keyboard.PrimaryDevice.IsKeyDown(Key.Tab))
+                if (parameter != null && parameter is UIElement)
                 {
-                    ((Grid)parameter).Focus();
+                    UIElement uiElement = (UIElement)parameter;
+
+                    if (uiElement.Focusable)
+                        uiElement.Focus();
                 }
             }
         }
