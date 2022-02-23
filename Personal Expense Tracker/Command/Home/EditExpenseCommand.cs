@@ -38,7 +38,7 @@ namespace Personal_Expense_Tracker.Command.Home
             {
                 if (_mainViewModel.EditExpenseConfirmation)
                 {
-                    string newExpenseDate = _formattingService.FormatExpenseDate(_mainViewModel.EditExpenseDate);
+                    DateTime newExpenseDate = _mainViewModel.EditExpenseDate;
                     string newExpenseName = _formattingService.FormatExpenseName(_mainViewModel.EditExpenseName);
                     double newExpenseAmount = _formattingService.FormatExpenseAmount(_mainViewModel.EditExpenseAmount);
 
@@ -46,7 +46,7 @@ namespace Personal_Expense_Tracker.Command.Home
                     (
                         _mainViewModel.SelectedRow.Id,
                         _mainViewModel.SelectedCategory.Name,
-                        newExpenseDate,
+                        _formattingService.FormatExpenseDate(newExpenseDate),
                         newExpenseName,
                         newExpenseAmount
                     );
@@ -71,7 +71,7 @@ namespace Personal_Expense_Tracker.Command.Home
                 }
                 else
                 {
-                    _mainViewModel.EditExpenseDate = DateTime.Parse(_mainViewModel.SelectedRow.Date);
+                    _mainViewModel.EditExpenseDate = _mainViewModel.SelectedRow.Date;
                     _mainViewModel.EditExpenseName = _mainViewModel.SelectedRow.Name;
                     _mainViewModel.EditExpenseAmount = _mainViewModel.SelectedRow.Amount.ToString();
 

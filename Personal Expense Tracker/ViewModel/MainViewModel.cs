@@ -392,11 +392,7 @@ namespace Personal_Expense_Tracker.ViewModel
             _statisticsService = new StatisticsService(this);
 
             //Setting up the basics
-            _datagridAmountHeader = string.Concat
-            (
-                "Částka v ",
-                CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol
-            );
+            _datagridAmountHeader = string.Concat("Částka v ", CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
 
             _categoryCollection = _dataLoadingService.LoadCategories();
             _selectedCategory = _categoryCollection[0];

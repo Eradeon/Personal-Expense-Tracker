@@ -35,22 +35,20 @@ namespace Personal_Expense_Tracker.Command.Home
             {
                 try
                 {
-                    string expenseDate = _formattingService.FormatExpenseDate(_mainViewModel.ExpenseDate);
+                    DateTime expenseDate = _mainViewModel.ExpenseDate;
                     string expenseName = _formattingService.FormatExpenseName(_mainViewModel.ExpenseName);
                     double expenseAmount = _formattingService.FormatExpenseAmount(_mainViewModel.ExpenseAmount);
 
                     int newExpenseId = _databaseService.InsertExpense
                     (
                         _mainViewModel.SelectedCategory.Name,
-                        expenseDate,
+                        _formattingService.FormatExpenseDate(expenseDate),
                         expenseName,
                         expenseAmount
                     );
 
-                    DateTime dateTime = DateTime.Parse(expenseDate);
-
-                    if ((_mainViewModel.GroupByMonth && dateTime.Month == _mainViewModel.SelectedMonth+1 && dateTime.Year == _mainViewModel.SelectedYear) ||
-                        (!_mainViewModel.GroupByMonth && dateTime.Year == _mainViewModel.SelectedYear))
+                    if ((_mainViewModel.GroupByMonth && expenseDate.Month == _mainViewModel.SelectedMonth+1 && expenseDate.Year == _mainViewModel.SelectedYear) ||
+                        (!_mainViewModel.GroupByMonth && expenseDate.Year == _mainViewModel.SelectedYear))
                     {
                         _mainViewModel.ExpenseCollection.Add(new ExpenseViewModel(new Expense
                         (

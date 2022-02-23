@@ -13,7 +13,7 @@ namespace Personal_Expense_Tracker.ViewModel
             set { _expense.Id = value; RaisePropertyChanged(); }
         }
 
-        public string Date
+        public DateTime Date
         {
             get { return _expense.Date; }
             set { _expense.Date = value; RaisePropertyChanged(); }

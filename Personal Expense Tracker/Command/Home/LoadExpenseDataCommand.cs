@@ -68,7 +68,7 @@ namespace Personal_Expense_Tracker.Command.Home
                     _mainViewModel.ExpenseCollection.Add(new ExpenseViewModel(new Expense
                     (
                         int.Parse(row["expense_id"].ToString()),
-                        row["expense_date"].ToString(),
+                        DateTime.Parse(row["expense_date"].ToString()),
                         row["expense_name"].ToString(),
                         double.Parse(row["expense_amount"].ToString())
                     )));

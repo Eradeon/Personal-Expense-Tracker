@@ -16,11 +16,6 @@ namespace Personal_Expense_Tracker.View
             this.DataContext = dataContext;
 
             InitializeComponent();
-
-            //Because trying to format DatePicker string in XAML does not work as required
-            CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
-            cultureInfo.DateTimeFormat.ShortDatePattern = "yyyy-MM-dd";
-            Thread.CurrentThread.CurrentCulture = cultureInfo;
         }
     }
 }

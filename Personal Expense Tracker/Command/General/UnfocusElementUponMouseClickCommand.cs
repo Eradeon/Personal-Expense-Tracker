@@ -15,11 +15,9 @@ namespace Personal_Expense_Tracker.Command.General
         {
             if (parameter != null)
             {
-                Grid grid = (Grid)parameter;
-
                 if (!Keyboard.PrimaryDevice.IsKeyDown(Key.Tab))
                 {
-                    grid.Focus();
+                    ((Grid)parameter).Focus();
                 }
             }
         }

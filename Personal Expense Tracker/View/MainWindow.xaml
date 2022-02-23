@@ -684,7 +684,6 @@
                                 <ColumnDefinition Width="16"/>
                             </Grid.ColumnDefinitions>
 
-
                             <Border Grid.Column="1" VerticalAlignment="Center">
                                 <DatePicker
                                     x:Name="ExpenseDateInput"
@@ -753,7 +752,7 @@
                                     MinWidth="110"
                                     Width="2*"
                                     Header="Datum"
-                                    Binding="{Binding Date}"/>
+                                    Binding="{Binding Date,StringFormat='dd.MM.yyyy'}"/>
                                 <DataGridTextColumn
                                     x:Name="NameColumn"
                                     MinWidth="130"

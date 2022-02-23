@@ -23,9 +23,9 @@ namespace Personal_Expense_Tracker.Command.Home
                 {
                     if (_mainViewModel.SelectedRow != null)
                     {
-                        string date = _mainViewModel.SelectedRow.Date.ToString();
+                        string date = _mainViewModel.SelectedRow.Date.ToString("dd.MM.yyyy");
                         string name = _mainViewModel.SelectedRow.Name.ToString();
-                        string amount = _mainViewModel.SelectedRow.Amount.ToString("N2");
+                        string amount = _mainViewModel.SelectedRow.Amount.ToString("C2");
 
                         _databaseService.DeleteExpense
                         (
