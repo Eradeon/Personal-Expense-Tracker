@@ -408,10 +408,6 @@ namespace Personal_Expense_Tracker.ViewModel
             //Setting up event listeners
             ExpenseCollection.CollectionChanged += ExpenseCollectionChangedEventHandler;
             ExpenseCollection.ItemPropertyChanged += ExpenseCollectionItemChangedEventHandler;
-
-            //Testing Purposes
-            //...
-            //Testing Purposes
         }
 
         private void ExpenseCollectionChangedEventHandler(object? sender, NotifyCollectionChangedEventArgs e)

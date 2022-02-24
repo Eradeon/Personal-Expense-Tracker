@@ -9,6 +9,10 @@
 	<PublishSingleFile>true</PublishSingleFile>
 	<DebugType>embedded</DebugType>
 	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <Deterministic>false</Deterministic>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>Sledování výdajů</AssemblyName>
+    <ApplicationIcon>assets\icon\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +20,10 @@
     <None Remove="assets\fonts\MaterialIconsOutlined-Regular.otf" />
     <None Remove="assets\fonts\Roboto-Regular.ttf" />
     <None Remove="assets\fonts\RobotoMono-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="assets\icon\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

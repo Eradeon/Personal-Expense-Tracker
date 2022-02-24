@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:services="clr-namespace:Personal_Expense_Tracker.Service.XAML"
-        Title="Výdaje" Height="1000" Width="1800">
+        Title="Domácí výdaje" Height="1000" Width="1800">
     <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
         <Behaviors:Interaction.Triggers>
             <Behaviors:EventTrigger EventName="MouseDown">
