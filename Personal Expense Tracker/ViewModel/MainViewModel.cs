@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -11,7 +12,7 @@ using Personal_Expense_Tracker.Command.General;
 using Personal_Expense_Tracker.Command.Home;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.Extension;
-using System.Data;
+using Personal_Expense_Tracker.Model;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
@@ -19,7 +20,6 @@ namespace Personal_Expense_Tracker.ViewModel
     {
         #region Services
         private readonly DatabaseService _databaseService;
-        private readonly DataLoadingService _dataLoadingService;
         private readonly FormattingService _formattingService;
         public readonly MessageBoxService MessageBoxService;
         private readonly StatisticsService _statisticsService;
@@ -354,10 +354,9 @@ namespace Personal_Expense_Tracker.ViewModel
         public ICommand UnfocusElementUponMouseClick { get; }
         #endregion Commands
 
-        public MainViewModel(DatabaseService databaseService, DataLoadingService dataLoadingService, FormattingService formattingService)
+        public MainViewModel(DatabaseService databaseService, FormattingService formattingService)
         {
             _databaseService = databaseService;
-            _dataLoadingService = dataLoadingService;
             _formattingService = formattingService;
             MessageBoxService = new MessageBoxService(this);
             _statisticsService = new StatisticsService(this);
@@ -365,7 +364,7 @@ namespace Personal_Expense_Tracker.ViewModel
             //Setting up the basics
             _datagridAmountHeader = string.Concat("Částka v ", CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
 
-            _categoryCollection = _dataLoadingService.LoadCategories();
+            _categoryCollection = LoadCategories();
             _selectedCategory = _categoryCollection[0];
             _selectedEditCategory = _categoryCollection[0];
 
@@ -431,6 +430,25 @@ namespace Personal_Expense_Tracker.ViewModel
             }
 
             return false;
+        }
+
+        private ObservableCollection<CategoryViewModel> LoadCategories()
+        {
+            DataTable dataTable = _databaseService.QueryDatabase("SELECT * FROM categories;");
+            ObservableCollection<CategoryViewModel> categoryCollection = new ObservableCollection<CategoryViewModel>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                categoryCollection.Add(new CategoryViewModel(new Category
+                (
+                    int.Parse(row["category_id"].ToString()),
+                    row["category_name"].ToString(),
+                    row["category_display_name"].ToString(),
+                    int.Parse(row["group_by_month"].ToString()).ToBool()
+                )));
+            }
+
+            return categoryCollection;
         }
 
         public void LoadYears()

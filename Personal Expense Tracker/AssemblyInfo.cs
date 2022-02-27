@@ -13,7 +13,7 @@ using System.Windows;
 [assembly: AssemblyTitle("Personal Expense Tracker")]
 [assembly: AssemblyProduct("Personal Expense Tracker")]
 [assembly: AssemblyCopyright("Copyright © 2022")]
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.1.*")]
 [assembly: AssemblyCompany("Eradeon")]
 
 #if DEBUG

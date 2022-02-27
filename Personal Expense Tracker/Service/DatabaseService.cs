@@ -4,17 +4,22 @@ using System.Data.SQLite;
 using System.Data;
 using System.Text;
 using System.Windows;
+using Personal_Expense_Tracker.Extension;
 
 namespace Personal_Expense_Tracker.Service
 {
     internal class DatabaseService
     {
+        private readonly FormattingService _formattingService;
+
         private readonly string _databaseLocation;
         private readonly string _databaseName;
         private readonly string _dataSource;
 
-        public DatabaseService()
+        public DatabaseService(FormattingService formattingService)
         {
+            _formattingService = formattingService;
+
             _databaseLocation = ".\\data\\";
             _databaseName = "appdata.db";
             _dataSource = string.Concat("Data Source=", _databaseLocation, _databaseName);
@@ -27,14 +32,24 @@ namespace Personal_Expense_Tracker.Service
         }
         #endregion Properties
 
-        public bool DatabaseExists()
+        public void CreateDefaultDatabase()
         {
-            return File.Exists(string.Concat(_databaseLocation, _databaseName));
-        }
+            if (!File.Exists(string.Concat(_databaseLocation, _databaseName)))
+            {
+                Directory.CreateDirectory(DatabaseLocation);
+                SQLiteConnection.CreateFile(_databaseLocation + _databaseName);
+                CreateCategoryTable();
 
-        public void CreateDatabase()
-        {
-            SQLiteConnection.CreateFile(_databaseLocation + _databaseName);
+                string displayName = "Potraviny";
+                string tableName = _formattingService.FormatCategoryTableName(displayName);
+                CreateExpenseTable(tableName);
+                InsertDefaultCategory(tableName, displayName, true.ToInt());
+
+                displayName = "Toby";
+                tableName = _formattingService.FormatCategoryTableName(displayName);
+                CreateExpenseTable(tableName);
+                InsertDefaultCategory(tableName, displayName, false.ToInt());
+            }
         }
 
         #region Create Table

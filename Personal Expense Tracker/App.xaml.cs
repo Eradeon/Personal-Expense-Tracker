@@ -19,13 +19,12 @@ namespace Personal_Expense_Tracker
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag))
             );
 
-            DatabaseService _databaseService = new DatabaseService();
             FormattingService _formattingService = new FormattingService();
-            DataLoadingService _dataLoadingService = new DataLoadingService(_databaseService, _formattingService);
+            DatabaseService _databaseService = new DatabaseService(_formattingService);
 
-            _dataLoadingService.CreateDefaultDatabase();
+            _databaseService.CreateDefaultDatabase();
 
-            MainViewModel mainViewModel = new MainViewModel(_databaseService, _dataLoadingService, _formattingService);
+            MainViewModel mainViewModel = new MainViewModel(_databaseService, _formattingService);
 
             Window mainWindow = new MainWindow(mainViewModel);
             mainWindow.Show();
