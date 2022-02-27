@@ -10,58 +10,58 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class CreateCategoryCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
         private readonly FormattingService _formattingService;
 
-        public CreateCategoryCommand(MainViewModel mainViewModel, DatabaseService databaseService, FormattingService formattingService)
+        public CreateCategoryCommand(HomeViewModel homeViewModel, DatabaseService databaseService, FormattingService formattingService)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
             _databaseService = databaseService;
             _formattingService = formattingService;
 
-            _mainViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            _homeViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         public override bool CanExecute(object? parameter)
         {
-            return !string.IsNullOrWhiteSpace(_mainViewModel.NewCategoryName) &&
-                _formattingService.FormatCategoryTableName(_mainViewModel.NewCategoryName) != "_expenses" &&
+            return !string.IsNullOrWhiteSpace(_homeViewModel.NewCategoryName) &&
+                _formattingService.FormatCategoryTableName(_homeViewModel.NewCategoryName) != "_expenses" &&
                 base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-            string tableName = _formattingService.FormatCategoryTableName(_mainViewModel.NewCategoryName);
+            string tableName = _formattingService.FormatCategoryTableName(_homeViewModel.NewCategoryName);
 
-            if (!_mainViewModel.CategoryExists(tableName))
+            if (!_homeViewModel.CategoryExists(tableName))
             {
                 try
                 {
                     _databaseService.CreateExpenseTable(tableName);
 
-                    string displayName = _formattingService.FormatCategoryDisplayName(_mainViewModel.NewCategoryName);
+                    string displayName = _formattingService.FormatCategoryDisplayName(_homeViewModel.NewCategoryName);
 
                     int newCategoryId = _databaseService.InsertCategory
                     (
                         tableName,
                         displayName,
-                        _mainViewModel.NewCategoryGroupByMonth.ToInt()
+                        _homeViewModel.NewCategoryGroupByMonth.ToInt()
                     );
 
-                    _mainViewModel.CategoryCollection.Add(new CategoryViewModel(new Category
+                    _homeViewModel.CategoryCollection.Add(new CategoryViewModel(new Category
                     (
                         newCategoryId,
                         tableName,
                         displayName,
-                        _mainViewModel.NewCategoryGroupByMonth
+                        _homeViewModel.NewCategoryGroupByMonth
                     )));
 
-                    _mainViewModel.NewCategoryName = string.Empty;
-                    _mainViewModel.NewCategoryGroupByMonth = false;
-                    _mainViewModel.DeleteCategoryConfirmation = false;
+                    _homeViewModel.NewCategoryName = string.Empty;
+                    _homeViewModel.NewCategoryGroupByMonth = false;
+                    _homeViewModel.DeleteCategoryConfirmation = false;
 
-                    _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Kategorie {displayName} byla úspěšně vytvořena.");
+                    _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Kategorie {displayName} byla úspěšně vytvořena.");
                 }
                 catch (Exception ex)
                 {
@@ -70,13 +70,13 @@ namespace Personal_Expense_Tracker.Command.Home
             }
             else
             {
-                _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Kategorie s tímto názvem již existuje.");
+                _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Kategorie s tímto názvem již existuje.");
             }
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_mainViewModel.NewCategoryName))
+            if (e.PropertyName == nameof(_homeViewModel.NewCategoryName))
             {
                 OnCanExecuteChanged();
             }

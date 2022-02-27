@@ -7,25 +7,25 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class EditExpenseCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
         private readonly FormattingService _formattingService;
 
-        public EditExpenseCommand(MainViewModel mainViewModel, DatabaseService databaseService, FormattingService formattingService)
+        public EditExpenseCommand(HomeViewModel homeViewModel, DatabaseService databaseService, FormattingService formattingService)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
             _databaseService = databaseService;
             _formattingService = formattingService;
 
-            _mainViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            _homeViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         public override bool CanExecute(object? parameter)
         {
-            if (_mainViewModel.EditExpenseConfirmation)
+            if (_homeViewModel.EditExpenseConfirmation)
             {
-                return !string.IsNullOrWhiteSpace(_mainViewModel.EditExpenseName) &&
-                !string.IsNullOrWhiteSpace(_mainViewModel.EditExpenseAmount) &&
+                return !string.IsNullOrWhiteSpace(_homeViewModel.EditExpenseName) &&
+                !string.IsNullOrWhiteSpace(_homeViewModel.EditExpenseAmount) &&
                 base.CanExecute(parameter);
             }
             else { return true && base.CanExecute(parameter); }
@@ -34,26 +34,26 @@ namespace Personal_Expense_Tracker.Command.Home
 
         public override void Execute(object? parameter)
         {
-            if (_mainViewModel.SelectedRow != null && _mainViewModel.SelectedCategory != null)
+            if (_homeViewModel.SelectedRow != null && _homeViewModel.SelectedCategory != null)
             {
-                if (_mainViewModel.EditExpenseConfirmation)
+                if (_homeViewModel.EditExpenseConfirmation)
                 {
-                    DateTime newExpenseDate = _mainViewModel.EditExpenseDate;
-                    string newExpenseName = _formattingService.FormatExpenseName(_mainViewModel.EditExpenseName);
-                    double newExpenseAmount = _formattingService.FormatExpenseAmount(_mainViewModel.EditExpenseAmount);
+                    DateTime newExpenseDate = _homeViewModel.EditExpenseDate;
+                    string newExpenseName = _formattingService.FormatExpenseName(_homeViewModel.EditExpenseName);
+                    double newExpenseAmount = _formattingService.FormatExpenseAmount(_homeViewModel.EditExpenseAmount);
 
                     _databaseService.UpdateExpense
                     (
-                        _mainViewModel.SelectedRow.Id,
-                        _mainViewModel.SelectedCategory.Name,
+                        _homeViewModel.SelectedRow.Id,
+                        _homeViewModel.SelectedCategory.Name,
                         _formattingService.FormatExpenseDate(newExpenseDate),
                         newExpenseName,
                         newExpenseAmount
                     );
 
-                    foreach (var expense in _mainViewModel.ExpenseCollection)
+                    foreach (var expense in _homeViewModel.ExpenseCollection)
                     {
-                        if (expense.Id == _mainViewModel.SelectedRow.Id)
+                        if (expense.Id == _homeViewModel.SelectedRow.Id)
                         {
                             expense.Date = newExpenseDate;
                             expense.Name = newExpenseName;
@@ -61,32 +61,32 @@ namespace Personal_Expense_Tracker.Command.Home
                         }
                     }
 
-                    _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, "Výdaj byl úspěšně upraven.");
+                    _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, "Výdaj byl úspěšně upraven.");
 
-                    _mainViewModel.EditExpenseName = string.Empty;
-                    _mainViewModel.EditExpenseAmount = string.Empty;
+                    _homeViewModel.EditExpenseName = string.Empty;
+                    _homeViewModel.EditExpenseAmount = string.Empty;
 
-                    _mainViewModel.EditExpenseConfirmation = false;
-                    _mainViewModel.EditExpenseModalVisible = false;
+                    _homeViewModel.EditExpenseConfirmation = false;
+                    _homeViewModel.EditExpenseModalVisible = false;
                 }
                 else
                 {
-                    _mainViewModel.EditExpenseDate = _mainViewModel.SelectedRow.Date;
-                    _mainViewModel.EditExpenseName = _mainViewModel.SelectedRow.Name;
-                    _mainViewModel.EditExpenseAmount = _mainViewModel.SelectedRow.Amount.ToString();
+                    _homeViewModel.EditExpenseDate = _homeViewModel.SelectedRow.Date;
+                    _homeViewModel.EditExpenseName = _homeViewModel.SelectedRow.Name;
+                    _homeViewModel.EditExpenseAmount = _homeViewModel.SelectedRow.Amount.ToString();
 
-                    _mainViewModel.EditExpenseConfirmation = true;
-                    _mainViewModel.EditExpenseModalVisible = true;
+                    _homeViewModel.EditExpenseConfirmation = true;
+                    _homeViewModel.EditExpenseModalVisible = true;
                 }
             }
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_mainViewModel.EditExpenseConfirmation) ||
-                e.PropertyName == nameof(_mainViewModel.EditExpenseDate) ||
-                e.PropertyName == nameof(_mainViewModel.EditExpenseName) ||
-                e.PropertyName == nameof(_mainViewModel.EditExpenseAmount))
+            if (e.PropertyName == nameof(_homeViewModel.EditExpenseConfirmation) ||
+                e.PropertyName == nameof(_homeViewModel.EditExpenseDate) ||
+                e.PropertyName == nameof(_homeViewModel.EditExpenseName) ||
+                e.PropertyName == nameof(_homeViewModel.EditExpenseAmount))
             {
                 OnCanExecuteChanged();
             }

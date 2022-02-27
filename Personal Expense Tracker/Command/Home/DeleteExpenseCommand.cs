@@ -6,45 +6,45 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class DeleteExpenseCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
 
-        public DeleteExpenseCommand(MainViewModel mainViewModel, DatabaseService databaseService)
+        public DeleteExpenseCommand(HomeViewModel homeViewModel, DatabaseService databaseService)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
             _databaseService = databaseService;
         }
 
         public override void Execute(object? parameter)
         {
-            if (_mainViewModel.SelectedCategory != null)
+            if (_homeViewModel.SelectedCategory != null)
             {
-                if (_mainViewModel.DeleteExpenseConfirmation)
+                if (_homeViewModel.DeleteExpenseConfirmation)
                 {
-                    if (_mainViewModel.SelectedRow != null)
+                    if (_homeViewModel.SelectedRow != null)
                     {
-                        string date = _mainViewModel.SelectedRow.Date.ToString("dd.MM.yyyy");
-                        string name = _mainViewModel.SelectedRow.Name.ToString();
-                        string amount = _mainViewModel.SelectedRow.Amount.ToString("C2");
+                        string date = _homeViewModel.SelectedRow.Date.ToString("dd.MM.yyyy");
+                        string name = _homeViewModel.SelectedRow.Name.ToString();
+                        string amount = _homeViewModel.SelectedRow.Amount.ToString("C2");
 
                         _databaseService.DeleteExpense
                         (
-                            _mainViewModel.SelectedRow.Id,
-                            _mainViewModel.SelectedCategory.Name
+                            _homeViewModel.SelectedRow.Id,
+                            _homeViewModel.SelectedCategory.Name
                         );
 
-                        _mainViewModel.ExpenseCollection.Remove(_mainViewModel.SelectedRow);
+                        _homeViewModel.ExpenseCollection.Remove(_homeViewModel.SelectedRow);
 
-                        _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Výdaj {name} z {date} ve výši {amount} byl úspěšně odstraněn.");
+                        _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Výdaj {name} z {date} ve výši {amount} byl úspěšně odstraněn.");
 
-                        _mainViewModel.DeleteExpenseConfirmation = false;
-                        _mainViewModel.DeleteExpenseModalVisible = false;
+                        _homeViewModel.DeleteExpenseConfirmation = false;
+                        _homeViewModel.DeleteExpenseModalVisible = false;
                     }
                 }
                 else
                 {
-                    _mainViewModel.DeleteExpenseConfirmation = true;
-                    _mainViewModel.DeleteExpenseModalVisible = true;
+                    _homeViewModel.DeleteExpenseConfirmation = true;
+                    _homeViewModel.DeleteExpenseModalVisible = true;
                 }
             }
         }

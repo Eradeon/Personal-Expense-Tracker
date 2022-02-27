@@ -5,19 +5,19 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class CategoryChangedCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
-        public CategoryChangedCommand(MainViewModel mainViewModel)
+        public CategoryChangedCommand(HomeViewModel homeViewModel)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
         }
 
         public override void Execute(object? parameter)
         {
-            if (_mainViewModel.SelectedCategory != null)
+            if (_homeViewModel.SelectedCategory != null)
             {
-                _mainViewModel.GroupByMonth = _mainViewModel.SelectedCategory.GroupByMonth;
-                _mainViewModel.LoadYears();
+                _homeViewModel.GroupByMonth = _homeViewModel.SelectedCategory.GroupByMonth;
+                _homeViewModel.LoadYears();
             }
         }
     }

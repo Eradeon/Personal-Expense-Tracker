@@ -5,19 +5,19 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class HideEditExpenseModalCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
-        public HideEditExpenseModalCommand(MainViewModel mainViewModel)
+        public HideEditExpenseModalCommand(HomeViewModel homeViewModel)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
         }
 
         public override void Execute(object? parameter)
         {
-            _mainViewModel.EditExpenseName = string.Empty;
-            _mainViewModel.EditExpenseAmount = string.Empty;
-            _mainViewModel.EditExpenseConfirmation = false;
-            _mainViewModel.EditExpenseModalVisible = false;
+            _homeViewModel.EditExpenseName = string.Empty;
+            _homeViewModel.EditExpenseAmount = string.Empty;
+            _homeViewModel.EditExpenseConfirmation = false;
+            _homeViewModel.EditExpenseModalVisible = false;
         }
     }
 }

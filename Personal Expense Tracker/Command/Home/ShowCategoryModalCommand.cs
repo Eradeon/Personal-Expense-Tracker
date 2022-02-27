@@ -5,16 +5,16 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class ShowCategoryModalCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
-        public ShowCategoryModalCommand(MainViewModel mainViewModel)
+        public ShowCategoryModalCommand(HomeViewModel homeViewModel)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
         }
 
         public override void Execute(object? parameter)
         {
-            _mainViewModel.CategoryManagementModalVisible = true;
+            _homeViewModel.CategoryManagementModalVisible = true;
         }
     }
 }

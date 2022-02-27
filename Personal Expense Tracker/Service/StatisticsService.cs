@@ -8,30 +8,30 @@ namespace Personal_Expense_Tracker.Service
 {
     internal class StatisticsService
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
-        public StatisticsService(MainViewModel mainViewModel)
+        public StatisticsService(HomeViewModel homeViewModel)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
         }
 
         public void CalculateStatistics()
         {
-            if (_mainViewModel.ExpenseCollection != null)
+            if (_homeViewModel.ExpenseCollection != null)
             {
                 GetMostFrequentedExpense();
 
-                if (_mainViewModel.ExpenseCollection.Count > 0)
+                if (_homeViewModel.ExpenseCollection.Count > 0)
                 {
                     GetSumAndMeanExpense();
                     GetMinMaxExpense();
                 }
                 else
                 {
-                    _mainViewModel.SumExpense = new Tuple<string, int>("0",0);
-                    _mainViewModel.MeanExpense = new Tuple<string, string>("0","N/A");
-                    _mainViewModel.MinExpense = new Tuple<string, string>("0", "N/A");
-                    _mainViewModel.MaxExpense = new Tuple<string, string>("0", "N/A");
+                    _homeViewModel.SumExpense = new Tuple<string, int>("0",0);
+                    _homeViewModel.MeanExpense = new Tuple<string, string>("0","N/A");
+                    _homeViewModel.MinExpense = new Tuple<string, string>("0", "N/A");
+                    _homeViewModel.MaxExpense = new Tuple<string, string>("0", "N/A");
                 }
 
                 GetGraphData();
@@ -42,7 +42,7 @@ namespace Personal_Expense_Tracker.Service
         {
             List<Tuple<string, int>> result = new List<Tuple<string, int>>();
 
-            var query = _mainViewModel.ExpenseCollection
+            var query = _homeViewModel.ExpenseCollection
                 .GroupBy(s => s.Name)
                 .OrderByDescending(g => g.Count())
                 .Select(g => new { g.Key, Count = g.Count() })
@@ -59,26 +59,26 @@ namespace Personal_Expense_Tracker.Service
                     result.Add(new Tuple<string, int>("N/A",0));
             }
 
-            _mainViewModel.MostFrequentedExpenses = result;
+            _homeViewModel.MostFrequentedExpenses = result;
         }
 
         private void GetSumAndMeanExpense()
         {
-            double sum = _mainViewModel.ExpenseCollection.Sum(x => x.Amount);
+            double sum = _homeViewModel.ExpenseCollection.Sum(x => x.Amount);
             int days;
 
-            if (_mainViewModel.GroupByMonth)
-                days = DateTime.DaysInMonth(_mainViewModel.SelectedYear, _mainViewModel.SelectedMonth + 1);
+            if (_homeViewModel.GroupByMonth)
+                days = DateTime.DaysInMonth(_homeViewModel.SelectedYear, _homeViewModel.SelectedMonth + 1);
             else
-                days = DateTime.IsLeapYear(_mainViewModel.SelectedYear) ? 366 : 365;
+                days = DateTime.IsLeapYear(_homeViewModel.SelectedYear) ? 366 : 365;
 
-            _mainViewModel.SumExpense = new Tuple<string, int>
+            _homeViewModel.SumExpense = new Tuple<string, int>
             (
                 sum.ToString("C2"),
-                _mainViewModel.ExpenseCollection.Count
+                _homeViewModel.ExpenseCollection.Count
             );
 
-            _mainViewModel.MeanExpense = new Tuple<string, string>
+            _homeViewModel.MeanExpense = new Tuple<string, string>
             (
                 (sum / days).ToString("C2"),
                 string.Concat(1, "/", days, " dnů")
@@ -87,15 +87,15 @@ namespace Personal_Expense_Tracker.Service
 
         private void GetMinMaxExpense()
         {
-            double min = _mainViewModel.ExpenseCollection.Min(x => x.Amount);
-            double max = _mainViewModel.ExpenseCollection.Max(x => x.Amount);
+            double min = _homeViewModel.ExpenseCollection.Min(x => x.Amount);
+            double max = _homeViewModel.ExpenseCollection.Max(x => x.Amount);
 
-            _mainViewModel.MinExpense = _mainViewModel.ExpenseCollection
+            _homeViewModel.MinExpense = _homeViewModel.ExpenseCollection
                 .Where(x => x.Amount == min)
                 .Select(g => new Tuple<string, string>(g.Amount.ToString("C2"), g.Name))
                 .First();
 
-            _mainViewModel.MaxExpense = _mainViewModel.ExpenseCollection
+            _homeViewModel.MaxExpense = _homeViewModel.ExpenseCollection
                 .Where(x => x.Amount == max)
                 .Select(g => new Tuple<string, string>(g.Amount.ToString("C2"), g.Name))
                 .First();
@@ -108,9 +108,9 @@ namespace Personal_Expense_Tracker.Service
 
             int baseAxis = 0;
 
-            if (_mainViewModel.SumExpense != null && _mainViewModel.SumExpense.Item1 != "0")
+            if (_homeViewModel.SumExpense != null && _homeViewModel.SumExpense.Item1 != "0")
             {
-                var query = _mainViewModel.ExpenseCollection
+                var query = _homeViewModel.ExpenseCollection
                     .GroupBy(s => s.Name)
                     .Select(g => new { Name = g.Key, Amount = g.Sum(x => x.Amount), Count = g.Count() })
                     .OrderByDescending(x => x.Amount)
@@ -134,10 +134,10 @@ namespace Personal_Expense_Tracker.Service
                 }
             }
 
-            _mainViewModel.GraphData = result;
+            _homeViewModel.GraphData = result;
 
             //Axis labels
-            _mainViewModel.XAxisLabels = new Tuple<int, int, int, int, int>
+            _homeViewModel.XAxisLabels = new Tuple<int, int, int, int, int>
             (
                 0,
                 baseAxis,

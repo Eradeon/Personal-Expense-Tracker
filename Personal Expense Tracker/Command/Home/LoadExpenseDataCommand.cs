@@ -9,28 +9,28 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class LoadExpenseDataCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
 
-        public LoadExpenseDataCommand(MainViewModel mainViewModel, DatabaseService databaseService)
+        public LoadExpenseDataCommand(HomeViewModel homeViewModel, DatabaseService databaseService)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
             _databaseService = databaseService;
         }
 
         public override void Execute(object? parameter)
         {
-            if (_mainViewModel.SelectedCategory != null)
+            if (_homeViewModel.SelectedCategory != null)
             {
-                _mainViewModel.ExpenseCollection.Clear();
+                _homeViewModel.ExpenseCollection.Clear();
 
-                if (_mainViewModel.GroupByMonth)
+                if (_homeViewModel.GroupByMonth)
                 {
                     DataTable dataTable = _databaseService.QueryDatabase(_databaseService.BuildExpenseQuery
                     (
-                        _mainViewModel.SelectedCategory.Name,
-                        _mainViewModel.SelectedYear.ToString(),
-                        _mainViewModel.MonthList.ElementAt(_mainViewModel.SelectedMonth).Key
+                        _homeViewModel.SelectedCategory.Name,
+                        _homeViewModel.SelectedYear.ToString(),
+                        _homeViewModel.MonthList.ElementAt(_homeViewModel.SelectedMonth).Key
                     ));
 
                     LoadExpenses(dataTable);
@@ -39,8 +39,8 @@ namespace Personal_Expense_Tracker.Command.Home
                 {
                     DataTable dataTable = _databaseService.QueryDatabase(_databaseService.BuildExpenseQuery
                     (
-                        _mainViewModel.SelectedCategory.Name,
-                        _mainViewModel.SelectedYear.ToString(),
+                        _homeViewModel.SelectedCategory.Name,
+                        _homeViewModel.SelectedYear.ToString(),
                         string.Empty
                     ));
 
@@ -54,7 +54,7 @@ namespace Personal_Expense_Tracker.Command.Home
             if (dataTable != null)
             {
                 if (dataTable.Rows.Count > 0)
-                    _mainViewModel.LoadingExpenses = true;
+                    _homeViewModel.LoadingExpenses = true;
 
                 int index = 1;
 
@@ -62,10 +62,10 @@ namespace Personal_Expense_Tracker.Command.Home
                 {
                     if (index == dataTable.Rows.Count)
                     {
-                        _mainViewModel.LoadingExpenses = false;
+                        _homeViewModel.LoadingExpenses = false;
                     }
 
-                    _mainViewModel.ExpenseCollection.Add(new ExpenseViewModel(new Expense
+                    _homeViewModel.ExpenseCollection.Add(new ExpenseViewModel(new Expense
                     (
                         int.Parse(row["expense_id"].ToString()),
                         DateTime.Parse(row["expense_date"].ToString()),

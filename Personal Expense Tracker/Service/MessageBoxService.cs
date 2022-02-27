@@ -13,13 +13,13 @@ namespace Personal_Expense_Tracker.Service
 
     internal class MessageBoxService
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
         private DispatcherTimer timer = new DispatcherTimer();
 
-        public MessageBoxService(MainViewModel mainViewModel)
+        public MessageBoxService(HomeViewModel homeViewModel)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
 
             timer.Tick += OnTimerTick;
         }
@@ -29,13 +29,13 @@ namespace Personal_Expense_Tracker.Service
             if (timer.IsEnabled)
             {
                 timer.Stop();
-                _mainViewModel.MessageBoxVisible = false;
-                _mainViewModel.IsMessageBoxClosing = false;
+                _homeViewModel.MessageBoxVisible = false;
+                _homeViewModel.IsMessageBoxClosing = false;
             }
 
-            _mainViewModel.MessageBoxType = messageType;
-            _mainViewModel.MessageText = message;
-            _mainViewModel.MessageBoxVisible = true;
+            _homeViewModel.MessageBoxType = messageType;
+            _homeViewModel.MessageText = message;
+            _homeViewModel.MessageBoxVisible = true;
 
             if (messageType != MessageType.Error)
             {
@@ -46,18 +46,18 @@ namespace Personal_Expense_Tracker.Service
 
         public void HideMessageBox()
         {
-            if (!_mainViewModel.IsMessageBoxClosing)
+            if (!_homeViewModel.IsMessageBoxClosing)
             {
                 timer.Stop();
                 timer.Interval = TimeSpan.FromMilliseconds(150);
                 timer.Start();
-                _mainViewModel.IsMessageBoxClosing = true;
+                _homeViewModel.IsMessageBoxClosing = true;
             }
             else
             {
                 timer.Stop();
-                _mainViewModel.MessageBoxVisible = false;
-                _mainViewModel.IsMessageBoxClosing = false;
+                _homeViewModel.MessageBoxVisible = false;
+                _homeViewModel.IsMessageBoxClosing = false;
             }
         }
 

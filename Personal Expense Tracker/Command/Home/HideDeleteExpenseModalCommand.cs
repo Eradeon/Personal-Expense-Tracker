@@ -5,17 +5,17 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class HideDeleteExpenseModalCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
-        public HideDeleteExpenseModalCommand(MainViewModel mainViewModel)
+        public HideDeleteExpenseModalCommand(HomeViewModel homeViewModel)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
         }
 
         public override void Execute(object? parameter)
         {
-            _mainViewModel.DeleteExpenseConfirmation = false;
-            _mainViewModel.DeleteExpenseModalVisible = false;
+            _homeViewModel.DeleteExpenseConfirmation = false;
+            _homeViewModel.DeleteExpenseModalVisible = false;
         }
     }
 }

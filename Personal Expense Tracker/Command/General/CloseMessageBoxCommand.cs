@@ -5,16 +5,16 @@ namespace Personal_Expense_Tracker.Command.General
 {
     internal class CloseMessageBoxCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
-        public CloseMessageBoxCommand(MainViewModel mainViewModel)
+        public CloseMessageBoxCommand(HomeViewModel mainViewModel)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = mainViewModel;
         }
 
         public override void Execute(object? parameter)
         {
-            _mainViewModel.MessageBoxService.HideMessageBox();
+            _homeViewModel.MessageBoxService.HideMessageBox();
         }
     }
 }

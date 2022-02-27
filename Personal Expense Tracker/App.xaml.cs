@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Markup;
+using System.Globalization;
 using Personal_Expense_Tracker.View;
 using Personal_Expense_Tracker.ViewModel;
 using Personal_Expense_Tracker.Service;
-using System.Windows.Markup;
-using System.Globalization;
+using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker
 {
@@ -24,9 +25,13 @@ namespace Personal_Expense_Tracker
 
             _databaseService.CreateDefaultDatabase();
 
-            MainViewModel mainViewModel = new MainViewModel(_databaseService, _formattingService);
+            NavigationStore _navigationStore = new NavigationStore();
+            _navigationStore.CurrentViewModel = new HomeViewModel(_databaseService, _formattingService);
 
-            Window mainWindow = new MainWindow(mainViewModel);
+            Window mainWindow = new MainWindow
+            (
+                new MainViewModel(_formattingService, _databaseService, _navigationStore)
+            );
             mainWindow.Show();
 
             base.OnStartup(e);

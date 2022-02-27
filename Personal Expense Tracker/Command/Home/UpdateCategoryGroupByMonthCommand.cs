@@ -6,26 +6,26 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class UpdateCategoryGroupByMonthCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
 
-        public UpdateCategoryGroupByMonthCommand(MainViewModel mainViewModel, DatabaseService databaseService)
+        public UpdateCategoryGroupByMonthCommand(HomeViewModel homeViewModel, DatabaseService databaseService)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
             _databaseService = databaseService;
         }
 
         public override void Execute(object? parameter)
         {
-            if (_mainViewModel.SelectedCategory != null)
+            if (_homeViewModel.SelectedCategory != null)
             {
                 _databaseService.UpdateGroupByMonth
             (
-                _mainViewModel.SelectedCategory.Id,
-                _mainViewModel.GroupByMonth
+                _homeViewModel.SelectedCategory.Id,
+                _homeViewModel.GroupByMonth
             );
 
-                _mainViewModel.SelectedCategory.GroupByMonth = _mainViewModel.GroupByMonth;
+                _homeViewModel.SelectedCategory.GroupByMonth = _homeViewModel.GroupByMonth;
             }
         }
     }

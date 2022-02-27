@@ -7,60 +7,60 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class RenameCategoryCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
         private readonly FormattingService _formattingService;
 
-        public RenameCategoryCommand(MainViewModel mainViewModel, DatabaseService databaseService, FormattingService formattingService)
+        public RenameCategoryCommand(HomeViewModel homeViewModel, DatabaseService databaseService, FormattingService formattingService)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
             _databaseService = databaseService;
             _formattingService = formattingService;
 
-            _mainViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            _homeViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         public override bool CanExecute(object? parameter)
         {
-            return !string.IsNullOrWhiteSpace(_mainViewModel.RenamedCategoryName) &&
-                _formattingService.FormatCategoryTableName(_mainViewModel.RenamedCategoryName) != "_expenses" &&
+            return !string.IsNullOrWhiteSpace(_homeViewModel.RenamedCategoryName) &&
+                _formattingService.FormatCategoryTableName(_homeViewModel.RenamedCategoryName) != "_expenses" &&
                 base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-            string newTableName = _formattingService.FormatCategoryTableName(_mainViewModel.RenamedCategoryName);
+            string newTableName = _formattingService.FormatCategoryTableName(_homeViewModel.RenamedCategoryName);
 
-            if (!_mainViewModel.CategoryExists(newTableName) && _mainViewModel.SelectedEditCategory != null)
+            if (!_homeViewModel.CategoryExists(newTableName) && _homeViewModel.SelectedEditCategory != null)
             {
-                string newDisplayName = _formattingService.FormatCategoryDisplayName(_mainViewModel.RenamedCategoryName);
+                string newDisplayName = _formattingService.FormatCategoryDisplayName(_homeViewModel.RenamedCategoryName);
 
                 _databaseService.RenameTable
                 (
-                    _mainViewModel.SelectedEditCategory.Id,
-                    _mainViewModel.SelectedEditCategory.Name,
+                    _homeViewModel.SelectedEditCategory.Id,
+                    _homeViewModel.SelectedEditCategory.Name,
                     newTableName,
                     newDisplayName
                     
                 );
 
-                _mainViewModel.SelectedEditCategory.Name = newTableName;
-                _mainViewModel.SelectedEditCategory.DisplayName = newDisplayName;
+                _homeViewModel.SelectedEditCategory.Name = newTableName;
+                _homeViewModel.SelectedEditCategory.DisplayName = newDisplayName;
 
-                _mainViewModel.RenamedCategoryName = string.Empty;
-                _mainViewModel.DeleteCategoryConfirmation = false;
+                _homeViewModel.RenamedCategoryName = string.Empty;
+                _homeViewModel.DeleteCategoryConfirmation = false;
 
-                _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, "Kategorie byla úspěšně přejmenována.");
+                _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, "Kategorie byla úspěšně přejmenována.");
             }
             else
             {
-                _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Kategorie s tímto názvem již existuje.");
+                _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Kategorie s tímto názvem již existuje.");
             }
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_mainViewModel.RenamedCategoryName))
+            if (e.PropertyName == nameof(_homeViewModel.RenamedCategoryName))
             {
                 OnCanExecuteChanged();
             }

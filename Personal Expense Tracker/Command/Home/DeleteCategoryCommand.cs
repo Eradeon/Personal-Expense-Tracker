@@ -6,55 +6,55 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class DeleteCategoryCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
 
-        public DeleteCategoryCommand(MainViewModel mainViewModel, DatabaseService databaseService)
+        public DeleteCategoryCommand(HomeViewModel homeViewModel, DatabaseService databaseService)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
             _databaseService = databaseService;
         }
 
         public override void Execute(object? parameter)
         {
-            if (_mainViewModel.DeleteCategoryConfirmation)
+            if (_homeViewModel.DeleteCategoryConfirmation)
             {
-                if (_mainViewModel.CategoryCollection.Count > 1 && _mainViewModel.SelectedEditCategory != null)
+                if (_homeViewModel.CategoryCollection.Count > 1 && _homeViewModel.SelectedEditCategory != null)
                 {
-                    string categoryName = _mainViewModel.SelectedEditCategory.DisplayName;
+                    string categoryName = _homeViewModel.SelectedEditCategory.DisplayName;
 
                     _databaseService.DeleteCategory
                     (
-                        _mainViewModel.SelectedEditCategory.Id,
-                        _mainViewModel.SelectedEditCategory.Name
+                        _homeViewModel.SelectedEditCategory.Id,
+                        _homeViewModel.SelectedEditCategory.Name
                     );
 
-                    int collectionId = _mainViewModel.CategoryCollection.IndexOf(_mainViewModel.SelectedEditCategory);
+                    int collectionId = _homeViewModel.CategoryCollection.IndexOf(_homeViewModel.SelectedEditCategory);
 
                     if (collectionId > 0)
                     {
-                        _mainViewModel.SelectedCategory = _mainViewModel.CategoryCollection[0];
-                        _mainViewModel.SelectedEditCategory = _mainViewModel.CategoryCollection[0];
+                        _homeViewModel.SelectedCategory = _homeViewModel.CategoryCollection[0];
+                        _homeViewModel.SelectedEditCategory = _homeViewModel.CategoryCollection[0];
                     }
                     else
                     {
-                        _mainViewModel.SelectedCategory = _mainViewModel.CategoryCollection[1];
-                        _mainViewModel.SelectedEditCategory = _mainViewModel.CategoryCollection[1];
+                        _homeViewModel.SelectedCategory = _homeViewModel.CategoryCollection[1];
+                        _homeViewModel.SelectedEditCategory = _homeViewModel.CategoryCollection[1];
                     }
 
-                    _mainViewModel.CategoryCollection.RemoveAt(collectionId);
+                    _homeViewModel.CategoryCollection.RemoveAt(collectionId);
 
-                    _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Kategorie {categoryName} byla úspěšně odstraněna.");
-                    _mainViewModel.DeleteCategoryConfirmation = false;
+                    _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Kategorie {categoryName} byla úspěšně odstraněna.");
+                    _homeViewModel.DeleteCategoryConfirmation = false;
                 }
                 else
                 {
-                    _mainViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Nelze odstranit výchozí kategoii. Vytvořte novou kategorii a poté odstraňte tuto.");
+                    _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Nelze odstranit výchozí kategoii. Vytvořte novou kategorii a poté odstraňte tuto.");
                 }
             }
             else
             {
-                _mainViewModel.DeleteCategoryConfirmation = true;
+                _homeViewModel.DeleteCategoryConfirmation = true;
             }
         }
     }

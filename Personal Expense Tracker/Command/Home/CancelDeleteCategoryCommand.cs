@@ -5,16 +5,16 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class CancelDeleteCategoryCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
-        public CancelDeleteCategoryCommand(MainViewModel mainViewModel)
+        public CancelDeleteCategoryCommand(HomeViewModel homeViewModel)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
         }
 
         public override void Execute(object? parameter)
         {
-            _mainViewModel.DeleteCategoryConfirmation = false;
+            _homeViewModel.DeleteCategoryConfirmation = false;
         }
     }
 }

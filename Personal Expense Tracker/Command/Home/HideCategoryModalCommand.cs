@@ -5,20 +5,20 @@ namespace Personal_Expense_Tracker.Command.Home
 {
     internal class HideCategoryModalCommand : BaseCommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
-        public HideCategoryModalCommand(MainViewModel mainViewModel)
+        public HideCategoryModalCommand(HomeViewModel homeViewModel)
         {
-            _mainViewModel = mainViewModel;
+            _homeViewModel = homeViewModel;
         }
 
         public override void Execute(object? parameter)
         {
-            _mainViewModel.CategoryManagementModalVisible = false;
-            _mainViewModel.NewCategoryName = string.Empty;
-            _mainViewModel.NewCategoryGroupByMonth = false;
-            _mainViewModel.DeleteCategoryConfirmation = false;
-            _mainViewModel.RenamedCategoryName = string.Empty;
+            _homeViewModel.CategoryManagementModalVisible = false;
+            _homeViewModel.NewCategoryName = string.Empty;
+            _homeViewModel.NewCategoryGroupByMonth = false;
+            _homeViewModel.DeleteCategoryConfirmation = false;
+            _homeViewModel.RenamedCategoryName = string.Empty;
         }
     }
 }
