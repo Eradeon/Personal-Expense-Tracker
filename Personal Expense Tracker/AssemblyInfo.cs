@@ -18,6 +18,8 @@ using System.Windows;
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
+[assembly: AssemblyInformationalVersion("In-development version")]
 #else
 [assembly: AssemblyConfiguration("Release")]
+[assembly: AssemblyInformationalVersion("Stable release")]
 #endif
