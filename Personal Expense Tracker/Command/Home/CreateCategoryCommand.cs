@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows;
+using System.ComponentModel;
 using Personal_Expense_Tracker.Model;
 using Personal_Expense_Tracker.ViewModel;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.Extension;
-using System.ComponentModel;
+using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
@@ -13,12 +14,14 @@ namespace Personal_Expense_Tracker.Command.Home
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
         private readonly FormattingService _formattingService;
+        private readonly MessageBoxStore _messageBoxStore;
 
-        public CreateCategoryCommand(HomeViewModel homeViewModel, DatabaseService databaseService, FormattingService formattingService)
+        public CreateCategoryCommand(HomeViewModel homeViewModel, DatabaseService databaseService, FormattingService formattingService, MessageBoxStore messageBoxStore)
         {
             _homeViewModel = homeViewModel;
             _databaseService = databaseService;
             _formattingService = formattingService;
+            _messageBoxStore = messageBoxStore;
 
             _homeViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -61,7 +64,7 @@ namespace Personal_Expense_Tracker.Command.Home
                     _homeViewModel.NewCategoryGroupByMonth = false;
                     _homeViewModel.DeleteCategoryConfirmation = false;
 
-                    _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Kategorie {displayName} byla úspěšně vytvořena.");
+                    _messageBoxStore.ShowMessageBox(MessageType.Information, $"Kategorie {displayName} byla úspěšně vytvořena.");
                 }
                 catch (Exception ex)
                 {
@@ -70,7 +73,7 @@ namespace Personal_Expense_Tracker.Command.Home
             }
             else
             {
-                _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Kategorie s tímto názvem již existuje.");
+                _messageBoxStore.ShowMessageBox(MessageType.Warning, "Kategorie s tímto názvem již existuje.");
             }
         }
 

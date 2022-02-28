@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Personal_Expense_Tracker.Service.XAML
+namespace Personal_Expense_Tracker.Converters
 {
     internal class ReverseBooleanConverter : IValueConverter
     {

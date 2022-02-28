@@ -13,17 +13,17 @@ using Personal_Expense_Tracker.Command.Home;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.Extension;
 using Personal_Expense_Tracker.Model;
+using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
     internal class HomeViewModel : BaseViewModel
     {
-        #region Services
+        #region Services & Stores
         private readonly DatabaseService _databaseService;
-        private readonly FormattingService _formattingService;
-        public readonly MessageBoxService MessageBoxService;
+        public readonly MessageBoxStore MessageBoxStore;
         private readonly StatisticsService _statisticsService;
-        #endregion Services
+        #endregion Services & Stores
 
         #region View Controls Properties
         private string _datagridAmountHeader = string.Empty;
@@ -245,36 +245,6 @@ namespace Personal_Expense_Tracker.ViewModel
         }
         #endregion Category Management Properties
 
-        #region Message Box Properties
-        private bool _messageBoxVisible;
-        public bool MessageBoxVisible
-        {
-            get { return _messageBoxVisible; }
-            set { _messageBoxVisible = value; RaisePropertyChanged(); }
-        }
-
-        private MessageType _messageBoxType;
-        public MessageType MessageBoxType
-        {
-            get { return _messageBoxType; }
-            set { _messageBoxType = value; RaisePropertyChanged(); }
-        }
-
-        private string _messageText = string.Empty;
-        public string MessageText
-        {
-            get { return _messageText; }
-            set { _messageText = value; RaisePropertyChanged(); }
-        }
-
-        private bool _isMessageBoxClosing = false;
-        public bool IsMessageBoxClosing
-        {
-            get { return _isMessageBoxClosing; }
-            set { _isMessageBoxClosing= value; RaisePropertyChanged(); }
-        }
-        #endregion Message Box Properties
-
         #region Statistics Properties
         public bool LoadingExpenses = false;
 
@@ -348,17 +318,14 @@ namespace Personal_Expense_Tracker.ViewModel
 
         public ICommand DefaultDataGridSorting { get; }
 
-        public ICommand CloseMessageBox { get; }
-
         public ICommand LoseFocusWhenEmptySpaceClicked { get; }
         public ICommand UnfocusElementUponMouseClick { get; }
         #endregion Commands
 
-        public HomeViewModel(DatabaseService databaseService, FormattingService formattingService)
+        public HomeViewModel(DatabaseService databaseService, FormattingService formattingService, MessageBoxStore messageBoxStore)
         {
             _databaseService = databaseService;
-            _formattingService = formattingService;
-            MessageBoxService = new MessageBoxService(this);
+            MessageBoxStore = messageBoxStore;
             _statisticsService = new StatisticsService(this);
 
             //Setting up the basics
@@ -378,23 +345,21 @@ namespace Personal_Expense_Tracker.ViewModel
             //Commands
             ShowCategoryManagement = new ShowCategoryModalCommand(this);
             HideCategoryManagement = new HideCategoryModalCommand(this);
-            AddCategory = new CreateCategoryCommand(this, databaseService, formattingService);
-            DeleteCategory = new DeleteCategoryCommand(this, databaseService);
+            AddCategory = new CreateCategoryCommand(this, databaseService, formattingService, messageBoxStore);
+            DeleteCategory = new DeleteCategoryCommand(this, databaseService, messageBoxStore);
             CancelDeleteCategory = new CancelDeleteCategoryCommand(this);
-            RenameCategory = new RenameCategoryCommand(this, databaseService, formattingService);
+            RenameCategory = new RenameCategoryCommand(this, databaseService, formattingService, messageBoxStore);
             CategoryChanged = new CategoryChangedCommand(this);
             UpdateCategoryGroupByMonth = new UpdateCategoryGroupByMonthCommand(this, databaseService);
 
             LoadExpenses = new LoadExpenseDataCommand(this, databaseService);
             AddExpense = new CreateExpenseCommand(this, databaseService, formattingService);
-            DeleteExpense = new DeleteExpenseCommand(this, databaseService);
-            EditExpense = new EditExpenseCommand(this, databaseService, formattingService);
+            DeleteExpense = new DeleteExpenseCommand(this, databaseService, messageBoxStore);
+            EditExpense = new EditExpenseCommand(this, databaseService, formattingService, messageBoxStore);
             HideDeleteExpense = new HideDeleteExpenseModalCommand(this);
             HideEditExpense = new HideEditExpenseModalCommand(this);
 
             DefaultDataGridSorting = new DefaultDataGridSortingCommand();
-
-            CloseMessageBox = new CloseMessageBoxCommand(this);
 
             LoseFocusWhenEmptySpaceClicked = new LoseFocusWhenEmptySpaceClickedCommand();
             UnfocusElementUponMouseClick = new UnfocusElementUponMouseClickCommand();

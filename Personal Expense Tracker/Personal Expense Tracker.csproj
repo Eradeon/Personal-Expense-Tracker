@@ -38,4 +38,8 @@
     <Resource Include="assets\fonts\RobotoMono-Regular.ttf" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Service\XAML\" />
+  </ItemGroup>
+
 </Project>

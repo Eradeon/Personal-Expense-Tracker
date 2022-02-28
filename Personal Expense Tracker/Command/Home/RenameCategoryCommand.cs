@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.ViewModel;
+using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
@@ -10,12 +11,14 @@ namespace Personal_Expense_Tracker.Command.Home
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
         private readonly FormattingService _formattingService;
+        private readonly MessageBoxStore _messageBoxStore;
 
-        public RenameCategoryCommand(HomeViewModel homeViewModel, DatabaseService databaseService, FormattingService formattingService)
+        public RenameCategoryCommand(HomeViewModel homeViewModel, DatabaseService databaseService, FormattingService formattingService, MessageBoxStore messageBoxStore)
         {
             _homeViewModel = homeViewModel;
             _databaseService = databaseService;
             _formattingService = formattingService;
+            _messageBoxStore = messageBoxStore;
 
             _homeViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -50,11 +53,11 @@ namespace Personal_Expense_Tracker.Command.Home
                 _homeViewModel.RenamedCategoryName = string.Empty;
                 _homeViewModel.DeleteCategoryConfirmation = false;
 
-                _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, "Kategorie byla úspěšně přejmenována.");
+                _messageBoxStore.ShowMessageBox(MessageType.Information, "Kategorie byla úspěšně přejmenována.");
             }
             else
             {
-                _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Kategorie s tímto názvem již existuje.");
+                _messageBoxStore.ShowMessageBox(MessageType.Warning, "Kategorie s tímto názvem již existuje.");
             }
         }
 

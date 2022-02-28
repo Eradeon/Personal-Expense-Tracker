@@ -1,6 +1,7 @@
 ﻿using System;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.ViewModel;
+using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
@@ -8,11 +9,13 @@ namespace Personal_Expense_Tracker.Command.Home
     {
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
+        private readonly MessageBoxStore _messageBoxStore;
 
-        public DeleteCategoryCommand(HomeViewModel homeViewModel, DatabaseService databaseService)
+        public DeleteCategoryCommand(HomeViewModel homeViewModel, DatabaseService databaseService, MessageBoxStore messageBoxStore)
         {
             _homeViewModel = homeViewModel;
             _databaseService = databaseService;
+            _messageBoxStore = messageBoxStore;
         }
 
         public override void Execute(object? parameter)
@@ -44,12 +47,12 @@ namespace Personal_Expense_Tracker.Command.Home
 
                     _homeViewModel.CategoryCollection.RemoveAt(collectionId);
 
-                    _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Kategorie {categoryName} byla úspěšně odstraněna.");
+                    _messageBoxStore.ShowMessageBox(MessageType.Information, $"Kategorie {categoryName} byla úspěšně odstraněna.");
                     _homeViewModel.DeleteCategoryConfirmation = false;
                 }
                 else
                 {
-                    _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Warning, "Nelze odstranit výchozí kategoii. Vytvořte novou kategorii a poté odstraňte tuto.");
+                    _messageBoxStore.ShowMessageBox(MessageType.Warning, "Nelze odstranit výchozí kategoii. Vytvořte novou kategorii a poté odstraňte tuto.");
                 }
             }
             else

@@ -26,11 +26,13 @@ namespace Personal_Expense_Tracker
             _databaseService.CreateDefaultDatabase();
 
             NavigationStore _navigationStore = new NavigationStore();
-            _navigationStore.CurrentViewModel = new HomeViewModel(_databaseService, _formattingService);
+            MessageBoxStore _messageBoxStore = new MessageBoxStore();
+            _navigationStore.CurrentViewModel = new HomeViewModel(_databaseService, _formattingService, _messageBoxStore);
 
             Window mainWindow = new MainWindow
             (
-                new MainViewModel(_formattingService, _databaseService, _navigationStore)
+                new MainViewModel(_formattingService, _databaseService,
+                                  _navigationStore, _messageBoxStore)
             );
             mainWindow.Show();
 

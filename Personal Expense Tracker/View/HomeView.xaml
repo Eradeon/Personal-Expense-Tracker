@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:Personal_Expense_Tracker.View"
              mc:Ignorable="d" 
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:services="clr-namespace:Personal_Expense_Tracker.Service.XAML"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
         <Behaviors:Interaction.Triggers>
@@ -15,10 +14,6 @@
                 <Behaviors:InvokeCommandAction Command="{Binding LoseFocusWhenEmptySpaceClicked}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
             </Behaviors:EventTrigger>
         </Behaviors:Interaction.Triggers>
-        <Grid.Resources>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <services:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
-        </Grid.Resources>
 
         <Grid x:Name="CategoryManagementModal"
               Style="{StaticResource ModalCoverStyle}"
@@ -398,145 +393,6 @@
                     </StackPanel>
                 </Grid>
             </Grid>
-        </Grid>
-
-        <Grid x:Name="MessagePopup"
-            Visibility="{Binding MessageBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-            Panel.ZIndex="100">
-            <Grid.Style>
-                <Style TargetType="Grid">
-                    <Style.Triggers>
-                        <Trigger Property="Visibility" Value="Visible">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard x:Name="EnterVisibility">
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetProperty="Opacity"
-                                            From="0"
-                                            To="1"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                        <ThicknessAnimation
-                                            Storyboard.TargetProperty="Margin"
-                                            From="0 0 0 -30"
-                                            To="0 0 0 0"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                        </Trigger>
-                        <DataTrigger Binding="{Binding IsMessageBoxClosing}" Value="True">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard x:Name="ExitVisibility">
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetProperty="Opacity"
-                                            From="1"
-                                            To="0"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                        <ThicknessAnimation
-                                            Storyboard.TargetProperty="Margin"
-                                            From="0 0 0 0"
-                                            To="0 0 0 -30"
-                                            Duration="00:00:00.15"
-                                            BeginTime="00:00:00"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </DataTrigger.EnterActions>
-                            <DataTrigger.ExitActions>
-                                <StopStoryboard BeginStoryboardName="ExitVisibility"/>
-                            </DataTrigger.ExitActions>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <Border
-                x:Name="MessageContainer"
-                Grid.Row="1"
-                BorderThickness="0 1 0 0"
-                BorderBrush="{StaticResource OutlineColourLight30Brush}"
-                HorizontalAlignment="Stretch">
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding MessageBoxType}" Value="Information">
-                                <Setter Property="Background" Value="{StaticResource InfoContainerColourFullBrush}"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding MessageBoxType}" Value="Warning">
-                                <Setter Property="Background" Value="{StaticResource WarningContainerColourFullBrush}"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding MessageBoxType}" Value="Error">
-                                <Setter Property="Background" Value="{StaticResource ErrorContainerColourFullBrush}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="16"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="8"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="16"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="16"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="16"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock
-                        x:Name="MessageText"
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        FontFamily="{StaticResource Roboto}"
-                        FontSize="14"
-                        LineHeight="20"
-                        Text="{Binding MessageText}"
-                        TextWrapping="Wrap"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding MessageBoxType}" Value="Information">
-                                        <Setter Property="Foreground" Value="{StaticResource OnInfoContainerColourFullBrush}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding MessageBoxType}" Value="Warning">
-                                        <Setter Property="Foreground" Value="{StaticResource OnWarningContainerColourFullBrush}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding MessageBoxType}" Value="Error">
-                                        <Setter Property="Foreground" Value="{StaticResource OnErrorContainerColourFullBrush}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-
-                    <Button
-                        x:Name="CloseMessageContainerButton"
-                        Grid.Column="3"
-                        Grid.RowSpan="3"
-                        Command="{Binding CloseMessageBox}"
-                        Style="{StaticResource MessageBoxCloseButtonStyle}"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center">
-                        <Behaviors:Interaction.Triggers>
-                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
-                            </Behaviors:EventTrigger>
-                        </Behaviors:Interaction.Triggers>
-                    </Button>
-                </Grid>
-            </Border>
         </Grid>
 
         <Grid>

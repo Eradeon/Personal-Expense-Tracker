@@ -1,6 +1,7 @@
 ﻿using System;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.ViewModel;
+using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
@@ -8,11 +9,13 @@ namespace Personal_Expense_Tracker.Command.Home
     {
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
+        private readonly MessageBoxStore _messageBoxStore;
 
-        public DeleteExpenseCommand(HomeViewModel homeViewModel, DatabaseService databaseService)
+        public DeleteExpenseCommand(HomeViewModel homeViewModel, DatabaseService databaseService, MessageBoxStore messageBoxStore)
         {
             _homeViewModel = homeViewModel;
             _databaseService = databaseService;
+            _messageBoxStore = messageBoxStore;
         }
 
         public override void Execute(object? parameter)
@@ -35,7 +38,7 @@ namespace Personal_Expense_Tracker.Command.Home
 
                         _homeViewModel.ExpenseCollection.Remove(_homeViewModel.SelectedRow);
 
-                        _homeViewModel.MessageBoxService.ShowMessageBox(MessageType.Information, $"Výdaj {name} z {date} ve výši {amount} byl úspěšně odstraněn.");
+                        _messageBoxStore.ShowMessageBox(MessageType.Information, $"Výdaj {name} z {date} ve výši {amount} byl úspěšně odstraněn.");
 
                         _homeViewModel.DeleteExpenseConfirmation = false;
                         _homeViewModel.DeleteExpenseModalVisible = false;

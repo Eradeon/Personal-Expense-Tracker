@@ -1,20 +1,21 @@
 ﻿using System;
+using Personal_Expense_Tracker.Stores;
 using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.General
 {
     internal class CloseMessageBoxCommand : BaseCommand
     {
-        private readonly HomeViewModel _homeViewModel;
+        private readonly MessageBoxStore _messageBoxStore;
 
-        public CloseMessageBoxCommand(HomeViewModel mainViewModel)
+        public CloseMessageBoxCommand(MessageBoxStore messageBoxStore)
         {
-            _homeViewModel = mainViewModel;
+            _messageBoxStore = messageBoxStore;
         }
 
         public override void Execute(object? parameter)
         {
-            _homeViewModel.MessageBoxService.HideMessageBox();
+            _messageBoxStore.HideMessageBox();
         }
     }
 }
