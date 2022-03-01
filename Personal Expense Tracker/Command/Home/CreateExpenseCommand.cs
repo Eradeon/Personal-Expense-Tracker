@@ -63,6 +63,10 @@ namespace Personal_Expense_Tracker.Command.Home
 
                     _homeViewModel.ExpenseName = string.Empty;
                     _homeViewModel.ExpenseAmount = string.Empty;
+
+                    if (parameter != null)
+                        if (parameter is UIElement)
+                            ((UIElement)parameter).Focus();
                 }
                 catch (Exception ex)
                 {

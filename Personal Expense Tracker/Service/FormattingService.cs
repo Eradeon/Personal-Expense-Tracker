@@ -29,7 +29,9 @@ namespace Personal_Expense_Tracker.Service
 
         public string FormatCategoryDisplayName(string displayName)
         {
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Regex.Replace(displayName.Trim().ToLower(), @"\s+", " "));
+            string result = Regex.Replace(displayName.Trim(), @"\s+", " ");
+
+            return string.Concat(result[0].ToString().ToUpper(), result.AsSpan(1));
         }
 
         public string FormatExpenseDate(DateTime date)
@@ -39,7 +41,9 @@ namespace Personal_Expense_Tracker.Service
         
         public string FormatExpenseName(string expenseName)
         {
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Regex.Replace(expenseName.Trim().ToLower(), @"\s+", " "));
+            string result = Regex.Replace(expenseName.Trim(), @"\s+", " ");
+
+            return string.Concat(result[0].ToString().ToUpper(), result.AsSpan(1));
         }
 
         public double FormatExpenseAmount(string expenseAmount)

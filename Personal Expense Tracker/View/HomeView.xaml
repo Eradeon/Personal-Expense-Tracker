@@ -537,7 +537,7 @@
                                 Tag="Název"
                                 Text="{Binding ExpenseName, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.InputBindings>
-                                    <KeyBinding Key="Return" Command="{Binding AddExpense, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <KeyBinding Key="Return" Command="{Binding AddExpense, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding ElementName=ExpenseNameInput}"/>
                                 </TextBox.InputBindings>
                             </TextBox>
                             <TextBox
@@ -547,7 +547,7 @@
                                 Tag="Částka"
                                 Text="{Binding ExpenseAmount, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.InputBindings>
-                                    <KeyBinding Key="Return" Command="{Binding AddExpense, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <KeyBinding Key="Return" Command="{Binding AddExpense, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding ElementName=ExpenseNameInput}"/>
                                 </TextBox.InputBindings>
                             </TextBox>
                             <Button
@@ -556,7 +556,7 @@
                                 Style="{StaticResource FilledButtonStyle}"
                                 Tag="&#xe145;"
                                 FontFamily="{StaticResource MaterialIconsOutlined}"
-                                Content="Vložit" Command="{Binding AddExpense}">
+                                Content="Vložit" Command="{Binding AddExpense}" CommandParameter="{Binding ElementName=ExpenseNameInput}">
                                 <Behaviors:Interaction.Triggers>
                                     <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                         <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
