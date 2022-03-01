@@ -318,7 +318,6 @@ namespace Personal_Expense_Tracker.ViewModel
 
         public ICommand DefaultDataGridSorting { get; }
 
-        public ICommand LoseFocusWhenEmptySpaceClicked { get; }
         public ICommand UnfocusElementUponMouseClick { get; }
         #endregion Commands
 
@@ -361,7 +360,6 @@ namespace Personal_Expense_Tracker.ViewModel
 
             DefaultDataGridSorting = new DefaultDataGridSortingCommand();
 
-            LoseFocusWhenEmptySpaceClicked = new LoseFocusWhenEmptySpaceClickedCommand();
             UnfocusElementUponMouseClick = new UnfocusElementUponMouseClickCommand();
 
             //Loading expense data

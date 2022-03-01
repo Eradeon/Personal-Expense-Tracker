@@ -8,13 +8,6 @@
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
-        <Behaviors:Interaction.Triggers>
-            <Behaviors:EventTrigger EventName="MouseDown">
-                <!--Making it possible to deselect TextBox when empty space is clicked-->
-                <Behaviors:InvokeCommandAction Command="{Binding LoseFocusWhenEmptySpaceClicked}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
-            </Behaviors:EventTrigger>
-        </Behaviors:Interaction.Triggers>
-
         <Grid x:Name="CategoryManagementModal"
               Style="{StaticResource ModalCoverStyle}"
               Visibility="{Binding CategoryManagementModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}"

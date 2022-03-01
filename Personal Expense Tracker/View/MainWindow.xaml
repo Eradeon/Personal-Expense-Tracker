@@ -10,6 +10,13 @@
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         Title="Sledování výdajů" Height="1000" Width="1800">
     <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
+        <Behaviors:Interaction.Triggers>
+            <Behaviors:EventTrigger EventName="MouseDown">
+                <!--Making it possible to deselect TextBox when empty space is clicked-->
+                <Behaviors:InvokeCommandAction Command="{Binding LoseFocusWhenEmptySpaceClickedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
+            </Behaviors:EventTrigger>
+        </Behaviors:Interaction.Triggers>
+        
         <Grid x:Name="MessagePopup"
             Visibility="{Binding MessageBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
             Panel.ZIndex="100">
@@ -153,6 +160,12 @@
             <UserControl.Resources>
                 <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
                     <views:HomeView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:YearlyStatisticsViewModel}">
+                    <views:YearlyStatisticsView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+                    <views:SettingsView/>
                 </DataTemplate>
             </UserControl.Resources>
         </UserControl>

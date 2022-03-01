@@ -27,9 +27,10 @@ namespace Personal_Expense_Tracker.ViewModel
         public ICommand NavigateYearlyStatisticsCommand { get; }
         public ICommand NavigateSettingsCommand { get; }
 
-        public ICommand UnfocusElementUponMouseClickCommand { get; }
-
         public ICommand CloseMessageBoxCommand { get; }
+
+        public ICommand UnfocusElementUponMouseClickCommand { get; }
+        public ICommand LoseFocusWhenEmptySpaceClickedCommand { get; }
         #endregion Commands
 
         public MainViewModel(FormattingService formattingService, DatabaseService databaseService,
@@ -48,6 +49,7 @@ namespace Personal_Expense_Tracker.ViewModel
             CloseMessageBoxCommand = new CloseMessageBoxCommand(messageBoxStore);
 
             UnfocusElementUponMouseClickCommand = new UnfocusElementUponMouseClickCommand();
+            LoseFocusWhenEmptySpaceClickedCommand = new LoseFocusWhenEmptySpaceClickedCommand();
         }
 
         private void OnCurrentViewModelChanged()
