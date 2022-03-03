@@ -8,7 +8,7 @@
         xmlns:views="clr-namespace:Personal_Expense_Tracker.View"
         mc:Ignorable="d"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-        Title="Sledování výdajů" Height="1000" Width="1800">
+        Title="Sledování výdajů" Height="1000" Width="1890">
     <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
         <Behaviors:Interaction.Triggers>
             <Behaviors:EventTrigger EventName="MouseDown">
@@ -155,19 +155,100 @@
                 </Grid>
             </Border>
         </Grid>
-        
-        <UserControl Content="{Binding CurrentViewModel}">
-            <UserControl.Resources>
-                <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
-                    <views:HomeView/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewModels:YearlyStatisticsViewModel}">
-                    <views:YearlyStatisticsView/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
-                    <views:SettingsView/>
-                </DataTemplate>
-            </UserControl.Resources>
-        </UserControl>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="NavigationMenuGrid" Grid.Column="0" Background="{StaticResource SurfaceColourFullBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="16"/>
+                </Grid.RowDefinitions>
+
+                <Border
+                    Grid.RowSpan="5"
+                    BorderThickness="0 0 1 0"
+                    BorderBrush="{StaticResource OutlineColourLight30Brush}"/>
+
+                <StackPanel x:Name="NavigationButtonsWrapper" Grid.Row="1" Orientation="Vertical">
+                    <RadioButton
+                        x:Name="HomeNavigationButton"
+                        GroupName="NavigationButtons"
+                        IsChecked="True"
+                        Content="Výdaje"
+                        Tag="&#xe8cc;"
+                        FontFamily="{StaticResource MaterialIconsOutlined}"
+                        Style="{StaticResource NavigationButtonStyle}">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Checked">
+                                <Behaviors:InvokeCommandAction Command="{Binding NavigateHomeCommand}"/>
+                            </Behaviors:EventTrigger>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClickCommand}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="YearlyStatisticsNavigationButton"
+                        GroupName="NavigationButtons"
+                        Content="Statistiky"
+                        Tag="&#xe85c;"
+                        FontFamily="{StaticResource MaterialIconsOutlined}"
+                        Style="{StaticResource NavigationButtonStyle}">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Checked">
+                                <Behaviors:InvokeCommandAction Command="{Binding NavigateYearlyStatisticsCommand}"/>
+                            </Behaviors:EventTrigger>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClickCommand}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="SettingsNavigationButton"
+                        GroupName="NavigationButtons"
+                        Content="Nastavení"
+                        Tag="&#xe8b8;"
+                        FontFamily="{StaticResource MaterialIconsFilled}"
+                        Style="{StaticResource NavigationButtonStyle}">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Checked">
+                                <Behaviors:InvokeCommandAction Command="{Binding NavigateSettingsCommand}"/>
+                            </Behaviors:EventTrigger>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClickCommand}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </RadioButton>
+                </StackPanel>
+
+                <ToggleButton
+                    x:Name="DarkModeSwitchButton"
+                    Grid.Row="3"
+                    Style="{StaticResource DarkModeSwitchButton}"/>
+            </Grid>
+
+            <Grid x:Name="SelectedViewGrid" Grid.Column="1">
+                <UserControl Content="{Binding CurrentViewModel}">
+                    <UserControl.Resources>
+                        <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+                            <views:HomeView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:YearlyStatisticsViewModel}">
+                            <views:YearlyStatisticsView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+                            <views:SettingsView/>
+                        </DataTemplate>
+                    </UserControl.Resources>
+                </UserControl>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
