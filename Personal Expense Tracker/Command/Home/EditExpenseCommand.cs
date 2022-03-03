@@ -58,9 +58,19 @@ namespace Personal_Expense_Tracker.Command.Home
                     {
                         if (expense.Id == _homeViewModel.SelectedRow.Id)
                         {
-                            expense.Date = newExpenseDate;
-                            expense.Name = newExpenseName;
-                            expense.Amount = newExpenseAmount;
+                            if ((_homeViewModel.GroupByMonth && newExpenseDate.Month == _homeViewModel.SelectedMonth+1 && newExpenseDate.Year == _homeViewModel.SelectedYear) ||
+                                (!_homeViewModel.GroupByMonth && newExpenseDate.Year == _homeViewModel.SelectedYear))
+                            {
+                                expense.Date = newExpenseDate;
+                                expense.Name = newExpenseName;
+                                expense.Amount = newExpenseAmount;
+                                break;
+                            }
+                            else
+                            {
+                                _homeViewModel.ExpenseCollection.Remove(expense);
+                                break;
+                            }
                         }
                     }
 
