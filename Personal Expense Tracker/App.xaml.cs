@@ -22,6 +22,7 @@ namespace Personal_Expense_Tracker
 
             FormattingService _formattingService = new FormattingService();
             DatabaseService _databaseService = new DatabaseService(_formattingService);
+            ConfigurationService _configurationService = new ConfigurationService();
 
             _databaseService.CreateDefaultDatabase();
 
@@ -31,7 +32,7 @@ namespace Personal_Expense_Tracker
 
             Window mainWindow = new MainWindow
             (
-                new MainViewModel(_formattingService, _databaseService,
+                new MainViewModel(_formattingService, _databaseService, _configurationService,
                                   _navigationStore, _messageBoxStore)
             );
             mainWindow.Show();

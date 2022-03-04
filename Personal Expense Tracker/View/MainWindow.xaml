@@ -231,7 +231,9 @@
                 <ToggleButton
                     x:Name="DarkModeSwitchButton"
                     Grid.Row="3"
-                    Style="{StaticResource DarkModeSwitchButton}"/>
+                    Style="{StaticResource DarkModeSwitchButton}"
+                    IsChecked="{Binding DarkModeEnabled}"
+                    Command="{Binding ToggleDarkModeCommand}"/>
             </Grid>
 
             <Grid x:Name="SelectedViewGrid" Grid.Column="1">
