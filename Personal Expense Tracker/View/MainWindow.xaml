@@ -183,7 +183,6 @@
                         IsChecked="True"
                         Content="Výdaje"
                         Tag="&#xe8cc;"
-                        FontFamily="{StaticResource MaterialIconsOutlined}"
                         Style="{StaticResource NavigationButtonStyle}">
                         <Behaviors:Interaction.Triggers>
                             <Behaviors:EventTrigger EventName="Checked">
@@ -199,7 +198,6 @@
                         GroupName="NavigationButtons"
                         Content="Statistiky"
                         Tag="&#xe85c;"
-                        FontFamily="{StaticResource MaterialIconsOutlined}"
                         Style="{StaticResource NavigationButtonStyle}">
                         <Behaviors:Interaction.Triggers>
                             <Behaviors:EventTrigger EventName="Checked">
@@ -215,7 +213,6 @@
                         GroupName="NavigationButtons"
                         Content="Nastavení"
                         Tag="&#xe8b8;"
-                        FontFamily="{StaticResource MaterialIconsFilled}"
                         Style="{StaticResource NavigationButtonStyle}">
                         <Behaviors:Interaction.Triggers>
                             <Behaviors:EventTrigger EventName="Checked">

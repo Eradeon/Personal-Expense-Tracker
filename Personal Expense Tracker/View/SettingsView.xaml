@@ -4,9 +4,97 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Personal_Expense_Tracker.View"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:viewModels="clr-namespace:Personal_Expense_Tracker.ViewModel"
+             xmlns:views="clr-namespace:Personal_Expense_Tracker.View"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="Settings"/>
+    <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="SettingsNavigationMenuGrid" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="32"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel x:Name="SettingsNavigationWrapper" Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+                    <RadioButton
+                        x:Name="CategorySettingsNavigationButton"
+                        GroupName="SettingsNavigationButtons"
+                        IsChecked="True"
+                        Content="Správa kategorií"
+                        Tag="&#xe574;"
+                        Style="{StaticResource SettingsNavigationButtonStyle}">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Checked">
+                                <Behaviors:InvokeCommandAction Command="{Binding NavigateCategorySettingsCommand}"/>
+                            </Behaviors:EventTrigger>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClickCommand}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="PersonalizeSettingsNavigationButton"
+                        GroupName="SettingsNavigationButtons"
+                        Content="Vzhled aplikace"
+                        Tag="&#xe40a;"
+                        Style="{StaticResource SettingsNavigationButtonStyle}">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Checked">
+                                <Behaviors:InvokeCommandAction Command="{Binding NavigatePersonalizeSettingsCommand}"/>
+                            </Behaviors:EventTrigger>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClickCommand}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="AboutSettingsNavigationButton"
+                        GroupName="SettingsNavigationButtons"
+                        Content="O aplikaci"
+                        Tag="&#xe88e;"
+                        Style="{StaticResource SettingsNavigationButtonStyle}">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Checked">
+                                <Behaviors:InvokeCommandAction Command="{Binding NavigateAboutSettingsCommand}"/>
+                            </Behaviors:EventTrigger>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClickCommand}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </RadioButton>
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Column="1" Width="1" Background="{StaticResource OutlineColourLight30Brush}"/>
+
+            <Grid x:Name="SelectedViewGrid" Grid.Column="2">
+                <UserControl Content="{Binding CurrentSettingsViewModel}">
+                    <UserControl.Resources>
+                        <DataTemplate DataType="{x:Type viewModels:CategorySettingsViewModel}">
+                            <views:CategorySettingsView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:PersonalizeSettingsViewModel}">
+                            <views:PersonalizeSettingsView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:AboutSettingsViewModel}">
+                            <views:AboutSettingsView/>
+                        </DataTemplate>
+                    </UserControl.Resources>
+                </UserControl>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

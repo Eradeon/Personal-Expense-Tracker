@@ -8,246 +8,6 @@
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
-        <Grid x:Name="CategoryManagementModal"
-              Style="{StaticResource ModalCoverStyle}"
-              Visibility="{Binding CategoryManagementModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-              Focusable="True" FocusVisualStyle="{x:Null}">
-            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Border Style="{StaticResource ModalWrapperDarkStyle}"/>
-
-                <Grid Style="{StaticResource ModalContentStyle}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="16"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="24"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="24"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0" Text="Správa kategorií" Style="{StaticResource TextHeadline5Style}" Margin="0 0 0 8"/>
-
-                    <TextBlock Grid.Row="2" Text="Přidat kategorii" Style="{StaticResource TextHeadline6Style}" Margin="0 0 0 8"/>
-
-                    <Border x:Name="AddCategoryGrid" Grid.Row="3" Style="{StaticResource ModalSurfaceStyle}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="435"/>
-                                <ColumnDefinition Width="8"/>
-                                <ColumnDefinition Width="160"/>
-                                <ColumnDefinition Width="24"/>
-                                <ColumnDefinition Width="165"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <TextBox x:Name="NewCategoryNameInput" Grid.Column="0" Grid.Row="0"
-                                Style="{StaticResource TextBoxStyle}"
-                                Tag="Název kategorie"
-                                Text="{Binding NewCategoryName, UpdateSourceTrigger=PropertyChanged}">
-                                <TextBox.InputBindings>
-                                    <KeyBinding Key="Return" Command="{Binding AddCategory, UpdateSourceTrigger=PropertyChanged}"/>
-                                </TextBox.InputBindings>
-                            </TextBox>
-
-                            <CheckBox x:Name="NewCategoryGroupByMonthCheckBox" Grid.Column="2" Grid.Row="0"
-                                VerticalAlignment="Center"
-                                Content="Seskupit po měsících"
-                                Style="{StaticResource CheckBoxStyle}"
-                                IsChecked="{Binding NewCategoryGroupByMonth, UpdateSourceTrigger=PropertyChanged}">
-                                <Behaviors:Interaction.Triggers>
-                                    <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                        <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
-                                    </Behaviors:EventTrigger>
-                                </Behaviors:Interaction.Triggers>
-                                <CheckBox.InputBindings>
-                                    <KeyBinding Key="Return" Command="{Binding AddCategory, UpdateSourceTrigger=PropertyChanged}"/>
-                                </CheckBox.InputBindings>
-                            </CheckBox>
-
-                            <Button x:Name="CreateNewCategoryButton" Grid.Column="4" Grid.Row="0"
-                                Content="Přidat kategorii"
-                                Command="{Binding AddCategory}"
-                                Style="{StaticResource FilledButtonStyle}"
-                                Tag="&#xe145;"
-                                FontFamily="{StaticResource MaterialIconsFilled}">
-                                <Behaviors:Interaction.Triggers>
-                                    <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                        <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
-                                    </Behaviors:EventTrigger>
-                                </Behaviors:Interaction.Triggers>
-                            </Button>
-                        </Grid>
-                    </Border>
-
-                    <TextBlock Grid.Row="5" Text="Odstranit / přejmenovat kategorii" Style="{StaticResource TextHeadline6Style}" Margin="0 0 0 8"/>
-
-                    <Border x:Name="EditDeleteCategoryGrid" Grid.Row="6" Style="{StaticResource ModalSurfaceStyle}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="36"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="20*"/>
-                                    <ColumnDefinition Width="60*"/>
-                                    <ColumnDefinition Width="20*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <ComboBox x:Name="ManageCategoryComboBox" Grid.Column="1"
-                                    ItemsSource="{Binding CategoryCollection}"
-                                    SelectedItem="{Binding SelectedEditCategory, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource ComboBoxStyle}"
-                                    Tag="Kategorie">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding DisplayName}"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                            </Grid>
-
-                            <Grid Grid.Row="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="8"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Grid Grid.Column="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="12"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="8"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-
-                                    <TextBlock Text="Odstranění kategorie"
-                                        Style="{StaticResource TextSubtitle1Style}" Margin="0 0 0 12" HorizontalAlignment="Center"/>
-
-                                    <Button x:Name="DeleteCategoryButton"
-                                        Grid.Column="0" Grid.Row="1"
-                                        Content="Odstranit kategorii"
-                                        Command="{Binding DeleteCategory}"
-                                        Style="{StaticResource FilledWarningButtonStyle}"
-                                        Tag="&#xe872;"
-                                        FontFamily="{StaticResource MaterialIconsFilled}"
-                                        IsEnabled="{Binding DeleteCategoryConfirmation, Converter={StaticResource ReverseBooleanConverter}}">
-                                        <Behaviors:Interaction.Triggers>
-                                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
-                                            </Behaviors:EventTrigger>
-                                        </Behaviors:Interaction.Triggers>
-                                    </Button>
-
-                                    <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Button x:Name="CancelDeleteCategoryButton" Content="Zrušit"
-                                            Visibility="{Binding DeleteCategoryConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                            Command="{Binding CancelDeleteCategory}"
-                                            Style="{StaticResource TextButtonStyle}"
-                                            Tag="&#xe5c9;"
-                                            FontFamily="{StaticResource MaterialIconsOutlined}"
-                                            Margin="0 0 8 0">
-                                            <Behaviors:Interaction.Triggers>
-                                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
-                                                </Behaviors:EventTrigger>
-                                            </Behaviors:Interaction.Triggers>
-                                        </Button>
-
-                                        <Button x:Name="ConfirmDeleteCategoryButton" Content="Potvrdit odstranění"
-                                            Visibility="{Binding DeleteCategoryConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                            Command="{Binding DeleteCategory}"
-                                            Style="{StaticResource FilledWarningButtonStyle}"
-                                            Tag="&#xe92b;"
-                                            FontFamily="{StaticResource MaterialIconsFilled}">
-                                            <Behaviors:Interaction.Triggers>
-                                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
-                                                </Behaviors:EventTrigger>
-                                            </Behaviors:Interaction.Triggers>
-                                        </Button>
-                                    </StackPanel>
-                                </Grid>
-
-                                <Separator Grid.Column="1"
-                                           Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
-                                           BorderThickness="1"
-                                           Background="{StaticResource SurfaceVariantColourFullBrush}"/>
-
-                                <Grid Grid.Column="2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="48"/>
-                                        <ColumnDefinition Width="316"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="16"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-
-                                    <TextBlock Text="Přejmenování kategorie" Grid.Column="1" Margin="0 0 0 8"
-                                           Style="{StaticResource TextSubtitle1Style}" HorizontalAlignment="Center"/>
-
-                                    <TextBox x:Name="RenameCategoryInput"
-                                        Grid.Column="1" Grid.Row="1"
-                                        Style="{StaticResource TextBoxStyle}"
-                                        Tag="Nový název"
-                                        Text="{Binding RenamedCategoryName, UpdateSourceTrigger=PropertyChanged}">
-                                        <TextBox.InputBindings>
-                                            <KeyBinding Key="Return" Command="{Binding RenameCategory, UpdateSourceTrigger=PropertyChanged}"/>
-                                        </TextBox.InputBindings>
-                                    </TextBox>
-
-                                    <Button x:Name="RenameCategoryButton"
-                                        Grid.Column="1" Grid.Row="3"
-                                        Content="Přejmenovat kategorii"
-                                        Command="{Binding RenameCategory}"
-                                        Style="{StaticResource FilledButtonStyle}"
-                                        Tag="&#xe3c9;"
-                                        FontFamily="{StaticResource MaterialIconsFilled}">
-                                        <Behaviors:Interaction.Triggers>
-                                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=CategoryManagementModal}"/>
-                                            </Behaviors:EventTrigger>
-                                        </Behaviors:Interaction.Triggers>
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Border>
-
-                    <Button x:Name="CloseModalButton" Grid.Row="8"
-                        Content="Zavřít"
-                        Tag="&#xe5cd;"
-                        FontFamily="{StaticResource MaterialIconsFilled}"
-                        Style="{StaticResource TextButtonStyle}"
-                        Command="{Binding HideCategoryManagement}">
-                        <Behaviors:Interaction.Triggers>
-                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
-                            </Behaviors:EventTrigger>
-                        </Behaviors:Interaction.Triggers>
-                    </Button>
-                </Grid>
-            </Grid>
-        </Grid>
-
         <Grid x:Name="DeleteExpenseModal"
               Style="{StaticResource ModalCoverStyle}"
               Visibility="{Binding DeleteExpenseModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -402,12 +162,11 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="8"/>
-                        <ColumnDefinition MinWidth="240" Width="20*"/>
-                        <ColumnDefinition MinWidth="240" Width="20*"/>
-                        <ColumnDefinition MinWidth="240" Width="20*"/>
+                        <ColumnDefinition MinWidth="240" Width="18*"/>
+                        <ColumnDefinition MinWidth="240" Width="18*"/>
+                        <ColumnDefinition MinWidth="240" Width="18*"/>
                         <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="40*"/>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="46*"/>
                         <ColumnDefinition Width="16"/>
                     </Grid.ColumnDefinitions>
 
@@ -477,19 +236,6 @@
                             </Behaviors:EventTrigger>
                         </Behaviors:Interaction.Triggers>
                     </CheckBox>
-
-                    <Button x:Name="ManageCategoryButton" Grid.Column="6"
-                        Content="Spravovat kategorie"
-                        Command="{Binding ShowCategoryManagement}"
-                        Tag="&#xe8b8;"
-                        FontFamily="{StaticResource MaterialIconsFilled}"
-                        Style="{StaticResource TextButtonStyle}">
-                        <Behaviors:Interaction.Triggers>
-                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
-                            </Behaviors:EventTrigger>
-                        </Behaviors:Interaction.Triggers>
-                    </Button>
                 </Grid>
             </Border>
 
@@ -664,7 +410,7 @@
 
                 <Border MinWidth="465" x:Name="StatisticsDataGrid" Grid.Column="3"
                     Style="{StaticResource WindowSurfaceStyle}">
-                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" Style="{StaticResource ScrollViewerStyle}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Style="{StaticResource ScrollViewerStyle}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="24"/>

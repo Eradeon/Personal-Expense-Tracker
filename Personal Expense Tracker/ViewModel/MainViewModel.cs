@@ -55,7 +55,7 @@ namespace Personal_Expense_Tracker.ViewModel
             //Commands
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(databaseService, formattingService, messageBoxStore));
             NavigateYearlyStatisticsCommand = new NavigateCommand<YearlyStatisticsViewModel>(navigationStore, () => new YearlyStatisticsViewModel());
-            NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(navigationStore, () => new SettingsViewModel());
+            NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(navigationStore, () => new SettingsViewModel(messageBoxStore, formattingService, databaseService, configurationService));
 
             ToggleDarkModeCommand = new ToggleDarkModeCommand(this, configurationService);
             CloseMessageBoxCommand = new CloseMessageBoxCommand(messageBoxStore);

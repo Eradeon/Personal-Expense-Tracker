@@ -571,4 +571,81 @@
         </Setter>
     </Style>
 
+    <Style x:Key="SettingsNavigationButtonStyle" TargetType="RadioButton">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Height" Value="56"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            x:Name="StateLayer"
+                            Grid.ColumnSpan="3"
+                            Background="Transparent"/>
+
+                        <Border
+                            x:Name="SelectedState"
+                            Grid.Column="0"
+                            Width="6"
+                            Background="Transparent"
+                            HorizontalAlignment="Left"/>
+                        
+                        <TextBlock
+                            x:Name="Icon"
+                            Grid.Column="1"
+                            FontSize="24"
+                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                            FontFamily="{StaticResource MaterialIconsOutlined}"
+                            Text="{TemplateBinding Tag}"
+                            Margin="16 0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"/>
+
+                        <TextBlock
+                            x:Name="Header"
+                            Grid.Column="2"
+                            FontSize="14"
+                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                            FontFamily="{StaticResource Roboto}"
+                            Text="{TemplateBinding Content}"
+                            Margin="0 0 16 0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Foreground" TargetName="Header" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="FontFamily" TargetName="Icon" Value="{StaticResource MaterialIconsFilled}"/>
+                            <Setter Property="Background" TargetName="SelectedState" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

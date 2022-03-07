@@ -75,13 +75,6 @@ namespace Personal_Expense_Tracker.ViewModel
             set { _selectedCategory = value; RaisePropertyChanged(); }
         }
 
-        private CategoryViewModel? _selectedEditCategory;
-        public CategoryViewModel? SelectedEditCategory
-        {
-            get { return _selectedEditCategory; }
-            set { _selectedEditCategory = value; RaisePropertyChanged(); }
-        }
-
         private int _selectedYear;
         public int SelectedYear
         {
@@ -204,47 +197,6 @@ namespace Personal_Expense_Tracker.ViewModel
 
         #endregion Expense Management Properties
 
-        #region Category Management Properties
-        //Modal
-        private bool _categoryManagementModalVisible = false;
-        public bool CategoryManagementModalVisible
-        {
-            get { return _categoryManagementModalVisible; }
-            set { _categoryManagementModalVisible = value; RaisePropertyChanged(); }
-        }
-
-        //Create
-        private string _newCategoryName = string.Empty;
-        public string NewCategoryName
-        {
-            get { return _newCategoryName; }
-            set { _newCategoryName = value; RaisePropertyChanged(); }
-        }
-
-        private bool _newCategoryGroupByMonth;
-        public bool NewCategoryGroupByMonth
-        {
-            get { return _newCategoryGroupByMonth; }
-            set { _newCategoryGroupByMonth = value; RaisePropertyChanged(); }
-        }
-
-        //Delete
-        private bool _deleteCategoryConfirmation = false;
-        public bool DeleteCategoryConfirmation
-        {
-            get { return _deleteCategoryConfirmation; }
-            set { _deleteCategoryConfirmation = value; RaisePropertyChanged(); }
-        }
-
-        //Rename
-        private string _renamedCategoryName = string.Empty;
-        public string RenamedCategoryName
-        {
-            get { return _renamedCategoryName; }
-            set { _renamedCategoryName = value; RaisePropertyChanged(); }
-        }
-        #endregion Category Management Properties
-
         #region Statistics Properties
         public bool LoadingExpenses = false;
 
@@ -300,12 +252,6 @@ namespace Personal_Expense_Tracker.ViewModel
         #endregion Statistics Properties
 
         #region Commands
-        public ICommand ShowCategoryManagement { get; }
-        public ICommand HideCategoryManagement { get; }
-        public ICommand AddCategory { get; }
-        public ICommand DeleteCategory { get; }
-        public ICommand CancelDeleteCategory { get; }
-        public ICommand RenameCategory { get; }
         public ICommand CategoryChanged { get; }
         public ICommand UpdateCategoryGroupByMonth { get; }
 
@@ -332,7 +278,6 @@ namespace Personal_Expense_Tracker.ViewModel
 
             _categoryCollection = LoadCategories();
             _selectedCategory = _categoryCollection[0];
-            _selectedEditCategory = _categoryCollection[0];
 
             _monthList = LoadMonths();
 
@@ -342,12 +287,6 @@ namespace Personal_Expense_Tracker.ViewModel
             ExpenseLiveCollectionView.IsLiveSorting = true;
 
             //Commands
-            ShowCategoryManagement = new ShowCategoryModalCommand(this);
-            HideCategoryManagement = new HideCategoryModalCommand(this);
-            AddCategory = new CreateCategoryCommand(this, databaseService, formattingService, messageBoxStore);
-            DeleteCategory = new DeleteCategoryCommand(this, databaseService, messageBoxStore);
-            CancelDeleteCategory = new CancelDeleteCategoryCommand(this);
-            RenameCategory = new RenameCategoryCommand(this, databaseService, formattingService, messageBoxStore);
             CategoryChanged = new CategoryChangedCommand(this);
             UpdateCategoryGroupByMonth = new UpdateCategoryGroupByMonthCommand(this, databaseService);
 
