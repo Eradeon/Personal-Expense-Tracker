@@ -21,7 +21,7 @@
                     <RowDefinition Height="32"/>
                 </Grid.RowDefinitions>
 
-                <Grid x:Name="CategoryManagementWrapper" Grid.Column="1" Grid.Row="1">
+                <Grid x:Name="CategorySettingsWrapper" Grid.Column="1" Grid.Row="1">
                     <Grid.RowDefinitions>
                         <!--Settings Title-->
                         <RowDefinition Height="Auto"/>
@@ -44,7 +44,7 @@
                         <!--Delete Category-->
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="46"/>
-                        <!--Merge CategoriesTitle-->
+                        <!--Merge Categories Title-->
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="16"/>
                         <!--Merge Categories-->

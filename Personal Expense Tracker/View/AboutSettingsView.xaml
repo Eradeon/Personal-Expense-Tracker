@@ -18,6 +18,58 @@
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="1" Grid.Row="1" Text="About"/>
+        <Grid x:Name="AboutSettingsWrapper" Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Text="O aplikaci"
+                Style="{StaticResource TextHeadline5Style}"/>
+
+            <TextBlock
+                Grid.Row="2"
+                Text="Specifikace"
+                Style="{StaticResource TextHeadline6Style}"/>
+
+            <Grid x:Name="ApplicationInformationGrid" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Column="0" Grid.Row="0"
+                    Text="Aktuální verze"
+                    Style="{StaticResource TextBody2Style}"
+                    Foreground="{StaticResource OnSurfaceColourFullBrush}"/>
+
+                <TextBlock
+                    Grid.Column="1" Grid.Row="0"
+                    Text="{Binding AppVersion}"
+                    Style="{StaticResource TextBody2Style}"/>
+
+                <TextBlock
+                    Grid.Column="0" Grid.Row="2"
+                    Text="Typ verze"
+                    Style="{StaticResource TextBody2Style}"
+                    Foreground="{StaticResource OnSurfaceColourFullBrush}"/>
+
+                <TextBlock
+                    Grid.Column="1" Grid.Row="2"
+                    Text="{Binding AppVersionType}"
+                    Style="{StaticResource TextBody2Style}"/>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

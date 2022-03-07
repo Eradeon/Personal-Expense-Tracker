@@ -39,7 +39,7 @@ namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
                     }
                     catch
                     {
-                        _messageBoxStore.ShowMessageBox(MessageType.Error, "Nebylo možné přesunou data.");
+                        _messageBoxStore.ShowMessageBox(MessageType.Error, "Chyba: Nebylo možné přesunout data.");
                     }
                 }
                 else
