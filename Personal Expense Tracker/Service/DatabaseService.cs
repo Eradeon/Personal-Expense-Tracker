@@ -255,6 +255,20 @@ namespace Personal_Expense_Tracker.Service
             }
         }
 
+        public void MergeTables(string fromTableName, string toTableName)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(_dataSource))
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.CommandText = $"INSERT INTO {toTableName} (expense_date, expense_name, expense_amount) SELECT expense_date,expense_name,expense_amount FROM {fromTableName};";
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         public string BuildExpenseQuery(string tableName, string year, string month)
         {
             StringBuilder query = new StringBuilder();

@@ -118,7 +118,7 @@ namespace Personal_Expense_Tracker.ViewModel
             DeleteCategoryCommand = new DeleteCategoryCommand(this);
             CancelDeleteCategoryCommand = new CancelDeleteCategoryCommand(this);
             ConfirmDeleteCategoryCommand = new ConfirmDeleteCategoryCommand(this, databaseService, messageBoxStore);
-            MergeCategoriesCommand = null; //TODO
+            MergeCategoriesCommand = new MergeCategoriesCommand(this, databaseService, messageBoxStore);
 
             UnfocusElementUponMouseClickCommand = new UnfocusElementUponMouseClickCommand();
         }

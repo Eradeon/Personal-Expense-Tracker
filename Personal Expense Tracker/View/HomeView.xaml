@@ -302,7 +302,8 @@
                                 Style="{StaticResource FilledButtonStyle}"
                                 Tag="&#xe145;"
                                 FontFamily="{StaticResource MaterialIconsOutlined}"
-                                Content="Vložit" Command="{Binding AddExpense}" CommandParameter="{Binding ElementName=ExpenseNameInput}">
+                                Content="Vložit"
+                                Command="{Binding AddExpense}" CommandParameter="{Binding ElementName=ExpenseNameInput}">
                                 <Behaviors:Interaction.Triggers>
                                     <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                         <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
