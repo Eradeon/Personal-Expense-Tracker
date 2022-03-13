@@ -15,7 +15,7 @@
 
                         <TextBlock
                             x:Name="Icon"
-                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
                             FontSize="24"
                             FontFamily="{StaticResource MaterialIconsOutlined}"
                             HorizontalAlignment="Center"
@@ -24,7 +24,7 @@
 
                         <TextBlock
                             x:Name="Content"
-                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
                             FontSize="12"
                             FontFamily="{StaticResource Roboto}"
                             HorizontalAlignment="Center"
@@ -36,20 +36,20 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourPressedBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource PrimaryColourFullBrush}"/>
-                            <Setter Property="Foreground" TargetName="Content" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Foreground" TargetName="Content" Value="{DynamicResource PrimaryColourFullBrush}"/>
                             <Setter Property="FontFamily" TargetName="Icon" Value="{StaticResource MaterialIconsFilled}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -72,7 +72,7 @@
                             <TextBlock
                                 x:Name="Icon"
                                 FontSize="18"
-                                Foreground="{StaticResource PrimaryColourFullBrush}"
+                                Foreground="{DynamicResource PrimaryColourFullBrush}"
                                 FontFamily="{TemplateBinding FontFamily}"
                                 Text="{TemplateBinding Tag}"
                                 VerticalAlignment="Center"
@@ -82,7 +82,7 @@
                             <TextBlock
                                 x:Name="Content"
                                 FontSize="14"
-                                Foreground="{StaticResource PrimaryColourFullBrush}"
+                                Foreground="{DynamicResource PrimaryColourFullBrush}"
                                 FontFamily="{StaticResource Roboto}"
                                 Text="{TemplateBinding Content}"
                                 VerticalAlignment="Center"
@@ -93,20 +93,20 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourPressedBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourPressedBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
-                            <Setter Property="Foreground" TargetName="Content" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Foreground" TargetName="Content" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -123,13 +123,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="Container" CornerRadius="4" Background="{StaticResource PrimaryColourFullBrush}" HorizontalAlignment="Center">
+                    <Border x:Name="Container" CornerRadius="4" Background="{DynamicResource PrimaryColourFullBrush}" HorizontalAlignment="Center">
                         <Border x:Name="StateLayer" CornerRadius="4" Background="Transparent">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     x:Name="Icon"
                                     FontSize="18"
-                                    Foreground="{StaticResource OnPrimaryColourFullBrush}"
+                                    Foreground="{DynamicResource OnPrimaryColourFullBrush}"
                                     FontFamily="{TemplateBinding FontFamily}"
                                     Text="{TemplateBinding Tag}"
                                     VerticalAlignment="Center"
@@ -139,7 +139,7 @@
                                 <TextBlock
                                     x:Name="Content"
                                     FontSize="14"
-                                    Foreground="{StaticResource OnPrimaryColourFullBrush}"
+                                    Foreground="{DynamicResource OnPrimaryColourFullBrush}"
                                     FontFamily="{StaticResource Roboto}"
                                     Text="{TemplateBinding Content}"
                                     VerticalAlignment="Center"
@@ -151,21 +151,21 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnPrimaryColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnPrimaryColourHoverBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnPrimaryColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnPrimaryColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnPrimaryColourPressedBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnPrimaryColourPressedBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" TargetName="Container" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
-                            <Setter Property="Foreground" TargetName="Content" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Background" TargetName="Container" Value="{DynamicResource OnSurfaceColourPressedBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Foreground" TargetName="Content" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -182,13 +182,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="Container" CornerRadius="4" Background="{StaticResource ErrorColourFullBrush}" HorizontalAlignment="Center">
+                    <Border x:Name="Container" CornerRadius="4" Background="{DynamicResource ErrorColourFullBrush}" HorizontalAlignment="Center">
                         <Border x:Name="StateLayer" CornerRadius="4" Background="Transparent">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     x:Name="Icon"
                                     FontSize="18"
-                                    Foreground="{StaticResource OnErrorColourFullBrush}"
+                                    Foreground="{DynamicResource OnErrorColourFullBrush}"
                                     FontFamily="{TemplateBinding FontFamily}"
                                     Text="{TemplateBinding Tag}"
                                     VerticalAlignment="Center"
@@ -198,7 +198,7 @@
                                 <TextBlock
                                     x:Name="Content"
                                     FontSize="14"
-                                    Foreground="{StaticResource OnErrorColourFullBrush}"
+                                    Foreground="{DynamicResource OnErrorColourFullBrush}"
                                     FontFamily="{StaticResource Roboto}"
                                     Text="{TemplateBinding Content}"
                                     VerticalAlignment="Center"
@@ -210,21 +210,21 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnErrorColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnErrorColourHoverBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnErrorColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnErrorColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnErrorColourPressedBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnErrorColourPressedBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" TargetName="Container" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
-                            <Setter Property="Foreground" TargetName="Content" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Background" TargetName="Container" Value="{DynamicResource OnSurfaceColourPressedBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Foreground" TargetName="Content" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -258,7 +258,7 @@
                             <TextBlock
                                 x:Name="Icon"
                                 FontSize="14"
-                                Foreground="{StaticResource OnPrimaryColourFullBrush}"
+                                Foreground="{DynamicResource OnPrimaryColourFullBrush}"
                                 FontFamily="{StaticResource MaterialIconsFilled}"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"/>
@@ -273,7 +273,7 @@
 
                         <TextBlock x:Name="Content" Grid.Column="2"
                             FontSize="12"
-                            Foreground="{StaticResource OnSurfaceColourFullBrush}"
+                            Foreground="{DynamicResource OnSurfaceColourFullBrush}"
                             FontFamily="{StaticResource Roboto}"
                             Text="{TemplateBinding Content}"
                             Margin="0 0 10 0"
@@ -283,26 +283,26 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="False">
-                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{StaticResource OutlineColourFullBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{DynamicResource OutlineColourFullBrush}"/>
                             <Setter Property="Background" TargetName="IconBorder" Value="Transparent"/>
                         </Trigger>
 
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{StaticResource PrimaryColourFullBrush}"/>
-                            <Setter Property="Background" TargetName="IconBorder" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{DynamicResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Background" TargetName="IconBorder" Value="{DynamicResource PrimaryColourFullBrush}"/>
                             <Setter Property="Text" TargetName="Icon" Value="&#xe876;"/>
                         </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Fill" TargetName="StateLayer" Value="{StaticResource PrimaryColourHoverBrush}"/>
+                            <Setter Property="Fill" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Fill" TargetName="StateLayer" Value="{StaticResource PrimaryColourHoverBrush}"/>
+                            <Setter Property="Fill" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Fill" TargetName="StateLayer" Value="{StaticResource PrimaryColourPressedBrush}"/>
+                            <Setter Property="Fill" TargetName="StateLayer" Value="{DynamicResource PrimaryColourPressedBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -336,7 +336,7 @@
                             <TextBlock
                                 x:Name="Icon"
                                 FontSize="22"
-                                Foreground="{StaticResource PrimaryColourFullBrush}"
+                                Foreground="{DynamicResource PrimaryColourFullBrush}"
                                 FontFamily="{StaticResource MaterialIconsFilled}"
                                 Text="&#xe3c9;"
                                 VerticalAlignment="Center"
@@ -346,19 +346,19 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource PrimaryColourPressedBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourPressedBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -400,7 +400,7 @@
                             <TextBlock
                                 x:Name="Icon"
                                 FontSize="22"
-                                Foreground="{StaticResource ErrorColourFullBrush}"
+                                Foreground="{DynamicResource ErrorColourFullBrush}"
                                 FontFamily="{StaticResource MaterialIconsFilled}"
                                 Text="&#xe872;"
                                 VerticalAlignment="Center"
@@ -410,19 +410,19 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource ErrorColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource ErrorColourHoverBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource ErrorColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource ErrorColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource ErrorColourPressedBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource ErrorColourPressedBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -460,7 +460,7 @@
                             x:Name="Icon"
                             FontSize="18"
                             FontFamily="{StaticResource MaterialIconsOutlined}"
-                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
                             Text="&#xe5cd;"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"/>
@@ -468,19 +468,19 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourPressedBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource OnSurfaceColourDisabledBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -505,7 +505,7 @@
                             x:Name="SunIcon"
                             FontSize="24"
                             FontFamily="{StaticResource MaterialIconsFilled}"
-                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
                             Text="&#xe518;"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"/>
@@ -513,7 +513,7 @@
                             x:Name="MoonIcon"
                             FontSize="24"
                             FontFamily="{StaticResource MaterialIconsFilled}"
-                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
                             Text="&#xe51c;"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
@@ -522,10 +522,10 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourPressedBrush}"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Trigger.EnterActions>
@@ -603,7 +603,7 @@
                             x:Name="Icon"
                             Grid.Column="1"
                             FontSize="24"
-                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
                             FontFamily="{StaticResource MaterialIconsOutlined}"
                             Text="{TemplateBinding Tag}"
                             Margin="16 0"
@@ -614,7 +614,7 @@
                             x:Name="Header"
                             Grid.Column="2"
                             FontSize="14"
-                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
                             FontFamily="{StaticResource Roboto}"
                             Text="{TemplateBinding Content}"
                             Margin="0 0 16 0"
@@ -624,23 +624,23 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
                         
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourPressedBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourPressedBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Foreground" TargetName="Icon" Value="{StaticResource PrimaryColourFullBrush}"/>
-                            <Setter Property="Foreground" TargetName="Header" Value="{StaticResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Foreground" TargetName="Header" Value="{DynamicResource PrimaryColourFullBrush}"/>
                             <Setter Property="FontFamily" TargetName="Icon" Value="{StaticResource MaterialIconsFilled}"/>
-                            <Setter Property="Background" TargetName="SelectedState" Value="{StaticResource PrimaryColourFullBrush}"/>
-                            <Setter Property="Background" TargetName="StateLayer" Value="{StaticResource OnSurfaceColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="SelectedState" Value="{DynamicResource PrimaryColourFullBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource OnSurfaceColourHoverBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -11,16 +11,15 @@ namespace Personal_Expense_Tracker.ViewModel
     {
         #region Services & Stores
         private readonly NavigationStore _navigationStore;
+        private readonly ThemeStore _themeStore;
         private readonly MessageBoxStore _messageBoxStore;
         #endregion Services & Stores
 
         public BaseViewModel? CurrentViewModel => _navigationStore.CurrentViewModel;
-
-        private bool _darkModeEnabled;
         public bool DarkModeEnabled
         {
-            get { return _darkModeEnabled; }
-            set { _darkModeEnabled = value; }
+            get { return _themeStore.DarkModeEnabled; }
+            set { _themeStore.DarkModeEnabled = value; RaisePropertyChanged(); }
         }
 
         #region MessageBox Properties
@@ -43,21 +42,20 @@ namespace Personal_Expense_Tracker.ViewModel
         #endregion Commands
 
         public MainViewModel(FormattingService formattingService, DatabaseService databaseService, ConfigurationService configurationService,
-                             NavigationStore navigationStore, MessageBoxStore messageBoxStore)
+                             NavigationStore navigationStore, ThemeStore themeStore, MessageBoxStore messageBoxStore)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            _themeStore = themeStore;
             _messageBoxStore = messageBoxStore;
             _messageBoxStore.MessageBoxUpdated += OnMessageBoxUpdated;
-
-            _darkModeEnabled = configurationService.GetBoolFromConfig("dark_mode");
 
             //Commands
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(databaseService, formattingService, messageBoxStore));
             NavigateYearlyStatisticsCommand = new NavigateCommand<YearlyStatisticsViewModel>(navigationStore, () => new YearlyStatisticsViewModel());
-            NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(navigationStore, () => new SettingsViewModel(messageBoxStore, formattingService, databaseService, configurationService));
+            NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(navigationStore, () => new SettingsViewModel(messageBoxStore, themeStore, formattingService, databaseService, configurationService));
 
-            ToggleDarkModeCommand = new ToggleDarkModeCommand(this, configurationService);
+            ToggleDarkModeCommand = new ToggleDarkModeCommand(this, configurationService, themeStore);
             CloseMessageBoxCommand = new CloseMessageBoxCommand(messageBoxStore);
 
             UnfocusElementUponMouseClickCommand = new UnfocusElementUponMouseClickCommand();

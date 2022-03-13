@@ -22,14 +22,14 @@ namespace Personal_Expense_Tracker.ViewModel
         public ICommand UnfocusElementUponMouseClickCommand { get; }
         #endregion Commands
 
-        public SettingsViewModel(MessageBoxStore messageBoxStore, FormattingService formattingService, DatabaseService databaseService, ConfigurationService configurationService)
+        public SettingsViewModel(MessageBoxStore messageBoxStore, ThemeStore themeStore, FormattingService formattingService, DatabaseService databaseService, ConfigurationService configurationService)
         {
             SettingsNavigationStore = new NavigationStore();
             SettingsNavigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
             //Commands
             NavigateCategorySettingsCommand = new NavigateCommand<CategorySettingsViewModel>(SettingsNavigationStore, () => new CategorySettingsViewModel(messageBoxStore, formattingService, databaseService));
-            NavigatePersonalizeSettingsCommand = new NavigateCommand<PersonalizeSettingsViewModel>(SettingsNavigationStore, () => new PersonalizeSettingsViewModel());
+            NavigatePersonalizeSettingsCommand = new NavigateCommand<PersonalizeSettingsViewModel>(SettingsNavigationStore, () => new PersonalizeSettingsViewModel(configurationService, themeStore, messageBoxStore));
             NavigateAboutSettingsCommand = new NavigateCommand<AboutSettingsViewModel>(SettingsNavigationStore, () => new AboutSettingsViewModel());
 
             UnfocusElementUponMouseClickCommand = new UnfocusElementUponMouseClickCommand();

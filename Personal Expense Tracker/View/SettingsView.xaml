@@ -9,7 +9,7 @@
              xmlns:viewModels="clr-namespace:Personal_Expense_Tracker.ViewModel"
              xmlns:views="clr-namespace:Personal_Expense_Tracker.View"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
+    <Grid x:Name="MainGrid" Background="{DynamicResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
@@ -78,7 +78,7 @@
                 </StackPanel>
             </Grid>
 
-            <Border Grid.Column="1" Width="1" Background="{StaticResource OutlineColourLight30Brush}"/>
+            <Border Grid.Column="1" Width="1" Background="{DynamicResource OutlineColourLight30Brush}"/>
 
             <Grid x:Name="SelectedViewGrid" Grid.Column="2">
                 <UserControl Content="{Binding CurrentSettingsViewModel}">

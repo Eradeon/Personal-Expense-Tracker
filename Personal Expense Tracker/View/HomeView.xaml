@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
+    <Grid x:Name="MainGrid" Background="{DynamicResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
         <Grid x:Name="DeleteExpenseModal"
               Style="{StaticResource ModalCoverStyle}"
               Visibility="{Binding DeleteExpenseModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -472,10 +472,10 @@
                                                                                     </Grid.RenderTransform>
                                                                                     <Border
                                                                                         CornerRadius="4"
-                                                                                        Background="{StaticResource SurfaceColourFullBrush}"
+                                                                                        Background="{DynamicResource SurfaceColourFullBrush}"
                                                                                         Padding="8 0">
                                                                                         <Border.Effect>
-                                                                                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.5"/>
+                                                                                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Color="{DynamicResource ShadowColour}" Opacity="0.5"/>
                                                                                         </Border.Effect>
                                                                                     </Border>
                                                                                     <Grid>
@@ -502,7 +502,7 @@
                                                                                             FontSize="12"
                                                                                             FontWeight="Regular"
                                                                                             FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                                                                                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
                                                                                             Text="2. místo"
                                                                                             VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
@@ -511,7 +511,7 @@
                                                                                             FontSize="20"
                                                                                             FontWeight="Regular"
                                                                                             FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{StaticResource PrimaryColourFullBrush}"
+                                                                                            Foreground="{DynamicResource PrimaryColourFullBrush}"
                                                                                             Text="{Binding MostFrequentedExpenses[1].Item1}"
                                                                                             VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
@@ -520,7 +520,7 @@
                                                                                             FontSize="18"
                                                                                             FontWeight="Regular"
                                                                                             FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{StaticResource PrimaryColourFullBrush}"
+                                                                                            Foreground="{DynamicResource PrimaryColourFullBrush}"
                                                                                             Text="{Binding MostFrequentedExpenses[1].Item2}"
                                                                                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
@@ -530,7 +530,7 @@
                                                                                             FontSize="12"
                                                                                             FontWeight="Regular"
                                                                                             FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{StaticResource OnSurfaceVariantColourFullBrush}"
+                                                                                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
                                                                                             Text="3. místo"
                                                                                             VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
@@ -539,7 +539,7 @@
                                                                                             FontSize="20"
                                                                                             FontWeight="Regular"
                                                                                             FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{StaticResource PrimaryColourFullBrush}"
+                                                                                            Foreground="{DynamicResource PrimaryColourFullBrush}"
                                                                                             Text="{Binding MostFrequentedExpenses[2].Item1}"
                                                                                             VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
@@ -548,7 +548,7 @@
                                                                                             FontSize="18"
                                                                                             FontWeight="Regular"
                                                                                             FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{StaticResource PrimaryColourFullBrush}"
+                                                                                            Foreground="{DynamicResource PrimaryColourFullBrush}"
                                                                                             Text="{Binding MostFrequentedExpenses[2].Item2}"
                                                                                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                                                                     </Grid>
@@ -830,10 +830,10 @@
                                             <RowDefinition Height="24"/>
                                         </Grid.RowDefinitions>
 
-                                        <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource OutlineColourLight30Brush}" BorderThickness="1 0 1 1"/>
-                                        <Border Grid.Column="1" Grid.Row="0" BorderBrush="{StaticResource OutlineColourLight30Brush}" BorderThickness="0 0 1 1"/>
-                                        <Border Grid.Column="2" Grid.Row="0" BorderBrush="{StaticResource OutlineColourLight30Brush}" BorderThickness="0 0 1 1"/>
-                                        <Border Grid.Column="3" Grid.Row="0" BorderBrush="{StaticResource OutlineColourLight30Brush}" BorderThickness="0 0 1 1"/>
+                                        <Border Grid.Column="0" Grid.Row="0" BorderBrush="{DynamicResource OutlineColourLight30Brush}" BorderThickness="1 0 1 1"/>
+                                        <Border Grid.Column="1" Grid.Row="0" BorderBrush="{DynamicResource OutlineColourLight30Brush}" BorderThickness="0 0 1 1"/>
+                                        <Border Grid.Column="2" Grid.Row="0" BorderBrush="{DynamicResource OutlineColourLight30Brush}" BorderThickness="0 0 1 1"/>
+                                        <Border Grid.Column="3" Grid.Row="0" BorderBrush="{DynamicResource OutlineColourLight30Brush}" BorderThickness="0 0 1 1"/>
 
                                         <TextBlock
                                         Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"

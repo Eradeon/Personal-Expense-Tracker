@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Personal_Expense_Tracker.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="{DynamicResource SurfaceColourFullBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="32"/>
             <ColumnDefinition Width="*"/>
@@ -52,7 +52,7 @@
                     Grid.Column="0" Grid.Row="0"
                     Text="Aktuální verze"
                     Style="{StaticResource TextBody2Style}"
-                    Foreground="{StaticResource OnSurfaceColourFullBrush}"/>
+                    Foreground="{DynamicResource OnSurfaceColourFullBrush}"/>
 
                 <TextBlock
                     Grid.Column="1" Grid.Row="0"
@@ -63,7 +63,7 @@
                     Grid.Column="0" Grid.Row="2"
                     Text="Typ verze"
                     Style="{StaticResource TextBody2Style}"
-                    Foreground="{StaticResource OnSurfaceColourFullBrush}"/>
+                    Foreground="{DynamicResource OnSurfaceColourFullBrush}"/>
 
                 <TextBlock
                     Grid.Column="1" Grid.Row="2"

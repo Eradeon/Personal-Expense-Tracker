@@ -28,12 +28,13 @@ namespace Personal_Expense_Tracker
 
             NavigationStore _navigationStore = new NavigationStore();
             MessageBoxStore _messageBoxStore = new MessageBoxStore();
+            ThemeStore _themeStore = new ThemeStore(_configurationService, _messageBoxStore);
             _navigationStore.CurrentViewModel = new HomeViewModel(_databaseService, _formattingService, _messageBoxStore);
 
             Window mainWindow = new MainWindow
             (
                 new MainViewModel(_formattingService, _databaseService, _configurationService,
-                                  _navigationStore, _messageBoxStore)
+                                  _navigationStore, _themeStore, _messageBoxStore)
             );
             mainWindow.Show();
 

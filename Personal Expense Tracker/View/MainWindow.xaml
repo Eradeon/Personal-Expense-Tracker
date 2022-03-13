@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         Title="Sledování výdajů" Height="1000" Width="1890">
-    <Grid x:Name="MainGrid" Background="{StaticResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
+    <Grid x:Name="MainGrid" Background="{DynamicResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
         <Behaviors:Interaction.Triggers>
             <Behaviors:EventTrigger EventName="MouseDown">
                 <!--Making it possible to deselect TextBox when empty space is clicked-->
@@ -79,19 +79,19 @@
                 x:Name="MessageContainer"
                 Grid.Row="1"
                 BorderThickness="0 1 0 0"
-                BorderBrush="{StaticResource OutlineColourLight30Brush}"
+                BorderBrush="{DynamicResource OutlineColourLight30Brush}"
                 HorizontalAlignment="Stretch">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding MessageBoxType}" Value="Information">
-                                <Setter Property="Background" Value="{StaticResource InfoContainerColourFullBrush}"/>
+                                <Setter Property="Background" Value="{DynamicResource InfoContainerColourFullBrush}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding MessageBoxType}" Value="Warning">
-                                <Setter Property="Background" Value="{StaticResource WarningContainerColourFullBrush}"/>
+                                <Setter Property="Background" Value="{DynamicResource WarningContainerColourFullBrush}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding MessageBoxType}" Value="Error">
-                                <Setter Property="Background" Value="{StaticResource ErrorContainerColourFullBrush}"/>
+                                <Setter Property="Background" Value="{DynamicResource ErrorContainerColourFullBrush}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -125,13 +125,13 @@
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding MessageBoxType}" Value="Information">
-                                        <Setter Property="Foreground" Value="{StaticResource OnInfoContainerColourFullBrush}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource OnInfoContainerColourFullBrush}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding MessageBoxType}" Value="Warning">
-                                        <Setter Property="Foreground" Value="{StaticResource OnWarningContainerColourFullBrush}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource OnWarningContainerColourFullBrush}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding MessageBoxType}" Value="Error">
-                                        <Setter Property="Foreground" Value="{StaticResource OnErrorContainerColourFullBrush}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource OnErrorContainerColourFullBrush}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -162,7 +162,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="NavigationMenuGrid" Grid.Column="0" Background="{StaticResource SurfaceColourFullBrush}">
+            <Grid x:Name="NavigationMenuGrid" Grid.Column="0" Background="{DynamicResource SurfaceColourFullBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="16"/>
                     <RowDefinition Height="*"/>
@@ -174,7 +174,7 @@
                 <Border
                     Grid.RowSpan="5"
                     BorderThickness="0 0 1 0"
-                    BorderBrush="{StaticResource OutlineColourLight30Brush}"/>
+                    BorderBrush="{DynamicResource OutlineColourLight30Brush}"/>
 
                 <StackPanel x:Name="NavigationButtonsWrapper" Grid.Row="1" Orientation="Vertical">
                     <RadioButton

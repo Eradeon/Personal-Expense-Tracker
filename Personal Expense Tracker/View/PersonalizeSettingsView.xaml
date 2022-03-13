@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Personal_Expense_Tracker.View"
              mc:Ignorable="d" 
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="MainGrid" Focusable="True" Background="{DynamicResource SurfaceColourFullBrush}" FocusVisualStyle="{x:Null}">
         <ScrollViewer Style="{StaticResource ScrollViewerStyle}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -21,7 +22,131 @@
                 </Grid.RowDefinitions>
 
                 <Grid x:Name="PersonalizeSettingsWrapper" Grid.Column="1" Grid.Row="1">
-                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="24"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="24"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="46"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Text="Vzhled aplikace"
+                        Style="{StaticResource TextHeadline5Style}"/>
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Text="Zadávejte pouze platné hexadecimální kódy barev s předponou # (např. #19696a)."
+                        Style="{StaticResource TextBody2Style}"/>
+
+                    <TextBlock
+                        Grid.Row="4"
+                        Text="Světlý motiv"
+                        Style="{StaticResource TextHeadline6Style}"/>
+
+                    <Grid x:Name="LightThemeGrid" Grid.Row="6">
+                        <ItemsControl ItemsSource="{Binding LightThemeColours}" Focusable="False" FocusVisualStyle="{x:Null}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2" Width="580" HorizontalAlignment="Left"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="StackPanel">
+                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 12">
+                                        <Border Style="{StaticResource ColourPreviewBorderStyle}" Background="{Binding ColorBrush}"/>
+                                        <TextBox
+                                            Style="{StaticResource TextBoxStyle}"
+                                            Tag="{Binding DisplayName}"
+                                            Width="200"
+                                            Text="{Binding Colour, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                                            HorizontalAlignment="Left">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding Key="Return" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}},
+                                                                                   Path=DataContext.UpdateLightThemeColoursCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </TextBox.InputBindings>
+                                        </TextBox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Button
+                        x:Name="UpdateLightThemeButton"
+                        Grid.Row="8"
+                        Content="Uložit světlý motiv"
+                        Command="{Binding UpdateLightThemeColoursCommand}"
+                        Style="{StaticResource FilledButtonStyle}"
+                        Tag="&#xe5ca;"
+                        FontFamily="{StaticResource MaterialIconsFilled}"
+                        VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClickCommand}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </Button>
+
+                    <TextBlock
+                        Grid.Row="10"
+                        Text="Tmavý motiv"
+                        Style="{StaticResource TextHeadline6Style}"/>
+
+                    <Grid x:Name="DarkThemeGrid" Grid.Row="12">
+                        <ItemsControl ItemsSource="{Binding DarkThemeColours}" Focusable="False" FocusVisualStyle="{x:Null}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2" Width="580" HorizontalAlignment="Left"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="StackPanel">
+                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 12">
+                                        <Border Style="{StaticResource ColourPreviewBorderStyle}" Background="{Binding ColorBrush}"/>
+                                        <TextBox
+                                            Style="{StaticResource TextBoxStyle}"
+                                            Tag="{Binding DisplayName}"
+                                            Width="200"
+                                            Text="{Binding Colour, UpdateSourceTrigger=PropertyChanged}"
+                                            HorizontalAlignment="Left">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding Key="Return" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}},
+                                                                                   Path=DataContext.UpdateDarkThemeColoursCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </TextBox.InputBindings>
+                                        </TextBox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <Button
+                        x:Name="UpdateDarkThemeButton"
+                        Grid.Row="14"
+                        Content="Uložit tmavý motiv"
+                        Command="{Binding UpdateDarkThemeColoursCommand}"
+                        Style="{StaticResource FilledButtonStyle}"
+                        Tag="&#xe5ca;"
+                        FontFamily="{StaticResource MaterialIconsFilled}"
+                        VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClickCommand}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </Button>
                 </Grid>
             </Grid>
         </ScrollViewer>

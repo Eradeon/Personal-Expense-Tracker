@@ -12,7 +12,7 @@
                         x:Name="Border"
                         CornerRadius="4"
                         Height="24"
-                        Background="{StaticResource OnSurfaceVariantColourFullBrush}"
+                        Background="{DynamicResource OnSurfaceVariantColourFullBrush}"
                         Padding="8 0"
                         RenderTransformOrigin="0.5, 0.5">
                         <Border.RenderTransform>
@@ -24,7 +24,7 @@
                             x:Name="Content"
                             FontSize="12"
                             FontFamily="{StaticResource Roboto}"
-                            Foreground="{StaticResource SurfaceVariantColourFullBrush}"
+                            Foreground="{DynamicResource SurfaceVariantColourFullBrush}"
                             Text="{TemplateBinding Content}"
                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>
@@ -97,10 +97,10 @@
 
                         <Border
                             CornerRadius="4"
-                            Background="{StaticResource SurfaceColourFullBrush}"
+                            Background="{DynamicResource SurfaceColourFullBrush}"
                             Padding="8 0">
                             <Border.Effect>
-                                <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.5"/>
+                                <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Color="{DynamicResource ShadowColour}" Opacity="0.5"/>
                             </Border.Effect>
                         </Border>
 
@@ -122,13 +122,13 @@
                                 Grid.ColumnSpan="3" Grid.Row="0"
                                 CornerRadius="4 4 0 0"
                                 BorderThickness="0 0 0 1"
-                                BorderBrush="{StaticResource OutlineColourLight30Brush}"
-                                Background="{StaticResource PrimaryColourPressedBrush}">
+                                BorderBrush="{DynamicResource OutlineColourLight30Brush}"
+                                Background="{DynamicResource PrimaryColourPressedBrush}">
                                 <TextBlock
                                     x:Name="Name"
                                     FontSize="18"
                                     FontFamily="{StaticResource Roboto}"
-                                    Foreground="{StaticResource OnSurfaceColourFullBrush}"
+                                    Foreground="{DynamicResource OnSurfaceColourFullBrush}"
                                     VerticalAlignment="Center" HorizontalAlignment="Center"
                                     Margin="0 6">
                                     <ContentPresenter Content="{TemplateBinding Uid}"/>
@@ -140,7 +140,7 @@
                                     x:Name="AmountTag"
                                     FontSize="14"
                                     FontFamily="{StaticResource Roboto}"
-                                    Foreground="{StaticResource OnSurfaceColourFullBrush}"
+                                    Foreground="{DynamicResource OnSurfaceColourFullBrush}"
                                     Text="Částka celkem:"
                                     VerticalAlignment="Center" HorizontalAlignment="Left"
                                     Margin="0 0 6 0">
@@ -150,7 +150,7 @@
                                     x:Name="Amount"
                                     FontSize="14"
                                     FontFamily="{StaticResource Roboto}"
-                                    Foreground="{StaticResource OnSurfaceColourFullBrush}"
+                                    Foreground="{DynamicResource OnSurfaceColourFullBrush}"
                                     VerticalAlignment="Center" HorizontalAlignment="Left">
                                     <ContentPresenter Content="{TemplateBinding Content}"/>
                                 </TextBlock>
@@ -161,7 +161,7 @@
                                     x:Name="CountTag"
                                     FontSize="14"
                                     FontFamily="{StaticResource Roboto}"
-                                    Foreground="{StaticResource OnSurfaceColourFullBrush}"
+                                    Foreground="{DynamicResource OnSurfaceColourFullBrush}"
                                     Text="Počet položek:"
                                     VerticalAlignment="Center" HorizontalAlignment="Left"
                                     Margin="0 0 6 0">
@@ -171,7 +171,7 @@
                                     x:Name="Count"
                                     FontSize="14"
                                     FontFamily="{StaticResource Roboto}"
-                                    Foreground="{StaticResource OnSurfaceColourFullBrush}"
+                                    Foreground="{DynamicResource OnSurfaceColourFullBrush}"
                                     VerticalAlignment="Center" HorizontalAlignment="Left">
                                     <ContentPresenter Content="{TemplateBinding Tag}"/>
                                 </TextBlock>

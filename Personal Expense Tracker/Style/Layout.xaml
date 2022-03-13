@@ -5,7 +5,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Panel.ZIndex" Value="10"/>
-        <Setter Property="Background" Value="{StaticResource ShadowColourBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource ShadowColourBrush}"/>
     </Style>
 
     <Style x:Key="ModalWrapperStyle" TargetType="Border">
@@ -13,10 +13,10 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="CornerRadius" Value="28"/>
-        <Setter Property="Background" Value="{StaticResource SurfaceColourFullBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SurfaceColourFullBrush}"/>
         <Setter Property="Effect">
             <Setter.Value>
-                <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.5"/>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="270" Color="{DynamicResource ShadowColour}" Opacity="0.5"/>
             </Setter.Value>
         </Setter>
     </Style>
@@ -26,10 +26,10 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="CornerRadius" Value="28"/>
-        <Setter Property="Background" Value="{StaticResource SurfaceVariantColourFullBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SurfaceVariantColourFullBrush}"/>
         <Setter Property="Effect">
             <Setter.Value>
-                <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.5"/>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="270" Color="{DynamicResource ShadowColour}" Opacity="0.5"/>
             </Setter.Value>
         </Setter>
     </Style>
@@ -50,9 +50,9 @@
         <Setter Property="Padding" Value="24 24"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="{StaticResource OutlineColourLight30Brush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource OutlineColourLight30Brush}"/>
         <Setter Property="CornerRadius" Value="14"/>
-        <Setter Property="Background" Value="{StaticResource SurfaceColourFullBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SurfaceColourFullBrush}"/>
     </Style>
 
     <Style x:Key="WindowSurfaceStyle" TargetType="Border">
@@ -60,19 +60,19 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="CornerRadius" Value="6"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="{StaticResource OutlineColourLight30Brush}"/>
-        <Setter Property="Background" Value="{StaticResource SurfaceColourFullBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource OutlineColourLight30Brush}"/>
+        <Setter Property="Background" Value="{DynamicResource SurfaceColourFullBrush}"/>
     </Style>
 
     <Style x:Key="StatisticsCardStyle" TargetType="Border">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="CornerRadius" Value="4"/>
-        <Setter Property="Background" Value="{StaticResource SurfaceColourFullBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SurfaceColourDimmedBrush}"/>
         <Setter Property="MinWidth" Value="390"/>
         <Setter Property="Effect">
             <Setter.Value>
-                <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Color="{StaticResource ShadowColour}" Opacity="0.3"/>
+                <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Color="{DynamicResource ShadowColour}" Opacity="0.4"/>
             </Setter.Value>
         </Setter>
     </Style>
@@ -83,13 +83,13 @@
         <Setter Property="Height" Value="60"/>
         <Setter Property="Width" Value="60"/>
         <Setter Property="CornerRadius" Value="30"/>
-        <Setter Property="Background" Value="{StaticResource PrimaryColourPressedBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryColourPressedBrush}"/>
     </Style>
 
     <Style x:Key="GraphBarStyle" TargetType="Border">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="Background" Value="{StaticResource PrimaryColourFullBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryColourFullBrush}"/>
         <Setter Property="ToolTipService.Placement" Value="Mouse"/>
         <Setter Property="ToolTipService.VerticalOffset" Value="0"/>
         <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
@@ -97,7 +97,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource PrimaryColourAlternatePressedBrush}"/>
+                <Setter Property="Background" Value="{DynamicResource PrimaryColourAlternatePressedBrush}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -123,7 +123,7 @@
                         <Border
                             x:Name="Corner"
                             Grid.Column="1" Grid.Row="1"
-                            Background="{StaticResource SurfaceVariantColourFullBrush}"/>
+                            Background="{DynamicResource SurfaceVariantColourFullBrush}"/>
 
                         <ScrollContentPresenter
                             x:Name="PART_ScrollContentPresenter"
@@ -152,6 +152,19 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="ColourPreviewBorderStyle" TargetType="Border">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="CornerRadius" Value="16"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource OnSurfaceColourFullBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="0 0 12 0"/>
     </Style>
 
 </ResourceDictionary>

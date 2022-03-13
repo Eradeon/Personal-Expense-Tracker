@@ -5,7 +5,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FontSize" Value="24"/>
-        <Setter Property="Foreground" Value="{StaticResource OnSurfaceColourFullBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource OnSurfaceColourFullBrush}"/>
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -15,7 +15,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Foreground" Value="{StaticResource OnSurfaceColourFullBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource OnSurfaceColourFullBrush}"/>
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -25,7 +25,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Foreground" Value="{StaticResource OnSurfaceColourFullBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource OnSurfaceColourFullBrush}"/>
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -35,7 +35,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Foreground" Value="{StaticResource OnSurfaceVariantColourFullBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource OnSurfaceVariantColourFullBrush}"/>
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -46,7 +46,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="Foreground" Value="{StaticResource PrimaryColourFullBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColourFullBrush}"/>
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -56,7 +56,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Foreground" Value="{StaticResource PrimaryColourFullBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColourFullBrush}"/>
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -71,7 +71,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Foreground" Value="{StaticResource OnSurfaceVariantColourFullBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource OnSurfaceVariantColourFullBrush}"/>
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -81,7 +81,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FontSize" Value="28"/>
-        <Setter Property="Foreground" Value="{StaticResource PrimaryColourFullBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColourFullBrush}"/>
         <Setter Property="FontFamily" Value="{StaticResource MaterialIconsOutlined}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -99,14 +99,14 @@
                         <TextBlock
                             FontSize="12"
                             LineHeight="16"
-                            Foreground="{StaticResource OutlineColourFullBrush}"
+                            Foreground="{DynamicResource OutlineColourFullBrush}"
                             FontFamily="{StaticResource Roboto}"
                             Text="{TemplateBinding Tag}"
                             Padding="14 5 5 0"/>
                         <TextBlock
                             FontSize="12"
                             LineHeight="16"
-                            Foreground="{StaticResource OutlineColourFullBrush}"
+                            Foreground="{DynamicResource OutlineColourFullBrush}"
                             FontFamily="{StaticResource Roboto}"
                             Text="{TemplateBinding Content}"
                             Padding="0 5 0 0"/>

@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="PrimaryColourFullBrush" Color="{DynamicResource PrimaryColour}"/>
+    <SolidColorBrush x:Key="PrimaryColourHoverBrush" Color="{DynamicResource PrimaryColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="PrimaryColourPressedBrush" Color="{DynamicResource PrimaryColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="PrimaryColourAlternatePressedBrush" Color="{DynamicResource PrimaryColour}" Opacity="0.90"/>
+
+    <SolidColorBrush x:Key="OnPrimaryColourFullBrush" Color="{DynamicResource OnPrimaryColour}"/>
+    <SolidColorBrush x:Key="OnPrimaryColourHoverBrush" Color="{DynamicResource OnPrimaryColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="OnPrimaryColourPressedBrush" Color="{DynamicResource OnPrimaryColour}" Opacity="0.12"/>
+
+    <SolidColorBrush x:Key="SurfaceColourFullBrush" Color="{DynamicResource SurfaceColour}"/>
+    <SolidColorBrush x:Key="SurfaceColourHoverBrush" Color="{DynamicResource SurfaceColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="SurfaceColourDraggingBrush" Color="{DynamicResource SurfaceColour}" Opacity="0.16"/>
+    <SolidColorBrush x:Key="SurfaceColourDimmedBrush" Color="{DynamicResource SurfaceColour}" Opacity="0.90"/>
+
+    <SolidColorBrush x:Key="OnSurfaceColourFullBrush" Color="{DynamicResource OnSurfaceColour}"/>
+    <SolidColorBrush x:Key="OnSurfaceColourHoverBrush" Color="{DynamicResource OnSurfaceColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="OnSurfaceColourPressedBrush" Color="{DynamicResource OnSurfaceColour}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="OnSurfaceColourDisabledBrush" Color="{DynamicResource OnSurfaceColour}" Opacity="0.38"/>
+    <SolidColorBrush x:Key="OnSurfaceColourInactiveBrush" Color="{DynamicResource OnSurfaceColour}" Opacity="0.80"/>
+
+    <SolidColorBrush x:Key="SurfaceVariantColourFullBrush" Color="{DynamicResource SurfaceVariantColour}"/>
+
+    <SolidColorBrush x:Key="OnSurfaceVariantColourFullBrush" Color="{DynamicResource OnSurfaceVariantColour}"/>
+    <SolidColorBrush x:Key="OnSurfaceVariantColourSeperatorBrush" Color="{DynamicResource OnSurfaceVariantColour}" Opacity="0.50"/>
+
+    <SolidColorBrush x:Key="OutlineColourFullBrush" Color="{DynamicResource OutlineColour}"/>
+    <SolidColorBrush x:Key="OutlineColourLight30Brush" Color="{DynamicResource OutlineColour}" Opacity="0.30"/>
+    <SolidColorBrush x:Key="OutlineColourLight75Brush" Color="{DynamicResource OutlineColour}" Opacity="0.75"/>
+
+    <SolidColorBrush x:Key="ShadowColourBrush" Color="{DynamicResource ShadowColour}" Opacity="0.50"/>
+
+    <SolidColorBrush x:Key="ErrorColourFullBrush" Color="{DynamicResource ErrorColour}"/>
+    <SolidColorBrush x:Key="ErrorColourHoverBrush" Color="{DynamicResource ErrorColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="ErrorColourPressedBrush" Color="{DynamicResource ErrorColour}" Opacity="0.12"/>
+
+    <SolidColorBrush x:Key="OnErrorColourFullBrush" Color="{DynamicResource OnErrorColour}"/>
+    <SolidColorBrush x:Key="OnErrorColourHoverBrush" Color="{DynamicResource OnErrorColour}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="OnErrorColourPressedBrush" Color="{DynamicResource OnErrorColour}" Opacity="0.12"/>
+
+    <SolidColorBrush x:Key="InfoContainerColourFullBrush" Color="{DynamicResource InfoContainerColour}"/>
+
+    <SolidColorBrush x:Key="OnInfoContainerColourFullBrush" Color="{DynamicResource OnInfoContainerColour}"/>
+
+    <SolidColorBrush x:Key="WarningContainerColourFullBrush" Color="{DynamicResource WarningContainerColour}"/>
+
+    <SolidColorBrush x:Key="OnWarningContainerColourFullBrush" Color="{DynamicResource OnWarningContainerColour}"/>
+
+    <SolidColorBrush x:Key="ErrorContainerColourFullBrush" Color="{DynamicResource ErrorContainerColour}"/>
+
+    <SolidColorBrush x:Key="OnErrorContainerColourFullBrush" Color="{DynamicResource OnErrorContainerColour}"/>
+
+</ResourceDictionary>

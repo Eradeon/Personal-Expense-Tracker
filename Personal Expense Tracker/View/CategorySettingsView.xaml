@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid x:Name="MainGrid" Focusable="True" Background="{StaticResource SurfaceColourFullBrush}" FocusVisualStyle="{x:Null}">
+    <Grid x:Name="MainGrid" Focusable="True" Background="{DynamicResource SurfaceColourFullBrush}" FocusVisualStyle="{x:Null}">
         <ScrollViewer Style="{StaticResource ScrollViewerStyle}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -285,7 +285,7 @@
 
                         <TextBlock
                             Grid.Row="0"
-                            Text="Přesunout data z kategorie:"
+                            Text="Přesunout data z kategorie"
                             Style="{StaticResource TextSubtitle1Style}"/>
 
                         <ComboBox
@@ -309,7 +309,7 @@
 
                         <TextBlock
                             Grid.Row="4"
-                            Text="Do kategorie:"
+                            Text="Do kategorie"
                             Style="{StaticResource TextSubtitle1Style}"/>
 
                         <ComboBox
