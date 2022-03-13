@@ -31,19 +31,7 @@ namespace Personal_Expense_Tracker.ViewModel
         public string Colour
         {
             get { return _themeColour.Colour; }
-            set
-            {
-                _themeColour.Colour = value;
-                RaisePropertyChanged();
-
-                if (IsHexColourCode(value))
-                {
-                    ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(value));
-                    IsColourValid = true;
-                }
-                else
-                    IsColourValid = false;
-            }
+            set { _themeColour.Colour = value; RaisePropertyChanged(); }
         }
 
         public SolidColorBrush ColorBrush
@@ -58,7 +46,7 @@ namespace Personal_Expense_Tracker.ViewModel
             set { _themeColour.IsColourValid = value; RaisePropertyChanged(); }
         }
 
-        //Test
+        #region Colour Validation
         public string Error { get; }
 
         public string this[string propertyName]
@@ -75,15 +63,22 @@ namespace Personal_Expense_Tracker.ViewModel
             {
                 case "Colour":
                     if (!IsHexColourCode(Colour))
+                    {
+                        IsColourValid = false;
                         return "Chyba: Neplatný hexadecimální kód.";
+                    }
                     else
+                    {
+                        ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Colour));
+                        IsColourValid = true;
                         return string.Empty;
+                    }
 
                 default:
                     return string.Empty;
             }
         }
-        //Test
+        #endregion Colour Validation
 
         public ThemeColourViewModel(ThemeColour themeColour)
         {

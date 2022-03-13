@@ -70,8 +70,20 @@
                             </MultiTrigger.ExitActions>
                         </MultiTrigger>
 
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsFocused" Value="True"/>
+                                <Condition Property="Validation.HasError" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource PrimaryColourFullBrush}"/>
+                            </MultiTrigger.Setters>
+                            <MultiTrigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="HasError"/>
+                            </MultiTrigger.EnterActions>
+                        </MultiTrigger>
+
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource PrimaryColourFullBrush}"/>
                             <Setter Property="Foreground" TargetName="Tag" Value="{DynamicResource PrimaryColourFullBrush}"/>
 
                             <Trigger.EnterActions>
@@ -93,7 +105,6 @@
                                             BeginTime="00:00:00"/>
                                     </Storyboard>
                                 </BeginStoryboard>
-
                                 <StopStoryboard BeginStoryboardName="NotFocusedEmpty"/>
                                 <BeginStoryboard x:Name="FocusedEmpty">
                                     <Storyboard>
@@ -132,6 +143,30 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
+                        </Trigger>
+
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ErrorColourFullBrush}"/>
+                            <Setter Property="Foreground" TargetName="Tag" Value="{DynamicResource ErrorColourFullBrush}"/>
+
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="HasError">
+                                    <Storyboard>
+                                        <ThicknessAnimation
+                                            Storyboard.TargetProperty="BorderThickness"
+                                            Storyboard.TargetName="Border"
+                                            To="2"
+                                            Duration="00:00:00"
+                                            BeginTime="00:00:00"/>
+                                        <ThicknessAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="Padding"
+                                            To="10 14 10 0"
+                                            Duration="00:00:00"
+                                            BeginTime="00:00:00"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

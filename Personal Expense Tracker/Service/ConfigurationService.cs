@@ -43,7 +43,7 @@ namespace Personal_Expense_Tracker.Service
             ConfigurationManager.RefreshSection("appSettings");
         }
 
-        public void UpdateAppThemes(ThemeType themeType, string colourKey, string? colourName, string? colourDisplayName, string? colourCode)
+        public void UpdateAppThemeColour(ThemeType themeType, string colourKey, string? colourName, string? colourDisplayName, string? colourCode)
         {
             string themeName = string.Empty;
 
@@ -65,7 +65,7 @@ namespace Personal_Expense_Tracker.Service
                 section.ThemeColours[colourKey].ColourCode = colourCode;
 
             configuration.Save();
-            ConfigurationManager.RefreshSection("appThemes/lightTheme");
+            ConfigurationManager.RefreshSection("appThemes/" + themeName);
         }
     }
 }

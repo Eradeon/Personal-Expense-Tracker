@@ -25,12 +25,11 @@ namespace Personal_Expense_Tracker.Command.Settings.PersonalizeSettings
 
         public override void Execute(object? parameter)
         {
-            //Test
             foreach (var colour in _colours)
             {
                 if (!colour.IsColourValid)
                 {
-                    _messageBoxStore.ShowMessageBox(MessageType.Warning, "Jedno, či více polí neobsahuje platný hexadecimální kód.");
+                    _messageBoxStore.ShowMessageBox(MessageType.Warning, "Jedno nebo více polí neobsahuje platný hexadecimální kód.");
                     return;
                 }
             }
@@ -39,12 +38,16 @@ namespace Personal_Expense_Tracker.Command.Settings.PersonalizeSettings
 
             foreach (var colour in _colours)
             {
-                _configurationService.UpdateAppThemes(_themeType, colour.Key, null, null, colour.Colour);
+                _configurationService.UpdateAppThemeColour(_themeType, colour.Key, null, null, colour.Colour);
                 _themeStore.AddColourToTheme(_themeType, colour.Name, colour.Colour);
             }
 
+            if (_themeStore.DarkModeEnabled && _themeType == ThemeType.Dark)
+                _themeStore.SwitchToTheme(_themeType);
+            else if (!_themeStore.DarkModeEnabled && _themeType == ThemeType.Light)
+                _themeStore.SwitchToTheme(_themeType);
+
             _messageBoxStore.ShowMessageBox(MessageType.Information, "Barevné schéma bylo úspěšně aktualizováno.");
-            //Test
         }
     }
 }

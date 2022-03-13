@@ -71,6 +71,7 @@
                                             Tag="{Binding DisplayName}"
                                             Width="200"
                                             Text="{Binding Colour, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                                            Validation.ErrorTemplate="{x:Null}"
                                             HorizontalAlignment="Left">
                                             <TextBox.InputBindings>
                                                 <KeyBinding Key="Return" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}},
@@ -119,7 +120,8 @@
                                             Style="{StaticResource TextBoxStyle}"
                                             Tag="{Binding DisplayName}"
                                             Width="200"
-                                            Text="{Binding Colour, UpdateSourceTrigger=PropertyChanged}"
+                                            Text="{Binding Colour, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                                            Validation.ErrorTemplate="{x:Null}"
                                             HorizontalAlignment="Left">
                                             <TextBox.InputBindings>
                                                 <KeyBinding Key="Return" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}},
