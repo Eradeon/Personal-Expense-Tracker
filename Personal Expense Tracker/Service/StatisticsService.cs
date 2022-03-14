@@ -1,123 +1,122 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using Personal_Expense_Tracker.Model;
 using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Service
 {
     internal class StatisticsService
     {
-        private readonly HomeViewModel _homeViewModel;
+        private readonly BaseViewModel _viewModel;
 
-        public StatisticsService(HomeViewModel homeViewModel)
+        public StatisticsService(BaseViewModel viewModel)
         {
-            _homeViewModel = homeViewModel;
+            _viewModel = viewModel;
         }
 
-        public void CalculateStatistics()
+        #region Home Statistics
+        public void CalculateHomeStatistics()
         {
-            if (_homeViewModel.ExpenseCollection != null)
-            {
-                GetMostFrequentedExpense();
+            HomeViewModel homeViewModel = (HomeViewModel)_viewModel;
 
-                if (_homeViewModel.ExpenseCollection.Count > 0)
+            if (homeViewModel.ExpenseCollection != null)
+            {
+                if (homeViewModel.ExpenseCollection.Count > 0)
                 {
-                    GetSumAndMeanExpense();
-                    GetMinMaxExpense();
+                    GetCardMostFrequentedExpense(homeViewModel, homeViewModel.StatisticsCardsCollection[0]);
+                    GetCardSumAndMeanExpense(homeViewModel, homeViewModel.StatisticsCardsCollection[1], homeViewModel.StatisticsCardsCollection[4]);
+                    GetCardMinExpense(homeViewModel, homeViewModel.StatisticsCardsCollection[2]);
+                    GetCardMaxExpense(homeViewModel, homeViewModel.StatisticsCardsCollection[3]);
                 }
                 else
                 {
-                    _homeViewModel.SumExpense = new Tuple<string, int>("0",0);
-                    _homeViewModel.MeanExpense = new Tuple<string, string>("0","N/A");
-                    _homeViewModel.MinExpense = new Tuple<string, string>("0", "N/A");
-                    _homeViewModel.MaxExpense = new Tuple<string, string>("0", "N/A");
+                    for (int i = 0; i < homeViewModel.StatisticsCardsCollection.Count; i++)
+                    {
+                        homeViewModel.StatisticsCardsCollection[i].Value = "N/A";
+                        homeViewModel.StatisticsCardsCollection[i].SupportText = "N/A";
+                    }
                 }
 
-                GetGraphData();
+                GetBarGraphData(homeViewModel);
             }
         }
 
-        private void GetMostFrequentedExpense()
+        private void GetCardMostFrequentedExpense(HomeViewModel homeViewModel, StatisticCardViewModel mostFrequentedExpenseCard)
         {
-            List<Tuple<string, int>> result = new List<Tuple<string, int>>();
-
-            var query = _homeViewModel.ExpenseCollection
+            var query = homeViewModel.ExpenseCollection
                 .GroupBy(s => s.Name)
                 .OrderByDescending(g => g.Count())
-                .Select(g => new { g.Key, Count = g.Count() })
-                .Take(3)
-                .AsQueryable();
+                .Select(g => new { Name = g.Key, Count = g.Count() })
+                .First();
 
-            int count = query.Count();
-
-            for (int i = 0; i < 3; i++)
-            {
-                if (i < count)
-                    result.Add(new Tuple<string, int>(query.ElementAt(i).Key, query.ElementAt(i).Count));
-                else
-                    result.Add(new Tuple<string, int>("N/A",0));
-            }
-
-            _homeViewModel.MostFrequentedExpenses = result;
+            mostFrequentedExpenseCard.Value = query.Name;
+            mostFrequentedExpenseCard.SupportText = "Položek: " + query.Count;
         }
 
-        private void GetSumAndMeanExpense()
+        private void GetCardSumAndMeanExpense(HomeViewModel homeViewModel, StatisticCardViewModel sumExpenseCard, StatisticCardViewModel meanExpenseCard)
         {
-            double sum = _homeViewModel.ExpenseCollection.Sum(x => x.Amount);
+            double sum = homeViewModel.ExpenseCollection.Sum(x => x.Amount);
             int days;
 
-            if (_homeViewModel.GroupByMonth)
-                days = DateTime.DaysInMonth(_homeViewModel.SelectedYear, _homeViewModel.SelectedMonth + 1);
+            if (homeViewModel.GroupByMonth)
+                days = DateTime.DaysInMonth(homeViewModel.SelectedYear, homeViewModel.SelectedMonth + 1);
             else
-                days = DateTime.IsLeapYear(_homeViewModel.SelectedYear) ? 366 : 365;
+                days = DateTime.IsLeapYear(homeViewModel.SelectedYear) ? 366 : 365;
 
-            _homeViewModel.SumExpense = new Tuple<string, int>
-            (
-                sum.ToString("C2"),
-                _homeViewModel.ExpenseCollection.Count
-            );
+            //Sum
+            sumExpenseCard.Value = sum.ToString("C2");
+            sumExpenseCard.SupportText = "Položek: " + homeViewModel.ExpenseCollection.Count;
 
-            _homeViewModel.MeanExpense = new Tuple<string, string>
-            (
-                (sum / days).ToString("C2"),
-                string.Concat(1, "/", days, " dnů")
-            );
+            //Mean
+            meanExpenseCard.Value = (sum / days).ToString("C2");
+            meanExpenseCard.SupportText = "Za 1 z " + days + " dnů";
         }
 
-        private void GetMinMaxExpense()
+        private void GetCardMinExpense(HomeViewModel homeViewModel, StatisticCardViewModel minExpenseCard)
         {
-            double min = _homeViewModel.ExpenseCollection.Min(x => x.Amount);
-            double max = _homeViewModel.ExpenseCollection.Max(x => x.Amount);
+            double min = homeViewModel.ExpenseCollection.Min(x => x.Amount);
 
-            _homeViewModel.MinExpense = _homeViewModel.ExpenseCollection
+            var query = homeViewModel.ExpenseCollection
                 .Where(x => x.Amount == min)
-                .Select(g => new Tuple<string, string>(g.Amount.ToString("C2"), g.Name))
+                .Select(g => new { Name = g.Name, Amount = g.Amount })
                 .First();
 
-            _homeViewModel.MaxExpense = _homeViewModel.ExpenseCollection
-                .Where(x => x.Amount == max)
-                .Select(g => new Tuple<string, string>(g.Amount.ToString("C2"), g.Name))
-                .First();
+            minExpenseCard.Value = query.Amount.ToString("C2");
+            minExpenseCard.SupportText = query.Name;
         }
 
-        private void GetGraphData()
+        private void GetCardMaxExpense(HomeViewModel homeViewModel, StatisticCardViewModel maxExpenseCard)
+        {
+            double max = homeViewModel.ExpenseCollection.Max(x => x.Amount);
+
+            var query = homeViewModel.ExpenseCollection
+                .Where(x => x.Amount == max)
+                .Select(g => new { Name = g.Name, Amount = g.Amount })
+                .First();
+
+            maxExpenseCard.Value = query.Amount.ToString("C2");
+            maxExpenseCard.SupportText = query.Name;
+        }
+
+        private void GetBarGraphData(HomeViewModel homeViewModel)
         {
             //Graph Data
             List<Tuple<string, string, int, GridLength, GridLength>> result = new List<Tuple<string, string, int, GridLength, GridLength>>();
 
             int baseAxis = 0;
 
-            if (_homeViewModel.SumExpense != null && _homeViewModel.SumExpense.Item1 != "0")
-            {
-                var query = _homeViewModel.ExpenseCollection
-                    .GroupBy(s => s.Name)
-                    .Select(g => new { Name = g.Key, Amount = g.Sum(x => x.Amount), Count = g.Count() })
-                    .OrderByDescending(x => x.Amount)
-                    .AsEnumerable();
+            var query = homeViewModel.ExpenseCollection
+                .GroupBy(s => s.Name)
+                .Select(g => new { Name = g.Key, Amount = g.Sum(x => x.Amount), Count = g.Count() })
+                .OrderByDescending(x => x.Amount)
+                .AsEnumerable();
 
-                if (query.Count() > 0)
-                    baseAxis = RoundToNearest(query.First().Amount) / 4;
+            if (query.Count() > 0)
+            {
+                baseAxis = RoundToNearest(query.First().Amount) / 4;
 
                 foreach (var item in query)
                 {
@@ -129,15 +128,15 @@ namespace Personal_Expense_Tracker.Service
                         item.Amount.ToString("C2"),
                         item.Count,
                         new GridLength(pct, GridUnitType.Star),
-                        new GridLength((100-pct), GridUnitType.Star)
+                        new GridLength((100 - pct), GridUnitType.Star)
                     ));
                 }
             }
 
-            _homeViewModel.GraphData = result;
+            homeViewModel.GraphData = result;
 
             //Axis labels
-            _homeViewModel.XAxisLabels = new Tuple<int, int, int, int, int>
+            homeViewModel.XAxisLabels = new Tuple<int, int, int, int, int>
             (
                 0,
                 baseAxis,
@@ -146,6 +145,7 @@ namespace Personal_Expense_Tracker.Service
                 (baseAxis * 4)
             );
         }
+        #endregion Home Statistics
 
         private int RoundToNearest(double number)
         {

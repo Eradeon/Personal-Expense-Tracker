@@ -13,7 +13,6 @@
     <SolidColorBrush x:Key="SurfaceColourFullBrush" Color="{DynamicResource SurfaceColour}"/>
     <SolidColorBrush x:Key="SurfaceColourHoverBrush" Color="{DynamicResource SurfaceColour}" Opacity="0.08"/>
     <SolidColorBrush x:Key="SurfaceColourDraggingBrush" Color="{DynamicResource SurfaceColour}" Opacity="0.16"/>
-    <SolidColorBrush x:Key="SurfaceColourDimmedBrush" Color="{DynamicResource SurfaceColour}" Opacity="0.90"/>
 
     <SolidColorBrush x:Key="OnSurfaceColourFullBrush" Color="{DynamicResource OnSurfaceColour}"/>
     <SolidColorBrush x:Key="OnSurfaceColourHoverBrush" Color="{DynamicResource OnSurfaceColour}" Opacity="0.08"/>

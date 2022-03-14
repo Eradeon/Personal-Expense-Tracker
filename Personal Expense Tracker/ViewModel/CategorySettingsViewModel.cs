@@ -143,10 +143,10 @@ namespace Personal_Expense_Tracker.ViewModel
             {
                 categoryCollection.Add(new CategoryViewModel(new Category
                 (
-                    int.Parse(row["category_id"].ToString()),
-                    row["category_name"].ToString(),
-                    row["category_display_name"].ToString(),
-                    int.Parse(row["group_by_month"].ToString()).ToBool()
+                    int.Parse(row["category_id"].ToString()!),
+                    row["category_name"].ToString()!,
+                    row["category_display_name"].ToString()!,
+                    int.Parse(row["group_by_month"].ToString()!).ToBool()
                 )));
             }
 

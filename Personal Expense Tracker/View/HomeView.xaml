@@ -427,356 +427,70 @@
                             </Grid.RowDefinitions>
 
                             <Grid x:Name="StatisticsCardsGrid" Grid.ColumnSpan="3" Grid.RowSpan="2">
-                                <WrapPanel x:Name="StatisticsCardWrapper" Orientation="Horizontal" HorizontalAlignment="Center" Margin="12 12 12 0">
-                                    <Grid x:Name="MostFrequentedCard" Grid.Column="0" HorizontalAlignment="Left" Margin="12 12">
-                                        <Border Style="{StaticResource StatisticsCardStyle}"/>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="24"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="16"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="24"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="24"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="24"/>
-                                            </Grid.RowDefinitions>
-                                            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource StatisticsCardIconBorderStyle}">
-                                                <TextBlock Text="&#xf099;" Style="{StaticResource TextStatisticsIconStyle}"/>
-                                            </Border>
+                                <ItemsControl ItemsSource="{Binding StatisticsCardsCollection}" Focusable="False" FocusVisualStyle="{x:Null}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel x:Name="StatisticsCardWrapper" Orientation="Horizontal" HorizontalAlignment="Center" Margin="12 12 12 0"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="Grid">
+                                            <Grid HorizontalAlignment="Left" Margin="12 12">
+                                                <Border Style="{StaticResource StatisticsCardContainerStyle}"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="24"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="24"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="24"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="18"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="4"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="24"/>
+                                                    </Grid.RowDefinitions>
 
-                                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <TextBlock 
-                                                    Text="{Binding MostFrequentedExpenses[0].Item1}"
-                                                    Style="{StaticResource TextStatisticsHeaderLargeStyle}"
-                                                    ToolTipService.Placement="Center"
-                                                    ToolTipService.VerticalOffset="80"
-                                                    ToolTipService.InitialShowDelay="0"
-                                                    ToolTipService.ShowDuration="4000">
-                                                    <TextBlock.ToolTip>
-                                                        <ToolTip>
-                                                            <ToolTip.Style>
-                                                                <Style TargetType="ToolTip">
-                                                                    <Setter Property="OverridesDefaultStyle" Value="True"/>
-                                                                    <Setter Property="SnapsToDevicePixels" Value="True"/>
+                                                    <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" VerticalAlignment="Top" HorizontalAlignment="Right" Style="{StaticResource StatisticsCardIconBorderStyle}">
+                                                        <TextBlock Text="{Binding Icon}" Style="{StaticResource StatisticsCardIconStyle}"/>
+                                                    </Border>
 
-                                                                    <Setter Property="Template">
-                                                                        <Setter.Value>
-                                                                            <ControlTemplate TargetType="ToolTip">
-                                                                                <Grid x:Name="FrequentedExpensesToolTipWrapper" RenderTransformOrigin="0.5,0.5" Margin="8 8">
-                                                                                    <Grid.RenderTransform>
-                                                                                        <ScaleTransform ScaleX="0" ScaleY="0"/>
-                                                                                    </Grid.RenderTransform>
-                                                                                    <Border
-                                                                                        CornerRadius="4"
-                                                                                        Background="{DynamicResource SurfaceColourFullBrush}"
-                                                                                        Padding="8 0">
-                                                                                        <Border.Effect>
-                                                                                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Color="{DynamicResource ShadowColour}" Opacity="0.5"/>
-                                                                                        </Border.Effect>
-                                                                                    </Border>
-                                                                                    <Grid>
-                                                                                        <Grid.ColumnDefinitions>
-                                                                                            <ColumnDefinition Width="16"/>
-                                                                                            <ColumnDefinition Width="Auto"/>
-                                                                                            <ColumnDefinition Width="32"/>
-                                                                                            <ColumnDefinition Width="Auto"/>
-                                                                                            <ColumnDefinition Width="16"/>
-                                                                                        </Grid.ColumnDefinitions>
-                                                                                        <Grid.RowDefinitions>
-                                                                                            <RowDefinition Height="16"/>
-                                                                                            <RowDefinition Height="Auto"/>
-                                                                                            <RowDefinition Height="Auto"/>
-                                                                                            <RowDefinition Height="16"/>
-                                                                                            <RowDefinition Height="Auto"/>
-                                                                                            <RowDefinition Height="Auto"/>
-                                                                                            <RowDefinition Height="16"/>
-                                                                                        </Grid.RowDefinitions>
+                                                    <TextBlock
+                                                        Grid.Column="1" Grid.Row="1"
+                                                        Text="{Binding Title}"
+                                                        Style="{StaticResource StatisticsCardHeaderText}"/>
 
-                                                                                        <!--2nd-->
-                                                                                        <TextBlock
-                                                                                            Grid.Column="1" Grid.Row="1"
-                                                                                            FontSize="12"
-                                                                                            FontWeight="Regular"
-                                                                                            FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
-                                                                                            Text="2. místo"
-                                                                                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                                    <TextBlock
+                                                        Grid.Column="1" Grid.Row="3"
+                                                        Text="{Binding Value}"
+                                                        Style="{StaticResource StatisticsCardValueText}"/>
+                                                    
+                                                    <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Grid.Column="1" Grid.Row="5"
+                                                            Text="{Binding SupportText}"
+                                                            Style="{StaticResource StatisticsCardSupportText}">
+                                                            <TextBlock.ToolTip>
+                                                                <ToolTip Content="{Binding TooltipText}" Style="{StaticResource BasicTooltipStyle}"/>
+                                                            </TextBlock.ToolTip>
+                                                        </TextBlock>
 
-                                                                                        <TextBlock
-                                                                                            Grid.Column="1" Grid.Row="2"
-                                                                                            FontSize="20"
-                                                                                            FontWeight="Regular"
-                                                                                            FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{DynamicResource PrimaryColourFullBrush}"
-                                                                                            Text="{Binding MostFrequentedExpenses[1].Item1}"
-                                                                                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
-                                                                                        <TextBlock
-                                                                                            Grid.Column="3" Grid.Row="2"
-                                                                                            FontSize="18"
-                                                                                            FontWeight="Regular"
-                                                                                            FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{DynamicResource PrimaryColourFullBrush}"
-                                                                                            Text="{Binding MostFrequentedExpenses[1].Item2}"
-                                                                                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                                                                                        <!--3rd-->
-                                                                                        <TextBlock
-                                                                                            Grid.Column="1" Grid.Row="4"
-                                                                                            FontSize="12"
-                                                                                            FontWeight="Regular"
-                                                                                            FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
-                                                                                            Text="3. místo"
-                                                                                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
-                                                                                        <TextBlock
-                                                                                            Grid.Column="1" Grid.Row="5"
-                                                                                            FontSize="20"
-                                                                                            FontWeight="Regular"
-                                                                                            FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{DynamicResource PrimaryColourFullBrush}"
-                                                                                            Text="{Binding MostFrequentedExpenses[2].Item1}"
-                                                                                            VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
-                                                                                        <TextBlock
-                                                                                            Grid.Column="3" Grid.Row="5"
-                                                                                            FontSize="18"
-                                                                                            FontWeight="Regular"
-                                                                                            FontFamily="{StaticResource Roboto}"
-                                                                                            Foreground="{DynamicResource PrimaryColourFullBrush}"
-                                                                                            Text="{Binding MostFrequentedExpenses[2].Item2}"
-                                                                                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                                                                    </Grid>
-                                                                                </Grid>
-                                                                                <ControlTemplate.Triggers>
-                                                                                    <Trigger Property="IsOpen" Value="True">
-                                                                                        <Trigger.EnterActions>
-                                                                                            <BeginStoryboard>
-                                                                                                <Storyboard>
-                                                                                                    <DoubleAnimation
-                                                                                                        Storyboard.TargetName="FrequentedExpensesToolTipWrapper"
-                                                                                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                                                                                        From="0.5"
-                                                                                                        To="1"
-                                                                                                        Duration="00:00:00.15"
-                                                                                                        BeginTime="00:00:00"/>
-                                                                                                    <DoubleAnimation
-                                                                                                        Storyboard.TargetName="FrequentedExpensesToolTipWrapper"
-                                                                                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                                                                                        From="0.5"
-                                                                                                        To="1"
-                                                                                                        Duration="00:00:00.15"
-                                                                                                        BeginTime="00:00:00"/>
-                                                                                                </Storyboard>
-                                                                                            </BeginStoryboard>
-                                                                                        </Trigger.EnterActions>
-                                                                                        <Trigger.ExitActions>
-                                                                                            <BeginStoryboard>
-                                                                                                <Storyboard>
-                                                                                                    <DoubleAnimation
-                                                                                                        Storyboard.TargetName="FrequentedExpensesToolTipWrapper"
-                                                                                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                                                                                        From="1"
-                                                                                                        To="0.5"
-                                                                                                        Duration="00:00:00.15"
-                                                                                                        BeginTime="00:00:00"/>
-                                                                                                    <DoubleAnimation
-                                                                                                        Storyboard.TargetName="FrequentedExpensesToolTipWrapper"
-                                                                                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                                                                                        From="1"
-                                                                                                        To="0.5"
-                                                                                                        Duration="00:00:00.15"
-                                                                                                        BeginTime="00:00:00"/>
-                                                                                                </Storyboard>
-                                                                                            </BeginStoryboard>
-                                                                                        </Trigger.ExitActions>
-                                                                                    </Trigger>
-                                                                                </ControlTemplate.Triggers>
-                                                                            </ControlTemplate>
-                                                                        </Setter.Value>
-                                                                    </Setter>
-                                                                </Style>
-                                                            </ToolTip.Style>
-                                                        </ToolTip>
-                                                    </TextBlock.ToolTip>
-                                                </TextBlock>
-                                                <TextBlock
-                                                    Text="Nejčastější výdaje"
-                                                    Style="{StaticResource TextStatisticsSupportStyle}"/>
-                                            </StackPanel>
-
-                                            <TextBlock
-                                                Grid.Column="4" Grid.Row="1"
-                                                Text="{Binding MostFrequentedExpenses[0].Item2}"       
-                                                Style="{StaticResource TextStatisticsHeaderSmallStyle}">
-                                                <TextBlock.ToolTip>
-                                                    <ToolTip Content="Celkový počet položek" Style="{StaticResource BasicTooltipStyle}"/>
-                                                </TextBlock.ToolTip>
-                                            </TextBlock>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid x:Name="TotalAmountCard" Grid.Column="0" HorizontalAlignment="Left" Margin="12 12">
-                                        <Border Style="{StaticResource StatisticsCardStyle}"/>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="24"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="16"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="24"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="24"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="24"/>
-                                            </Grid.RowDefinitions>
-                                            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource StatisticsCardIconBorderStyle}">
-                                                <TextBlock Text="&#xe24a;" Style="{StaticResource TextStatisticsIconStyle}"/>
-                                            </Border>
-
-                                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <TextBlock 
-                                                    Text="{Binding SumExpense.Item1, StringFormat=N2}"
-                                                    Style="{StaticResource TextStatisticsHeaderLargeStyle}"/>
-                                                <TextBlock
-                                                    Text="Celkové výdaje"
-                                                    Style="{StaticResource TextStatisticsSupportStyle}"/>
-                                            </StackPanel>
-
-                                            <TextBlock
-                                                Grid.Column="4" Grid.Row="1"
-                                                Text="{Binding SumExpense.Item2}"       
-                                                Style="{StaticResource TextStatisticsHeaderSmallStyle}">
-                                                <TextBlock.ToolTip>
-                                                    <ToolTip Content="Celkový počet položek" Style="{StaticResource BasicTooltipStyle}"/>
-                                                </TextBlock.ToolTip>
-                                            </TextBlock>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid x:Name="MinAmountCard" Grid.Column="0" HorizontalAlignment="Left" Margin="12 12">
-                                        <Border Style="{StaticResource StatisticsCardStyle}"/>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="24"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="16"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="24"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="24"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="24"/>
-                                            </Grid.RowDefinitions>
-                                            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource StatisticsCardIconBorderStyle}">
-                                                <TextBlock Text="&#xead0;" Style="{StaticResource TextStatisticsIconStyle}"/>
-                                            </Border>
-
-                                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <TextBlock 
-                                                    Text="{Binding MinExpense.Item1, StringFormat=N2}"
-                                                    Style="{StaticResource TextStatisticsHeaderLargeStyle}"/>
-                                                <TextBlock
-                                                    Text="Nejnižší výdaj"
-                                                    Style="{StaticResource TextStatisticsSupportStyle}"/>
-                                            </StackPanel>
-
-                                            <TextBlock
-                                                Grid.Column="4" Grid.Row="1"
-                                                Text="{Binding MinExpense.Item2}"       
-                                                Style="{StaticResource TextStatisticsHeaderSmallStyle}">
-                                                <TextBlock.ToolTip>
-                                                    <ToolTip Content="Místo vzniku výdaje" Style="{StaticResource BasicTooltipStyle}"/>
-                                                </TextBlock.ToolTip>
-                                            </TextBlock>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid x:Name="MaxAmountCard" Grid.Column="0" HorizontalAlignment="Left" Margin="12 12">
-                                        <Border Style="{StaticResource StatisticsCardStyle}"/>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="24"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="16"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="24"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="24"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="24"/>
-                                            </Grid.RowDefinitions>
-                                            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource StatisticsCardIconBorderStyle}">
-                                                <TextBlock Text="&#xeacf;" Style="{StaticResource TextStatisticsIconStyle}"/>
-                                            </Border>
-
-                                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <TextBlock 
-                                                    Text="{Binding MaxExpense.Item1, StringFormat=N2}"
-                                                    Style="{StaticResource TextStatisticsHeaderLargeStyle}"/>
-                                                <TextBlock
-                                                    Text="Nejvyšší výdaj"
-                                                    Style="{StaticResource TextStatisticsSupportStyle}"/>
-                                            </StackPanel>
-
-                                            <TextBlock
-                                                Grid.Column="4" Grid.Row="1"
-                                                Text="{Binding MaxExpense.Item2}"       
-                                                Style="{StaticResource TextStatisticsHeaderSmallStyle}">
-                                                <TextBlock.ToolTip>
-                                                    <ToolTip Content="Místo vzniku výdaje" Style="{StaticResource BasicTooltipStyle}"/>
-                                                </TextBlock.ToolTip>
-                                            </TextBlock>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid x:Name="MeanAmountCard" Grid.Column="0" HorizontalAlignment="Left" Margin="12 12">
-                                        <Border Style="{StaticResource StatisticsCardStyle}"/>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="24"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="16"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="24"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="24"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="24"/>
-                                            </Grid.RowDefinitions>
-                                            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource StatisticsCardIconBorderStyle}">
-                                                <TextBlock Text="μ" Style="{StaticResource TextStatisticsIconStyle}" Margin="0 0 0 16"/>
-                                            </Border>
-
-                                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <TextBlock 
-                                                    Text="{Binding MeanExpense.Item1, StringFormat=N2}"
-                                                    Style="{StaticResource TextStatisticsHeaderLargeStyle}"/>
-                                                <TextBlock
-                                                    Text="Průměrný výdaj"
-                                                    Style="{StaticResource TextStatisticsSupportStyle}"/>
-                                            </StackPanel>
-
-                                            <TextBlock
-                                                Grid.Column="4" Grid.Row="1"
-                                                Text="{Binding MeanExpense.Item2}"       
-                                                Style="{StaticResource TextStatisticsHeaderSmallStyle}">
-                                                <TextBlock.ToolTip>
-                                                    <ToolTip Content="Průměrný výdaj na 1 den" Style="{StaticResource BasicTooltipStyle}"/>
-                                                </TextBlock.ToolTip>
-                                            </TextBlock>
-                                        </Grid>
-                                    </Grid>
-                                </WrapPanel>
+                                                        <TextBlock
+                                                            Text="&#xe8fd;"
+                                                            FontSize="12"
+                                                            FontFamily="{StaticResource MaterialIconsOutlined}"
+                                                            Foreground="{DynamicResource OnSurfaceVariantColourFullBrush}"
+                                                            VerticalAlignment="Top"
+                                                            HorizontalAlignment="Left"
+                                                            Margin="2 0 0 0"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </Grid>
 
                             <Grid x:Name="StatisticsGraphGrid" Grid.Column="1" Grid.Row="3">

@@ -42,7 +42,7 @@ namespace Personal_Expense_Tracker.ViewModel
             set { _categoryCollection = value; RaisePropertyChanged(); }
         }
 
-        private ObservableCollection<int> _yearList = new ObservableCollection<int>();
+        private ObservableCollection<int> _yearList = new();
         public ObservableCollection<int> YearList
         {
             get { return _yearList; }
@@ -200,39 +200,11 @@ namespace Personal_Expense_Tracker.ViewModel
         #region Statistics Properties
         public bool LoadingExpenses = false;
 
-        private List<Tuple<string, int>>? _mostFrequentedExpenses;
-        public List<Tuple<string, int>>? MostFrequentedExpenses
+        private ObservableCollection<StatisticCardViewModel> _statisticsCardsCollection;
+        public ObservableCollection<StatisticCardViewModel> StatisticsCardsCollection
         {
-            get { return _mostFrequentedExpenses; }
-            set { _mostFrequentedExpenses = value; RaisePropertyChanged(); }
-        }
-
-        private Tuple<string, int>? _sumExpense;
-        public Tuple<string, int>? SumExpense
-        {
-            get { return _sumExpense; }
-            set { _sumExpense = value; RaisePropertyChanged(); }
-        }
-
-        private Tuple<string, string>? _meanExpense;
-        public Tuple<string, string>? MeanExpense
-        {
-            get { return _meanExpense; }
-            set { _meanExpense = value; RaisePropertyChanged(); }
-        }
-
-        private Tuple<string, string>? _minExpense;
-        public Tuple<string, string>? MinExpense
-        {
-            get { return _minExpense; }
-            set { _minExpense = value; RaisePropertyChanged(); }
-        }
-
-        private Tuple<string, string>? _maxExpense;
-        public Tuple<string, string>? MaxExpense
-        {
-            get { return _maxExpense; }
-            set { _maxExpense = value; RaisePropertyChanged(); }
+            get { return _statisticsCardsCollection; }
+            set { _statisticsCardsCollection = value; RaisePropertyChanged(); }
         }
 
         //Group name || Group sum amount || Item count in group || Group sum % of total sum || Number of (100 - % number)
@@ -280,6 +252,7 @@ namespace Personal_Expense_Tracker.ViewModel
             _selectedCategory = _categoryCollection[0];
 
             _monthList = LoadMonths();
+            _statisticsCardsCollection = LoadStatisticsCards();
 
             _expenseCollection = new FullyObservableCollection<ExpenseViewModel>();
             _expenseCollectionView = CollectionViewSource.GetDefaultView(ExpenseCollection);
@@ -304,7 +277,7 @@ namespace Personal_Expense_Tracker.ViewModel
             //Loading expense data
             CategoryChanged.Execute(null);
             LoadExpenses.Execute(null);
-            _statisticsService.CalculateStatistics();
+            _statisticsService.CalculateHomeStatistics();
 
             //Setting up event listeners
             ExpenseCollection.CollectionChanged += ExpenseCollectionChangedEventHandler;
@@ -314,13 +287,13 @@ namespace Personal_Expense_Tracker.ViewModel
         private void ExpenseCollectionChangedEventHandler(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (!LoadingExpenses)
-                _statisticsService.CalculateStatistics();
+                _statisticsService.CalculateHomeStatistics();
         }
 
         private void ExpenseCollectionItemChangedEventHandler(object? sender, ItemPropertyChangedEventArgs e)
         {
             if (!LoadingExpenses)
-                _statisticsService.CalculateStatistics();
+                _statisticsService.CalculateHomeStatistics();
         }
 
         public bool CategoryExists(string tableName)
@@ -337,16 +310,16 @@ namespace Personal_Expense_Tracker.ViewModel
         private ObservableCollection<CategoryViewModel> LoadCategories()
         {
             DataTable dataTable = _databaseService.QueryDatabase("SELECT * FROM categories;");
-            ObservableCollection<CategoryViewModel> categoryCollection = new ObservableCollection<CategoryViewModel>();
+            ObservableCollection<CategoryViewModel> categoryCollection = new();
 
             foreach (DataRow row in dataTable.Rows)
             {
                 categoryCollection.Add(new CategoryViewModel(new Category
                 (
-                    int.Parse(row["category_id"].ToString()),
-                    row["category_name"].ToString(),
-                    row["category_display_name"].ToString(),
-                    int.Parse(row["group_by_month"].ToString()).ToBool()
+                    int.Parse(row["category_id"].ToString()!),
+                    row["category_name"].ToString()!,
+                    row["category_display_name"].ToString()!,
+                    int.Parse(row["group_by_month"].ToString()!).ToBool()
                 )));
             }
 
@@ -370,7 +343,7 @@ namespace Personal_Expense_Tracker.ViewModel
                 {
                     foreach (DataRow row in dataTable.Rows)
                     {
-                        YearList.Add(int.Parse(row["year_list"].ToString()));
+                        YearList.Add(int.Parse(row["year_list"].ToString()!));
                     }
 
                     AddYear(currentYear);
@@ -410,7 +383,7 @@ namespace Personal_Expense_Tracker.ViewModel
 
         private Dictionary<string, string> LoadMonths()
         {
-            Dictionary<string, string> months = new Dictionary<string, string>();
+            Dictionary<string, string> months = new();
 
             for (int i = 1; i <= 12; i++)
             {
@@ -425,6 +398,19 @@ namespace Personal_Expense_Tracker.ViewModel
             }
 
             return months;
+        }
+
+        private ObservableCollection<StatisticCardViewModel> LoadStatisticsCards()
+        {
+            ObservableCollection<StatisticCardViewModel> result = new();
+
+            result.Add(new StatisticCardViewModel(new StatisticCard("\ue885", "Nejčastější položka", "N/A", "N/A", "Kolikrát se položka vyskytuje ve vybraném odbobí.")));
+            result.Add(new StatisticCardViewModel(new StatisticCard("\ue24a", "Celkové výdaje", "N/A", "N/A", "Celkový počet položek ve vybraném období.")));
+            result.Add(new StatisticCardViewModel(new StatisticCard("\ue8e3", "Nejnižší výdaj", "N/A", "N/A", "Název položky s nejnižším výdajem.")));
+            result.Add(new StatisticCardViewModel(new StatisticCard("\ue8e5", "Nejvyšší výdaj", "N/A", "N/A", "Název položky s nejvyšším výdajem.")));
+            result.Add(new StatisticCardViewModel(new StatisticCard("\ue4fc", "Průměrný výdaj", "N/A", "N/A", "Průměrný výdaj na 1 den.")));
+
+            return result;
         }
     }
 }

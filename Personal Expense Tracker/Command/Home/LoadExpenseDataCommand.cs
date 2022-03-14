@@ -67,10 +67,10 @@ namespace Personal_Expense_Tracker.Command.Home
 
                     _homeViewModel.ExpenseCollection.Add(new ExpenseViewModel(new Expense
                     (
-                        int.Parse(row["expense_id"].ToString()),
-                        DateTime.Parse(row["expense_date"].ToString()),
-                        row["expense_name"].ToString(),
-                        double.Parse(row["expense_amount"].ToString())
+                        int.Parse(row["expense_id"].ToString()!),
+                        DateTime.Parse(row["expense_date"].ToString()!),
+                        row["expense_name"].ToString()!,
+                        double.Parse(row["expense_amount"].ToString()!)
                     )));
 
                     index++;

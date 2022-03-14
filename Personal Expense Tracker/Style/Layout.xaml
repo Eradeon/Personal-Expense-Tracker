@@ -64,44 +64,6 @@
         <Setter Property="Background" Value="{DynamicResource SurfaceColourFullBrush}"/>
     </Style>
 
-    <Style x:Key="StatisticsCardStyle" TargetType="Border">
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="CornerRadius" Value="4"/>
-        <Setter Property="Background" Value="{DynamicResource SurfaceColourDimmedBrush}"/>
-        <Setter Property="MinWidth" Value="390"/>
-        <Setter Property="Effect">
-            <Setter.Value>
-                <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Color="{DynamicResource ShadowColour}" Opacity="0.4"/>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="StatisticsCardIconBorderStyle" TargetType="Border">
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="Height" Value="60"/>
-        <Setter Property="Width" Value="60"/>
-        <Setter Property="CornerRadius" Value="30"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryColourPressedBrush}"/>
-    </Style>
-
-    <Style x:Key="GraphBarStyle" TargetType="Border">
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="Background" Value="{DynamicResource PrimaryColourFullBrush}"/>
-        <Setter Property="ToolTipService.Placement" Value="Mouse"/>
-        <Setter Property="ToolTipService.VerticalOffset" Value="0"/>
-        <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
-        <Setter Property="ToolTipService.ShowDuration" Value="4000"/>
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource PrimaryColourAlternatePressedBrush}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
     <Style x:Key="ScrollViewerStyle" TargetType="ScrollViewer">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>

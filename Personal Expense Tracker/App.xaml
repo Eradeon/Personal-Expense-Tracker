@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="/Style/DataGrid.xaml"/>
                 <ResourceDictionary Source="/Style/Text.xaml"/>
                 <ResourceDictionary Source="/Style/Layout.xaml"/>
+                <ResourceDictionary Source="/Style/Statistics.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter"/>
