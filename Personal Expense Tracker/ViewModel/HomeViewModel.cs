@@ -235,6 +235,7 @@ namespace Personal_Expense_Tracker.ViewModel
         public ICommand HideEditExpense { get; }
 
         public ICommand DefaultDataGridSorting { get; }
+        public ICommand RowClickSelectionCommand { get; }
 
         public ICommand UnfocusElementUponMouseClick { get; }
         #endregion Commands
@@ -271,6 +272,7 @@ namespace Personal_Expense_Tracker.ViewModel
             HideEditExpense = new HideEditExpenseModalCommand(this);
 
             DefaultDataGridSorting = new DefaultDataGridSortingCommand();
+            RowClickSelectionCommand = new RowClickSelectionCommand(this);
 
             UnfocusElementUponMouseClick = new UnfocusElementUponMouseClickCommand();
 

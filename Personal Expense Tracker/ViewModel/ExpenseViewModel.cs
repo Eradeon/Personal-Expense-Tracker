@@ -31,6 +31,18 @@ namespace Personal_Expense_Tracker.ViewModel
             set { _expense.Amount = value; RaisePropertyChanged(); }
         }
 
+        public bool IsSelected
+        {
+            get { return _expense.IsSelected; }
+            set { _expense.IsSelected = value; RaisePropertyChanged(); }
+        }
+
+        public bool IsEditing
+        {
+            get { return _expense.IsEditing; }
+            set { _expense.IsEditing = value; RaisePropertyChanged(); }
+        }
+
         public ExpenseViewModel(Expense expense)
         {
             _expense = expense;

@@ -55,7 +55,9 @@ namespace Personal_Expense_Tracker.Command.Home
                             newExpenseId,
                             expenseDate,
                             expenseName,
-                            expenseAmount
+                            expenseAmount,
+                            false,
+                            false
                         )));
                     }
 

@@ -46,6 +46,7 @@
     <SolidColorBrush x:Key="WarningContainerColourFullBrush" Color="{DynamicResource WarningContainerColour}"/>
 
     <SolidColorBrush x:Key="OnWarningContainerColourFullBrush" Color="{DynamicResource OnWarningContainerColour}"/>
+    <SolidColorBrush x:Key="OnWarningContainerColourPressedBrush" Color="{DynamicResource OnWarningContainerColour}" Opacity="0.12"/>
 
     <SolidColorBrush x:Key="ErrorContainerColourFullBrush" Color="{DynamicResource ErrorContainerColour}"/>
 

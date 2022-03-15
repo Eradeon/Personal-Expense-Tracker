@@ -315,7 +315,6 @@
                         <DataGrid x:Name="ExpenseDataGrid"
                             Grid.Row="1"
                             ItemsSource="{Binding ExpenseLiveCollectionView}"
-                            SelectedItem="{Binding SelectedRow}"
                             IsReadOnly="True"
                             CanUserAddRows="False"
                             CanUserDeleteRows="False"
@@ -324,12 +323,119 @@
                             CanUserResizeColumns="False"
                             CanUserResizeRows="False"
                             AutoGenerateColumns="False"
-                            SelectionMode="Single"
+                            SelectionMode="Extended"
                             Style="{StaticResource DataGridStyle}">
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow" BasedOn="{StaticResource DataGridRowStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected}" Value="False">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                        </DataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsSelected}" Value="False"/>
+                                                <Condition Binding="{Binding IsEditing}" Value="False"/>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="Background" Value="{DynamicResource OnSurfaceColourHoverBrush}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsSelected}" Value="True"/>
+                                                <Condition Binding="{Binding IsEditing}" Value="False"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="Background" Value="{DynamicResource PrimaryColourPressedBrush}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        <DataTrigger Binding="{Binding IsEditing}" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource OnWarningContainerColourPressedBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <DataGrid.RowHeaderStyle>
+                                <Style TargetType="DataGridRowHeader">
+                                    <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                    <Setter Property="SnapsToDevicePixels" Value="True"/>
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridRowHeader">
+                                                <Border
+                                                    x:Name="Border"
+                                                    Height="48" Width="48"
+                                                    Background="Transparent"
+                                                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Border
+                                                        x:Name="StateLayer"
+                                                        Height="40" Width="40"
+                                                        BorderThickness="0"
+                                                        CornerRadius="20"
+                                                        Background="Transparent"
+                                                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Border
+                                                            x:Name="IconBorder"
+                                                            Height="18" Width="18"
+                                                            BorderThickness="2"
+                                                            CornerRadius="1"
+                                                            VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <TextBlock
+                                                                x:Name="Icon"
+                                                                FontSize="18"
+                                                                FontFamily="{StaticResource MaterialIconsFilled}"
+                                                                Text="&#xe876;"
+                                                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                        </Border>
+                                                    </Border>
+                                                </Border>
+
+                                                <ControlTemplate.Triggers>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding IsSelected}" Value="False"/>
+                                                            <Condition Binding="{Binding IsEditing}" Value="False"/>
+                                                        </MultiDataTrigger.Conditions>
+                                                        <MultiDataTrigger.Setters>
+                                                            <Setter Property="Foreground" TargetName="Icon" Value="Transparent"/>
+                                                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{DynamicResource OutlineColourFullBrush}"/>
+                                                        </MultiDataTrigger.Setters>
+                                                    </MultiDataTrigger>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding IsSelected}" Value="True"/>
+                                                            <Condition Binding="{Binding IsEditing}" Value="False"/>
+                                                        </MultiDataTrigger.Conditions>
+                                                        <MultiDataTrigger.Setters>
+                                                            <Setter Property="Background" TargetName="IconBorder" Value="{DynamicResource PrimaryColourFullBrush}"/>
+                                                            <Setter Property="BorderBrush" TargetName="IconBorder" Value="{DynamicResource PrimaryColourFullBrush}"/>
+                                                            <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource OnPrimaryColourFullBrush}"/>
+                                                        </MultiDataTrigger.Setters>
+                                                    </MultiDataTrigger>
+                                                    <DataTrigger Binding="{Binding IsEditing}" Value="True">
+                                                        <Setter Property="Background" TargetName="IconBorder" Value="{DynamicResource OnWarningContainerColourFullBrush}"/>
+                                                        <Setter Property="BorderBrush" TargetName="IconBorder" Value="{DynamicResource OnWarningContainerColourFullBrush}"/>
+                                                        <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource WarningContainerColourFullBrush}"/>
+                                                    </DataTrigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.RowHeaderStyle>
                             <Behaviors:Interaction.Triggers>
                                 <Behaviors:EventTrigger EventName="Loaded">
                                     <Behaviors:InvokeCommandAction Command="{Binding DefaultDataGridSorting}"
                                                                    CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"/>
+                                </Behaviors:EventTrigger>
+                                <Behaviors:EventTrigger EventName="PreviewMouseUp">
+                                    <Behaviors:InvokeCommandAction Command="{Binding RowClickSelectionCommand}" PassEventArgsToCommand="True"/>
                                 </Behaviors:EventTrigger>
                             </Behaviors:Interaction.Triggers>
                             <DataGrid.Columns>
@@ -358,19 +464,6 @@
                                         </DataTemplate>
                                     </DataGridTextColumn.HeaderTemplate>
                                 </DataGridTextColumn>
-                                <DataGridTemplateColumn
-                                    x:Name="SelectionColumn"
-                                    MinWidth="48"
-                                    Width="48"
-                                    HeaderStyle="{StaticResource DataGridEmptyColumnHeaderStyle}"
-                                    CellStyle="{StaticResource DataGridIconButtonCellStyle}">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <CheckBox
-                                                IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsSelected}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
                                 <DataGridTemplateColumn
                                     x:Name="EditColumn"
                                     MinWidth="48"

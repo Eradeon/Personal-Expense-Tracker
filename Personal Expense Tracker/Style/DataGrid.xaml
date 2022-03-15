@@ -160,7 +160,7 @@
         </Setter>
     </Style>
 
-    <!--Row Header Style-->
+    <!--Row Header Style
     <Style x:Key="DataGridRowHeaderStyle" TargetType="DataGridRowHeader">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -216,7 +216,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
     
     <!--Cell Style-->
         <!--Left Horizonral Alignment-->
@@ -307,7 +307,7 @@
                         Height="52"
                         BorderThickness="0 1 0 0"
                         BorderBrush="{DynamicResource OnSurfaceVariantColourSeperatorBrush}"
-                        Background="Transparent">
+                        Background="{TemplateBinding Background}">
                         <SelectiveScrollingGrid>
                             <SelectiveScrollingGrid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -324,7 +324,7 @@
                         </SelectiveScrollingGrid>
                     </Border>
 
-                    <ControlTemplate.Triggers>
+                    <!--<ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True"/>
@@ -338,7 +338,7 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourPressedBrush}"/>
                         </Trigger>
-                    </ControlTemplate.Triggers>
+                    </ControlTemplate.Triggers>-->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -491,8 +491,6 @@
         <Setter Property="GridLinesVisibility" Value="None"/>
 
         <Setter Property="ColumnHeaderStyle" Value="{StaticResource DataGridColumnHeaderStyle}"/>
-        <Setter Property="RowHeaderStyle" Value="{StaticResource DataGridRowHeaderStyle}"/>
-        <Setter Property="RowStyle" Value="{StaticResource DataGridRowStyle}"/>
         <Setter Property="CellStyle" Value="{StaticResource DataGridCellStyle}"/>
 
         <Setter Property="Template">

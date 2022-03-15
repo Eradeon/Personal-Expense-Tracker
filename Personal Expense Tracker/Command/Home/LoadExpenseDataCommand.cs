@@ -70,7 +70,9 @@ namespace Personal_Expense_Tracker.Command.Home
                         int.Parse(row["expense_id"].ToString()!),
                         DateTime.Parse(row["expense_date"].ToString()!),
                         row["expense_name"].ToString()!,
-                        double.Parse(row["expense_amount"].ToString()!)
+                        double.Parse(row["expense_amount"].ToString()!),
+                        false,
+                        false
                     )));
 
                     index++;
