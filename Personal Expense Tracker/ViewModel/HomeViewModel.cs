@@ -65,6 +65,13 @@ namespace Personal_Expense_Tracker.ViewModel
 
         private ICollectionView _expenseCollectionView;
         public ICollectionViewLiveShaping ExpenseLiveCollectionView { get; set; }
+
+        private List<ExpenseViewModel> _selectedExpenses = new();
+        public List<ExpenseViewModel> SelectedExpenses
+        {
+            get { return _selectedExpenses; }
+            set { _selectedExpenses = value; }
+        }
         #endregion Collection Properties
 
         #region Selected Item Properties
@@ -294,7 +301,7 @@ namespace Personal_Expense_Tracker.ViewModel
 
         private void ExpenseCollectionItemChangedEventHandler(object? sender, ItemPropertyChangedEventArgs e)
         {
-            if (!LoadingExpenses)
+            if (!LoadingExpenses && (e.PropertyName != "IsSelected" && e.PropertyName != "IsEditing"))
                 _statisticsService.CalculateHomeStatistics();
         }
 

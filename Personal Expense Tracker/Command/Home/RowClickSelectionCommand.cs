@@ -13,7 +13,6 @@ namespace Personal_Expense_Tracker.Command.Home
     internal class RowClickSelectionCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
-        private bool test = true;
 
         public RowClickSelectionCommand(HomeViewModel homeViewModel)
         {
@@ -33,7 +32,17 @@ namespace Personal_Expense_Tracker.Command.Home
                     if (row != null)
                     {
                         var expense = (ExpenseViewModel)row.DataContext;
-                        expense.IsSelected = !expense.IsSelected;
+
+                        if (!expense.IsSelected)
+                        {
+                            expense.IsSelected = true;
+                            _homeViewModel.SelectedExpenses.Add(expense);
+                        }
+                        else
+                        {
+                            expense.IsSelected = false;
+                            _homeViewModel.SelectedExpenses.Remove(expense);
+                        }
                     }
                 }
             }
