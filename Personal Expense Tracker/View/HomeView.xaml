@@ -359,6 +359,19 @@
                                     </DataGridTextColumn.HeaderTemplate>
                                 </DataGridTextColumn>
                                 <DataGridTemplateColumn
+                                    x:Name="SelectionColumn"
+                                    MinWidth="48"
+                                    Width="48"
+                                    HeaderStyle="{StaticResource DataGridEmptyColumnHeaderStyle}"
+                                    CellStyle="{StaticResource DataGridIconButtonCellStyle}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox
+                                                IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsSelected}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn
                                     x:Name="EditColumn"
                                     MinWidth="48"
                                     Width="48"
