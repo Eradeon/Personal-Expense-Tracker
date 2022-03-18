@@ -75,7 +75,7 @@ namespace Personal_Expense_Tracker.Service
             {
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = $"CREATE TABLE IF NOT EXISTS {tableName} (expense_id INTEGER PRIMARY KEY AUTOINCREMENT, expense_date TEXT NOT NULL, expense_name TEXT NOT NULL, expense_amount DOUBLE NOT NULL);";
+                    command.CommandText = $"CREATE TABLE IF NOT EXISTS \"{tableName}\" (expense_id INTEGER PRIMARY KEY AUTOINCREMENT, expense_date TEXT NOT NULL, expense_name TEXT NOT NULL, expense_amount DOUBLE NOT NULL);";
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -128,7 +128,7 @@ namespace Personal_Expense_Tracker.Service
             {
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = $"INSERT INTO {tableName} (expense_date, expense_name, expense_amount) VALUES (@date,@name,@amount);";
+                    command.CommandText = $"INSERT INTO \"{tableName}\" (expense_date, expense_name, expense_amount) VALUES (@date,@name,@amount);";
                     command.Parameters.Add(new SQLiteParameter("@date", expenseDate));
                     command.Parameters.Add(new SQLiteParameter("@name", expenseName));
                     command.Parameters.Add(new SQLiteParameter("@amount", expenseAmount));
@@ -156,7 +156,7 @@ namespace Personal_Expense_Tracker.Service
                     command.CommandText = $"DELETE FROM categories WHERE category_id = {id};";
                     command.ExecuteNonQuery();
 
-                    command.CommandText = $"DROP TABLE IF EXISTS {tableName};";
+                    command.CommandText = $"DROP TABLE IF EXISTS \"{tableName}\";";
                     command.ExecuteNonQuery();
                 }
             }
@@ -168,7 +168,7 @@ namespace Personal_Expense_Tracker.Service
             {
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = $"DELETE FROM {tableName} WHERE expense_id = {id};";
+                    command.CommandText = $"DELETE FROM \"{tableName}\" WHERE expense_id = {id};";
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -186,7 +186,7 @@ namespace Personal_Expense_Tracker.Service
                 {
                     connection.Open();
 
-                    command.CommandText = $"ALTER TABLE {existingTableName} RENAME TO {newTableName};";
+                    command.CommandText = $"ALTER TABLE \"{existingTableName}\" RENAME TO \"{newTableName}\";";
                     command.ExecuteNonQuery();
 
                     command.CommandText = "UPDATE categories SET category_name = @newTableName, category_display_name = @newDisplayName WHERE category_id = @id;";
@@ -204,7 +204,7 @@ namespace Personal_Expense_Tracker.Service
             {
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = $"UPDATE {tableName} SET expense_date = @newExpenseDate, expense_name = @newExpenseName, expense_amount = @nexExpenseAmount WHERE expense_id = @id;";
+                    command.CommandText = $"UPDATE \"{tableName}\" SET expense_date = @newExpenseDate, expense_name = @newExpenseName, expense_amount = @nexExpenseAmount WHERE expense_id = @id;";
                     command.Parameters.Add(new SQLiteParameter("newExpenseDate", newExpenseDate));
                     command.Parameters.Add(new SQLiteParameter("newExpenseName", newExpenseName));
                     command.Parameters.Add(new SQLiteParameter("nexExpenseAmount", newExpenseAmount));
@@ -261,7 +261,7 @@ namespace Personal_Expense_Tracker.Service
             {
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = $"INSERT INTO {toTableName} (expense_date, expense_name, expense_amount) SELECT expense_date,expense_name,expense_amount FROM {fromTableName};";
+                    command.CommandText = $"INSERT INTO \"{toTableName}\" (expense_date, expense_name, expense_amount) SELECT expense_date,expense_name,expense_amount FROM \"{fromTableName}\";";
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -272,9 +272,9 @@ namespace Personal_Expense_Tracker.Service
         public string BuildExpenseQuery(string tableName, string year, string month)
         {
             StringBuilder query = new StringBuilder();
-            query.Append("SELECT * FROM ");
+            query.Append("SELECT * FROM \"");
             query.Append(tableName);
-            query.Append(" WHERE strftime('%Y', expense_date) = '");
+            query.Append("\" WHERE strftime('%Y', expense_date) = '");
             query.Append(year);
             
             if (month != null && !string.IsNullOrEmpty(month))

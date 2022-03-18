@@ -17,6 +17,15 @@ using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
+    internal enum ToolBar
+    {
+        None,
+        Edit,
+        Move,
+        Duplicate,
+        Delete
+    }
+
     internal class HomeViewModel : BaseViewModel
     {
         #region Services & Stores
@@ -65,13 +74,6 @@ namespace Personal_Expense_Tracker.ViewModel
 
         private ICollectionView _expenseCollectionView;
         public ICollectionViewLiveShaping ExpenseLiveCollectionView { get; set; }
-
-        private List<ExpenseViewModel> _selectedExpenses = new();
-        public List<ExpenseViewModel> SelectedExpenses
-        {
-            get { return _selectedExpenses; }
-            set { _selectedExpenses = value; }
-        }
         #endregion Collection Properties
 
         #region Selected Item Properties
@@ -80,6 +82,13 @@ namespace Personal_Expense_Tracker.ViewModel
         {
             get { return _selectedCategory; }
             set { _selectedCategory = value; RaisePropertyChanged(); }
+        }
+
+        private CategoryViewModel? _selectedMoveToCategory;
+        public CategoryViewModel? SelectedMoveToCategory
+        {
+            get { return _selectedMoveToCategory; }
+            set { _selectedMoveToCategory = value; RaisePropertyChanged(); }
         }
 
         private int _selectedYear;
@@ -101,6 +110,20 @@ namespace Personal_Expense_Tracker.ViewModel
         {
             get { return _groupByMonth; }
             set { _groupByMonth = value; RaisePropertyChanged(); }
+        }
+
+        private int _selectedItemsCount;
+        public int SelectedItemsCount
+        {
+            get { return _selectedItemsCount; }
+            set { _selectedItemsCount = value; RaisePropertyChanged(); }
+        }
+
+        private ToolBar _selectedToolBar = ToolBar.None;
+        public ToolBar SelectedToolBar
+        {
+            get { return _selectedToolBar; }
+            set { _selectedToolBar = value; RaisePropertyChanged(); }
         }
         #endregion Selected Item Properties
 
@@ -134,44 +157,13 @@ namespace Personal_Expense_Tracker.ViewModel
         }
         #endregion Expense Input Properties
 
-        #region Expense Management Properties
+        #region Expense Editing Properties
         //General
         private ExpenseViewModel? _selectedRow;
         public ExpenseViewModel? SelectedRow
         {
             get { return _selectedRow; }
             set { _selectedRow = value; RaisePropertyChanged(); }
-        }
-
-        //Modal
-        private bool _deleteExpenseModalVisible = false;
-        public bool DeleteExpenseModalVisible
-        {
-            get { return _deleteExpenseModalVisible; }
-            set { _deleteExpenseModalVisible = value; RaisePropertyChanged(); }
-        }
-
-        private bool _editExpenseModalVisible = false;
-        public bool EditExpenseModalVisible
-        {
-            get { return _editExpenseModalVisible; }
-            set { _editExpenseModalVisible = value; RaisePropertyChanged(); }
-        }
-
-        //Delete
-        private bool _deleteExpenseConfirmation = false;
-        public bool DeleteExpenseConfirmation
-        {
-            get { return _deleteExpenseConfirmation; }
-            set { _deleteExpenseConfirmation = value; RaisePropertyChanged(); }
-        }
-
-        //Edit
-        private bool _editExpenseConfirmation = false;
-        public bool EditExpenseConfirmation
-        {
-            get { return _editExpenseConfirmation; }
-            set { _editExpenseConfirmation = value; RaisePropertyChanged(); }
         }
 
         private DateTime _editExpenseDate;
@@ -236,13 +228,20 @@ namespace Personal_Expense_Tracker.ViewModel
 
         public ICommand LoadExpenses { get; }
         public ICommand AddExpense { get; }
-        public ICommand DeleteExpense { get; }
-        public ICommand EditExpense { get; }
-        public ICommand HideDeleteExpense { get; }
-        public ICommand HideEditExpense { get; }
+        public ICommand DeleteExpenseCommand { get; }
+        public ICommand BeginExpenseEditCommand { get; }
+        public ICommand EditExpenseCommand { get; }
+        public ICommand MoveExpenseCommand { get; }
+        public ICommand DuplicateExpenseCommand { get; }
 
         public ICommand DefaultDataGridSorting { get; }
         public ICommand RowClickSelectionCommand { get; }
+
+        public ICommand ChangeToolBarToMoveCommand { get; }
+        public ICommand ChangeToolBarToDuplicateCommand { get; }
+        public ICommand ChangeToolBarToDeleteCommand { get; }
+        public ICommand ChangeToolBarToNoneCommand { get; }
+        public ICommand ToolBarCancelCommand { get; }
 
         public ICommand UnfocusElementUponMouseClick { get; }
         #endregion Commands
@@ -258,6 +257,7 @@ namespace Personal_Expense_Tracker.ViewModel
 
             _categoryCollection = LoadCategories();
             _selectedCategory = _categoryCollection[0];
+            _selectedMoveToCategory = _categoryCollection[0];
 
             _monthList = LoadMonths();
             _statisticsCardsCollection = LoadStatisticsCards();
@@ -273,13 +273,20 @@ namespace Personal_Expense_Tracker.ViewModel
 
             LoadExpenses = new LoadExpenseDataCommand(this, databaseService);
             AddExpense = new CreateExpenseCommand(this, databaseService, formattingService);
-            DeleteExpense = new DeleteExpenseCommand(this, databaseService, messageBoxStore);
-            EditExpense = new EditExpenseCommand(this, databaseService, formattingService, messageBoxStore);
-            HideDeleteExpense = new HideDeleteExpenseModalCommand(this);
-            HideEditExpense = new HideEditExpenseModalCommand(this);
+            DeleteExpenseCommand = new DeleteExpenseCommand(this, databaseService, messageBoxStore);
+            BeginExpenseEditCommand = new BeginExpenseEditCommand();
+            EditExpenseCommand = new EditExpenseCommand(this, databaseService, formattingService, messageBoxStore);
+            MoveExpenseCommand = new MoveExpenseCommand();
+            DuplicateExpenseCommand = new DuplicateExpenseCommand();
 
             DefaultDataGridSorting = new DefaultDataGridSortingCommand();
             RowClickSelectionCommand = new RowClickSelectionCommand(this);
+
+            ChangeToolBarToMoveCommand = new ChangeToolBarCommand(this, ToolBar.Move);
+            ChangeToolBarToDuplicateCommand = new ChangeToolBarCommand(this, ToolBar.Duplicate);
+            ChangeToolBarToDeleteCommand = new ChangeToolBarCommand(this, ToolBar.Delete);
+            ChangeToolBarToNoneCommand = new ChangeToolBarCommand(this, ToolBar.None);
+            ToolBarCancelCommand = new ToolBarCancelCommand();
 
             UnfocusElementUponMouseClick = new UnfocusElementUponMouseClickCommand();
 
@@ -344,7 +351,7 @@ namespace Personal_Expense_Tracker.ViewModel
             {
                 int currentYear = DateTime.Now.Year;
 
-                DataTable dataTable = _databaseService.QueryDatabase($"SELECT DISTINCT strftime('%Y', expense_date) year_list FROM {_selectedCategory.Name} ORDER BY year_list ASC;");
+                DataTable dataTable = _databaseService.QueryDatabase($"SELECT DISTINCT strftime('%Y', expense_date) year_list FROM \"{_selectedCategory.Name}\" ORDER BY year_list ASC;");
 
                 if (dataTable == null || dataTable.Rows.Count == 0)
                     YearList.Add(currentYear);
@@ -420,6 +427,14 @@ namespace Personal_Expense_Tracker.ViewModel
             result.Add(new StatisticCardViewModel(new StatisticCard("\ue4fc", "Průměrný výdaj", "N/A", "N/A", "Průměrný výdaj na 1 den.")));
 
             return result;
+        }
+
+        public override void Dispose()
+        {
+            ExpenseCollection.CollectionChanged -= ExpenseCollectionChangedEventHandler;
+            ExpenseCollection.ItemPropertyChanged -= ExpenseCollectionItemChangedEventHandler;
+
+            base.Dispose();
         }
     }
 }

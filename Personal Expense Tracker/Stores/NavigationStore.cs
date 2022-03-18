@@ -11,7 +11,13 @@ namespace Personal_Expense_Tracker.Stores
         public BaseViewModel? CurrentViewModel
         {
             get { return _currentViewModel; }
-            set { _currentViewModel = value; OnCurrentViewModelChanged(); }
+            set
+            {
+                _currentViewModel?.Dispose();
+
+                _currentViewModel = value;
+                OnCurrentViewModelChanged();
+            }
         }
 
         private void OnCurrentViewModelChanged()

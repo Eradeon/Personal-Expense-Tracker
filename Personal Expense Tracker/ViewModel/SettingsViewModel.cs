@@ -41,5 +41,12 @@ namespace Personal_Expense_Tracker.ViewModel
         {
             RaisePropertyChanged(nameof(CurrentSettingsViewModel));
         }
+
+        public override void Dispose()
+        {
+            SettingsNavigationStore.CurrentViewModelChanged -= OnCurrentViewModelChanged;
+
+            base.Dispose();
+        }
     }
 }

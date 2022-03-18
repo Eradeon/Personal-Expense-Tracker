@@ -25,13 +25,9 @@ namespace Personal_Expense_Tracker.Command.Home
 
         public override bool CanExecute(object? parameter)
         {
-            if (_homeViewModel.EditExpenseConfirmation)
-            {
-                return !string.IsNullOrWhiteSpace(_homeViewModel.EditExpenseName) &&
-                !string.IsNullOrWhiteSpace(_homeViewModel.EditExpenseAmount) &&
-                base.CanExecute(parameter);
-            }
-            else { return true && base.CanExecute(parameter); }
+            return !string.IsNullOrWhiteSpace(_homeViewModel.EditExpenseName) &&
+                 !string.IsNullOrWhiteSpace(_homeViewModel.EditExpenseAmount) &&
+                 base.CanExecute(parameter);
                 
         }
 
@@ -39,8 +35,6 @@ namespace Personal_Expense_Tracker.Command.Home
         {
             if (_homeViewModel.SelectedRow != null && _homeViewModel.SelectedCategory != null)
             {
-                if (_homeViewModel.EditExpenseConfirmation)
-                {
                     DateTime newExpenseDate = _homeViewModel.EditExpenseDate;
                     string newExpenseName = _formattingService.FormatExpenseName(_homeViewModel.EditExpenseName);
                     double newExpenseAmount = _formattingService.FormatExpenseAmount(_homeViewModel.EditExpenseAmount);
@@ -78,26 +72,12 @@ namespace Personal_Expense_Tracker.Command.Home
 
                     _homeViewModel.EditExpenseName = string.Empty;
                     _homeViewModel.EditExpenseAmount = string.Empty;
-
-                    _homeViewModel.EditExpenseConfirmation = false;
-                    _homeViewModel.EditExpenseModalVisible = false;
-                }
-                else
-                {
-                    _homeViewModel.EditExpenseDate = _homeViewModel.SelectedRow.Date;
-                    _homeViewModel.EditExpenseName = _homeViewModel.SelectedRow.Name;
-                    _homeViewModel.EditExpenseAmount = _homeViewModel.SelectedRow.Amount.ToString();
-
-                    _homeViewModel.EditExpenseConfirmation = true;
-                    _homeViewModel.EditExpenseModalVisible = true;
-                }
             }
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_homeViewModel.EditExpenseConfirmation) ||
-                e.PropertyName == nameof(_homeViewModel.EditExpenseDate) ||
+            if (e.PropertyName == nameof(_homeViewModel.EditExpenseDate) ||
                 e.PropertyName == nameof(_homeViewModel.EditExpenseName) ||
                 e.PropertyName == nameof(_homeViewModel.EditExpenseAmount))
             {

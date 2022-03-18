@@ -373,13 +373,13 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <Style x:Key="DataGridDeleteButton" TargetType="Button">
+
+    <Style x:Key="ToolBarButtonStyle" TargetType="Button">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Width" Value="36"/>
 
         <Setter Property="ToolTipService.Placement" Value="Center"/>
         <Setter Property="ToolTipService.VerticalOffset" Value="40"/>
@@ -392,35 +392,28 @@
                     <Grid>
                         <Border
                             x:Name="StateLayer"
-                            Height="40" Width="40"
                             CornerRadius="4"
-                            Background="Transparent"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-                            <TextBlock
-                                x:Name="Icon"
-                                FontSize="22"
-                                Foreground="{DynamicResource ErrorColourFullBrush}"
-                                FontFamily="{StaticResource MaterialIconsFilled}"
-                                Text="&#xe872;"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"/>
-                        </Border>
+                            Background="Transparent"/>
+                        <TextBlock
+                            x:Name="Icon"
+                            FontSize="20"
+                            Foreground="{DynamicResource OnSurfaceColourFullBrush}"
+                            FontFamily="{StaticResource MaterialIconsOutlined}"
+                            Text="{TemplateBinding Content}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"/>
                     </Grid>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource ErrorColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
                         </Trigger>
-                        
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource ErrorColourHoverBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
                         </Trigger>
-
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource ErrorColourPressedBrush}"/>
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourPressedBrush}"/>
                         </Trigger>
-
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
                         </Trigger>
@@ -428,12 +421,57 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
 
-        <Setter Property="ToolTip">
+    <Style x:Key="ToolBarRadioButtonStyle" TargetType="RadioButton">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Width" Value="36"/>
+
+        <Setter Property="ToolTipService.Placement" Value="Center"/>
+        <Setter Property="ToolTipService.VerticalOffset" Value="40"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
+        <Setter Property="ToolTipService.ShowDuration" Value="2500"/>
+
+        <Setter Property="Template">
             <Setter.Value>
-                <ToolTip
-                    Content="Odstranit"
-                    Style="{StaticResource BasicTooltipStyle}"/>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid>
+                        <Border
+                            x:Name="StateLayer"
+                            CornerRadius="4"
+                            Background="Transparent"/>
+                        <TextBlock
+                            x:Name="Icon"
+                            FontSize="20"
+                            Foreground="{DynamicResource OnSurfaceColourFullBrush}"
+                            FontFamily="{StaticResource MaterialIconsOutlined}"
+                            Text="{TemplateBinding Content}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourHoverBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="StateLayer" Value="{DynamicResource PrimaryColourPressedBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="FontFamily" TargetName="Icon" Value="{StaticResource MaterialIconsFilled}"/>
+                            <Setter Property="Foreground" TargetName="Icon" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}, Path=Foreground}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" TargetName="Icon" Value="{DynamicResource OnSurfaceColourDisabledBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
@@ -532,13 +570,13 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="MoonIcon"
+                                            Storyboard.TargetName="SunIcon"
                                             Storyboard.TargetProperty="Padding"
                                             To="0"
                                             Duration="00:00:00.15"
                                             BeginTime="00:00:00"/>
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="SunIcon"
+                                            Storyboard.TargetName="MoonIcon"
                                             Storyboard.TargetProperty="Padding"
                                             To="0 70 0 0"
                                             Duration="00:00:00.15"
@@ -550,13 +588,13 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="MoonIcon"
+                                            Storyboard.TargetName="SunIcon"
                                             Storyboard.TargetProperty="Padding"
                                             To="0 70 0 0"
                                             Duration="00:00:00.15"
                                             BeginTime="00:00:00"/>
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="SunIcon"
+                                            Storyboard.TargetName="MoonIcon"
                                             Storyboard.TargetProperty="Padding"
                                             To="0"
                                             Duration="00:00:00.15"

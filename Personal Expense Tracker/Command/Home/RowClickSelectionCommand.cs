@@ -33,15 +33,15 @@ namespace Personal_Expense_Tracker.Command.Home
                     {
                         var expense = (ExpenseViewModel)row.DataContext;
 
-                        if (!expense.IsSelected)
+                        if (expense.IsSelected)
                         {
-                            expense.IsSelected = true;
-                            _homeViewModel.SelectedExpenses.Add(expense);
+                            expense.IsSelected = false;
+                            _homeViewModel.SelectedItemsCount--;
                         }
                         else
                         {
-                            expense.IsSelected = false;
-                            _homeViewModel.SelectedExpenses.Remove(expense);
+                            expense.IsSelected = true;
+                            _homeViewModel.SelectedItemsCount++;
                         }
                     }
                 }

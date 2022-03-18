@@ -8,152 +8,13 @@
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="MainGrid" Background="{DynamicResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
-        <Grid x:Name="DeleteExpenseModal"
-              Style="{StaticResource ModalCoverStyle}"
-              Visibility="{Binding DeleteExpenseModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Border Style="{StaticResource ModalWrapperStyle}"/>
-
-                <Grid Style="{StaticResource ModalContentStyle}" Width="420">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="16"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="24"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0" Text="Odstranění záznamu" Style="{StaticResource TextHeadline5Style}"/>
-
-                    <TextBlock Grid.Row="2"
-                               Text="Opravdu chcete odstranit tuto položku?"
-                               Style="{StaticResource TextBody2Style}"/>
-
-                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button x:Name="CancelDeleteExpenseButton"
-                            Content="Zrušit"
-                            Command="{Binding HideDeleteExpense}"
-                            Style="{StaticResource TextButtonStyle}"
-                            Tag="&#xe5c9;"
-                            FontFamily="{StaticResource MaterialIconsOutlined}"
-                            Margin="0 0 8 0">
-                            <Behaviors:Interaction.Triggers>
-                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
-                                </Behaviors:EventTrigger>
-                            </Behaviors:Interaction.Triggers>
-                        </Button>
-
-                        <Button x:Name="ConfirmDeleteExpenseButton"
-                            Content="Odstranit"
-                            Command="{Binding DeleteExpense}"
-                            Style="{StaticResource FilledWarningButtonStyle}"
-                            Tag="&#xe92b;"
-                            FontFamily="{StaticResource MaterialIconsFilled}">
-                            <Behaviors:Interaction.Triggers>
-                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
-                                </Behaviors:EventTrigger>
-                            </Behaviors:Interaction.Triggers>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </Grid>
-        </Grid>
-
-        <Grid x:Name="EditExpenseModal"
-              Style="{StaticResource ModalCoverStyle}"
-              Visibility="{Binding EditExpenseModalVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Border Style="{StaticResource ModalWrapperStyle}"/>
-
-                <Grid Style="{StaticResource ModalContentStyle}" Width="600">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="16"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="24"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0" Text="Upravení záznamu" Style="{StaticResource TextHeadline5Style}"/>
-
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="195"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="16"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <DatePicker
-                            x:Name="EditExpenseDateInput"
-                            Grid.Column="0"
-                            Style="{StaticResource DatePickerStyle}"
-                            SelectedDateFormat="Short"
-                            SelectedDate="{Binding EditExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBox
-                            x:Name="EditExpenseNameInput"   
-                            Grid.Column="1"
-                            Style="{StaticResource TextBoxStyle}"
-                            Tag="Nový název"
-                            Text="{Binding EditExpenseName, UpdateSourceTrigger=PropertyChanged}">
-                            <TextBox.InputBindings>
-                                <KeyBinding Key="Return" Command="{Binding EditExpense, UpdateSourceTrigger=PropertyChanged}"/>
-                            </TextBox.InputBindings>
-                        </TextBox>
-                        <TextBox
-                            x:Name="EditExpenseAmountInput"
-                            Grid.Column="3"
-                            Style="{StaticResource TextBoxStyle}"
-                            Tag="Nová částka"
-                            Text="{Binding EditExpenseAmount, UpdateSourceTrigger=PropertyChanged}">
-                            <TextBox.InputBindings>
-                                <KeyBinding Key="Return" Command="{Binding EditExpense, UpdateSourceTrigger=PropertyChanged}"/>
-                            </TextBox.InputBindings>
-                        </TextBox>
-                    </Grid>
-
-                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button x:Name="CancelEditExpenseButton"
-                            Content="Zrušit"
-                            Command="{Binding HideEditExpense}"
-                            Style="{StaticResource TextButtonStyle}"
-                            Tag="&#xe5c9;"
-                            FontFamily="{StaticResource MaterialIconsOutlined}"
-                            Margin="0 0 8 0">
-                            <Behaviors:Interaction.Triggers>
-                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
-                                </Behaviors:EventTrigger>
-                            </Behaviors:Interaction.Triggers>
-                        </Button>
-
-                        <Button
-                            x:Name="ConfirmEditExpenseInputButton"
-                            HorizontalAlignment="Right"
-                            Content="Potvrdit úpravu"
-                            Command="{Binding EditExpense}"
-                            Style="{StaticResource FilledButtonStyle}"
-                            Tag="&#xe3c9;"
-                            FontFamily="{StaticResource MaterialIconsFilled}">
-                            <Behaviors:Interaction.Triggers>
-                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
-                                </Behaviors:EventTrigger>
-                            </Behaviors:Interaction.Triggers>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </Grid>
-        </Grid>
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="16"/>
                 <RowDefinition Height="86"/>
                 <RowDefinition Height="16"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="16"/>
             </Grid.RowDefinitions>
 
             <Border x:Name="DateSelectorGrid" Grid.Row="1"
@@ -254,6 +115,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="86"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto" MaxHeight="70"/>
+                            <RowDefinition Height="52"/>
                         </Grid.RowDefinitions>
 
                         <Grid x:Name="DataInputGrid" Grid.Row="0">
@@ -475,31 +338,8 @@
                                             <Button
                                                 x:Name="EditRowButton"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
-                                                                  Path=DataContext.EditExpense}"
+                                                                  Path=DataContext.BeginExpenseEditCommand}"
                                                 Style="{StaticResource DataGridEditButton}">
-                                                <Behaviors:Interaction.Triggers>
-                                                    <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                                        <Behaviors:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.UnfocusElementUponMouseClick}"
-                                                                                       CommandParameter="{Binding ElementName=MainGrid}"/>
-                                                    </Behaviors:EventTrigger>
-                                                </Behaviors:Interaction.Triggers>
-                                            </Button>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn
-                                    x:Name="DeleteColumn"
-                                    MinWidth="48"
-                                    Width="48"
-                                    HeaderStyle="{StaticResource DataGridEmptyColumnHeaderStyle}"
-                                    CellStyle="{StaticResource DataGridIconButtonCellStyle}">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                x:Name="DeleteRowButton"
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
-                                                                  Path=DataContext.DeleteExpense}"
-                                                Style="{StaticResource DataGridDeleteButton}">
                                                 <Behaviors:Interaction.Triggers>
                                                     <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                                         <Behaviors:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.UnfocusElementUponMouseClick}"
@@ -512,6 +352,475 @@
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
+
+                        <Grid x:Name="AdvancedToolBarGrid" Grid.Row="2">
+                            <Grid.Resources>
+                                <Storyboard x:Key="ToolBarSlideUpAnimation">
+                                    <DoubleAnimationUsingKeyFrames
+                                        Storyboard.TargetProperty="(FrameworkElement.Height)">
+                                        <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="00:00:00.15" Value="70"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetProperty="(FrameworkElement.Visibility)">
+                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Key="ToolBarSlideDownAnimation">
+                                    <DoubleAnimationUsingKeyFrames
+                                        Storyboard.TargetProperty="(FrameworkElement.Height)">
+                                        <EasingDoubleKeyFrame KeyTime="00:00:00" Value="70"/>
+                                        <EasingDoubleKeyFrame KeyTime="00:00:00.15" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetProperty="(FrameworkElement.Visibility)">
+                                        <DiscreteObjectKeyFrame KeyTime="00:00:00.15" Value="{x:Static Visibility.Collapsed}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </Grid.Resources>
+                            <Grid x:Name="MoveItemsGrid" Background="{DynamicResource SurfaceColourFullBrush}" VerticalAlignment="Bottom">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedToolBar}" Value="Move">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource ToolBarSlideUpAnimation}"/>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource ToolBarSlideDownAnimation}"/>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="12"/>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="16"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="8" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource OutlineColourLight75Brush}"/>
+                                <ComboBox x:Name="MoveToCategoryComboBox" Grid.Column="1"
+                                    ItemsSource="{Binding CategoryCollection}"
+                                    SelectedItem="{Binding SelectedMoveToCategory}"
+                                    Style="{StaticResource ComboBoxStyle}"
+                                    Tag="Nová kategorie">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding DisplayName}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Button
+                                    x:Name="MoveToCategoryButton"
+                                    Grid.Column="3"
+                                    Content="Přesunout do kategorie"
+                                    Command="{Binding MoveExpenseCommand}"
+                                    Style="{StaticResource TextButtonStyle}"
+                                    Tag="&#xe675;"
+                                    FontFamily="{StaticResource MaterialIconsFilled}"
+                                    VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </Button>
+                                <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                    <TextBlock
+                                        Text="Vybráno položek:"
+                                        Style="{StaticResource TextBody2Style}"
+                                        Margin="0 0 6 0"/>
+                                    <TextBlock
+                                        Text="{Binding SelectedItemsCount}"
+                                        Style="{StaticResource TextBody2Style}"/>
+                                </StackPanel>
+                                <RadioButton
+                                    Grid.Column="6"
+                                    GroupName="ToolBarRadioButtons"
+                                    Content="&#xe5cd;"
+                                    Foreground="{DynamicResource PrimaryColourFullBrush}"
+                                    Style="{StaticResource ToolBarRadioButtonStyle}">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="Checked">
+                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToNoneCommand}"/>
+                                        </Behaviors:EventTrigger>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </RadioButton>
+                            </Grid>
+                            <Grid x:Name="DuplicateItemsGrid" Background="{DynamicResource SurfaceColourFullBrush}" VerticalAlignment="Bottom">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedToolBar}" Value="Duplicate">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource ToolBarSlideUpAnimation}"/>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource ToolBarSlideDownAnimation}"/>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="16"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="8" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource OutlineColourLight75Brush}"/>
+                                <Button
+                                    Grid.Column="1"
+                                    Content="Zrušit"
+                                    Command="{Binding ToolBarCancelCommand}"
+                                    CommandParameter="{Binding ElementName=CloseDuplicateExpense}"
+                                    Style="{StaticResource TextButtonStyle}"
+                                    Tag="&#xe5cd;"
+                                    FontFamily="{StaticResource MaterialIconsFilled}"
+                                    VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </Button>
+                                <Button
+                                    x:Name="DuplicateExpenseButton"
+                                    Grid.Column="3"
+                                    Content="Duplikovat"
+                                    Command="{Binding DuplicateExpenseCommand}"
+                                    Style="{StaticResource FilledButtonStyle}"
+                                    Tag="&#xe173;"
+                                    FontFamily="{StaticResource MaterialIconsFilled}"
+                                    VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </Button>
+                                <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                    <TextBlock
+                                        Text="Vybráno položek:"
+                                        Style="{StaticResource TextBody2Style}"
+                                        Margin="0 0 6 0"/>
+                                    <TextBlock
+                                        Text="{Binding SelectedItemsCount}"
+                                        Style="{StaticResource TextBody2Style}"/>
+                                </StackPanel>
+                                <RadioButton
+                                    x:Name="CloseDuplicateExpense"
+                                    Grid.Column="6"
+                                    GroupName="ToolBarRadioButtons"
+                                    Content="&#xe5cd;"
+                                    Foreground="{DynamicResource PrimaryColourFullBrush}"
+                                    Style="{StaticResource ToolBarRadioButtonStyle}">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="Checked">
+                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToNoneCommand}"/>
+                                        </Behaviors:EventTrigger>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </RadioButton>
+                            </Grid>
+                            <Grid x:Name="DeleteItemsGrid" Background="{DynamicResource SurfaceColourFullBrush}" VerticalAlignment="Bottom">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedToolBar}" Value="Delete">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource ToolBarSlideUpAnimation}"/>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource ToolBarSlideDownAnimation}"/>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="16"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="8" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource OutlineColourLight75Brush}"/>
+                                <Button
+                                    Grid.Column="1"
+                                    Content="Zrušit"
+                                    Command="{Binding ToolBarCancelCommand}"
+                                    CommandParameter="{Binding ElementName=CloseDeleteExpense}"
+                                    Style="{StaticResource TextButtonStyle}"
+                                    Tag="&#xe5cd;"
+                                    FontFamily="{StaticResource MaterialIconsFilled}"
+                                    VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </Button>
+                                <Button
+                                    x:Name="DeleteExpenseButton"
+                                    Grid.Column="3"
+                                    Content="Odstranit"
+                                    Command="{Binding DeleteExpenseCommand}"
+                                    Style="{StaticResource FilledWarningButtonStyle}"
+                                    Tag="&#xe92b;"
+                                    FontFamily="{StaticResource MaterialIconsFilled}"
+                                    VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </Button>
+                                <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                    <TextBlock
+                                        Text="Vybráno položek:"
+                                        Style="{StaticResource TextBody2Style}"
+                                        Margin="0 0 6 0"/>
+                                    <TextBlock
+                                        Text="{Binding SelectedItemsCount}"
+                                        Style="{StaticResource TextBody2Style}"/>
+                                </StackPanel>
+                                <RadioButton
+                                    x:Name="CloseDeleteExpense"
+                                    Grid.Column="6"
+                                    GroupName="ToolBarRadioButtons"
+                                    Content="&#xe5cd;"
+                                    Foreground="{DynamicResource PrimaryColourFullBrush}"
+                                    Style="{StaticResource ToolBarRadioButtonStyle}">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="Checked">
+                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToNoneCommand}"/>
+                                        </Behaviors:EventTrigger>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </RadioButton>
+                            </Grid>
+                            <Grid x:Name="EditItemsGrid" Background="{DynamicResource SurfaceColourFullBrush}" VerticalAlignment="Bottom">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Setter Property="Height" Value="70"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedToolBar}" Value="Edit">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource ToolBarSlideUpAnimation}"/>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource ToolBarSlideDownAnimation}"/>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="12"/>
+                                    <ColumnDefinition Width="185"/>
+                                    <ColumnDefinition MinWidth="130" Width="5*"/>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition MinWidth="100" Width="5*"/>
+                                    <ColumnDefinition Width="64"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="16"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="10" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource OutlineColourLight75Brush}"/>
+                                <DatePicker
+                                    x:Name="EditExpenseDateInput"
+                                    Grid.Column="1"
+                                    Style="{StaticResource DatePickerStyle}"
+                                    SelectedDateFormat="Short"
+                                    SelectedDate="{Binding EditExpenseDate, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox
+                                    x:Name="EditExpenseNameInput"   
+                                    Grid.Column="2"
+                                    Style="{StaticResource TextBoxStyle}"
+                                    Tag="Nový název"
+                                    Text="{Binding EditExpenseName, UpdateSourceTrigger=PropertyChanged}">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Return" Command="{Binding EditExpenseCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <TextBox
+                                    x:Name="EditExpenseAmountInput"
+                                    Grid.Column="4"
+                                    Style="{StaticResource TextBoxStyle}"
+                                    Tag="Nová částka"
+                                    Text="{Binding EditExpenseAmount, UpdateSourceTrigger=PropertyChanged}">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Return" Command="{Binding EditExpenseCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <Button
+                                    x:Name="ConfirmEditExpenseInputButton"
+                                    Grid.Column="6"
+                                    HorizontalAlignment="Right"
+                                    Content="Upravit"
+                                    Command="{Binding EditExpenseCommand}"
+                                    Style="{StaticResource TextButtonStyle}"
+                                    Tag="&#xe3c9;"
+                                    FontFamily="{StaticResource MaterialIconsFilled}">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </Button>
+                                <RadioButton
+                                    Grid.Column="8"
+                                    GroupName="ToolBarRadioButtons"
+                                    Content="&#xe5cd;"
+                                    Foreground="{DynamicResource PrimaryColourFullBrush}"
+                                    Style="{StaticResource ToolBarRadioButtonStyle}">
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="Checked">
+                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToNoneCommand}"/>
+                                        </Behaviors:EventTrigger>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </RadioButton>
+                            </Grid>
+                        </Grid>
+                        
+                        <Grid x:Name="ToolBarGrid" Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="16"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="8"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource OutlineColourLight75Brush}"/>
+
+                            <StackPanel x:Name="ToolBarButtonsWrapper" Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                                <Button
+                                    x:Name="SelectAllButton"    
+                                    Content="&#xe834;"
+                                    Style="{StaticResource ToolBarButtonStyle}"
+                                    Margin="0 0 8 0">
+                                    <Button.ToolTip>
+                                        <ToolTip Content="Vybrat vše" Style="{StaticResource BasicTooltipStyle}"/>
+                                    </Button.ToolTip>
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </Button>
+                                <Button
+                                    x:Name="DeselectAllButton"
+                                    Content="&#xe835;"
+                                    Style="{StaticResource ToolBarButtonStyle}">
+                                    <Button.ToolTip>
+                                        <ToolTip Content="Zrušit výběr" Style="{StaticResource BasicTooltipStyle}"/>
+                                    </Button.ToolTip>
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </Button>
+                            </StackPanel>
+
+                            <Border Grid.Column="3" Grid.Row="1" Width="1" Background="{DynamicResource OutlineColourLight75Brush}"/>
+
+                            <StackPanel x:Name="ToolBarRadioButtonsWrapper" Grid.Column="5" Grid.Row="1" Orientation="Horizontal">
+                                <RadioButton
+                                    x:Name="MoveItemsButton"
+                                    GroupName="ToolBarRadioButtons"
+                                    Content="&#xe675;"
+                                    Foreground="{DynamicResource PrimaryColourFullBrush}"
+                                    Style="{StaticResource ToolBarRadioButtonStyle}"
+                                    Margin="0 0 8 0">
+                                    <RadioButton.ToolTip>
+                                        <ToolTip Content="Přesunout vybrané položky do jiné kategorie" Style="{StaticResource BasicTooltipStyle}"/>
+                                    </RadioButton.ToolTip>
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="Checked">
+                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToMoveCommand}"/>
+                                        </Behaviors:EventTrigger>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </RadioButton>
+                                <RadioButton
+                                    x:Name="DuplicateItemsButton"
+                                    GroupName="ToolBarRadioButtons"
+                                    Content="&#xe173;"
+                                    Foreground="{DynamicResource PrimaryColourFullBrush}"
+                                    Style="{StaticResource ToolBarRadioButtonStyle}"
+                                    Margin="0 0 8 0">
+                                    <RadioButton.ToolTip>
+                                        <ToolTip Content="Duplikovat vybrané položky" Style="{StaticResource BasicTooltipStyle}"/>
+                                    </RadioButton.ToolTip>
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="Checked">
+                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToDuplicateCommand}"/>
+                                        </Behaviors:EventTrigger>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </RadioButton>
+                                <RadioButton
+                                    x:Name="DeleteItemsButton"
+                                    GroupName="ToolBarRadioButtons"
+                                    Content="&#xe872;"
+                                    Foreground="{DynamicResource ErrorColourFullBrush}"
+                                    Style="{StaticResource ToolBarRadioButtonStyle}">
+                                    <RadioButton.ToolTip>
+                                        <ToolTip Content="Odstranit vybrané položky" Style="{StaticResource BasicTooltipStyle}"/>
+                                    </RadioButton.ToolTip>
+                                    <Behaviors:Interaction.Triggers>
+                                        <Behaviors:EventTrigger EventName="Checked">
+                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToDeleteCommand}"/>
+                                        </Behaviors:EventTrigger>
+                                        <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                            <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                        </Behaviors:EventTrigger>
+                                    </Behaviors:Interaction.Triggers>
+                                </RadioButton>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </Border>
 
@@ -608,7 +917,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="36"/>
-                                        <RowDefinition MinHeight="350" Height="Auto"/>
+                                        <RowDefinition MinHeight="320" Height="Auto"/>
                                     </Grid.RowDefinitions>
 
                                     <Grid x:Name="FirstLastGraphLabelGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">

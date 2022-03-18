@@ -12,6 +12,7 @@
         <Setter Property="AllowDrop" Value="True"/>
         <Setter Property="AcceptsTab" Value="False"/>
         <Setter Property="AcceptsReturn" Value="False"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource OnSurfaceVariantColourFullBrush}"/>
 
         <Setter Property="Template">
             <Setter.Value>

@@ -2,6 +2,9 @@
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.ViewModel;
 using Personal_Expense_Tracker.Stores;
+using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
@@ -20,7 +23,7 @@ namespace Personal_Expense_Tracker.Command.Home
 
         public override void Execute(object? parameter)
         {
-            if (_homeViewModel.SelectedCategory != null)
+            /*if (_homeViewModel.SelectedCategory != null)
             {
                 if (_homeViewModel.DeleteExpenseConfirmation)
                 {
@@ -49,6 +52,18 @@ namespace Personal_Expense_Tracker.Command.Home
                     _homeViewModel.DeleteExpenseConfirmation = true;
                     _homeViewModel.DeleteExpenseModalVisible = true;
                 }
+            }*/
+
+            List<ExpenseViewModel> itemsToRemove = _homeViewModel.ExpenseCollection.Where(x => x.IsSelected == true).ToList();
+
+            int index = itemsToRemove.Count-1;
+            _homeViewModel.LoadingExpenses = true;
+            for (int i = 0; i < itemsToRemove.Count; i++)
+            {
+                if (i == index)
+                    _homeViewModel.LoadingExpenses = false;
+
+                _homeViewModel.ExpenseCollection.Remove(itemsToRemove[i]);
             }
         }
     }
