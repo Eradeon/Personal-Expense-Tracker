@@ -7,6 +7,8 @@ namespace Personal_Expense_Tracker.Command
     {
         public event EventHandler? CanExecuteChanged;
 
+        public virtual void Dispose() { }
+
         public virtual bool CanExecute(object? parameter)
         {
             return true;

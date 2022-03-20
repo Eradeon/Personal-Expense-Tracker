@@ -6,6 +6,7 @@ using Personal_Expense_Tracker.Model;
 using Personal_Expense_Tracker.Stores;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.Extension;
+using Personal_Expense_Tracker.Command;
 using Personal_Expense_Tracker.Command.General;
 using Personal_Expense_Tracker.Command.Settings.CategorySettings;
 
@@ -106,11 +107,13 @@ namespace Personal_Expense_Tracker.ViewModel
             _databaseService = databaseService;
 
             _categoryCollection = LoadCategories();
-
-            _selectedRenameCategory = _categoryCollection[0];
-            _selectedDeleteCategory = _categoryCollection[0];
-            _selectedMergeFromCategory = _categoryCollection[0];
-            _selectedMergeToCategory = _categoryCollection[0];
+            if (_categoryCollection.Count > 0)
+            {
+                _selectedRenameCategory = _categoryCollection[0];
+                _selectedDeleteCategory = _categoryCollection[0];
+                _selectedMergeFromCategory = _categoryCollection[0];
+                _selectedMergeToCategory = _categoryCollection[0];
+            }
 
             //Commands
             CreateCategoryCommand = new CreateCategoryCommand(this, databaseService, formattingService, messageBoxStore);
@@ -151,6 +154,13 @@ namespace Personal_Expense_Tracker.ViewModel
             }
 
             return categoryCollection;
+        }
+
+        public override void Dispose()
+        {
+            ((BaseCommand)CreateCategoryCommand).Dispose();
+            ((BaseCommand)RenameCategoryCommand).Dispose();
+            base.Dispose();
         }
     }
 }

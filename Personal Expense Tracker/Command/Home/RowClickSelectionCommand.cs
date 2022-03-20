@@ -25,23 +25,29 @@ namespace Personal_Expense_Tracker.Command.Home
             {
                 MouseButtonEventArgs args = (MouseButtonEventArgs)parameter;
 
-                if (args.OriginalSource != null && args.OriginalSource is DependencyObject)
+                if (args.OriginalSource != null)
                 {
-                    DataGridRow? row = FindParent<DataGridRow>((DependencyObject)args.OriginalSource);
+                    if (args.OriginalSource is Button)
+                        return;
 
-                    if (row != null)
+                    if (args.OriginalSource is DependencyObject)
                     {
-                        var expense = (ExpenseViewModel)row.DataContext;
+                        DataGridRow? row = FindParent<DataGridRow>((DependencyObject)args.OriginalSource);
 
-                        if (expense.IsSelected)
+                        if (row != null)
                         {
-                            expense.IsSelected = false;
-                            _homeViewModel.SelectedItemsCount--;
-                        }
-                        else
-                        {
-                            expense.IsSelected = true;
-                            _homeViewModel.SelectedItemsCount++;
+                            var expense = (ExpenseViewModel)row.DataContext;
+
+                            if (expense.IsSelected && !expense.IsEditing)
+                            {
+                                expense.IsSelected = false;
+                                _homeViewModel.SelectedItemsCount--;
+                            }
+                            else if (!expense.IsSelected && !expense.IsEditing)
+                            {
+                                expense.IsSelected = true;
+                                _homeViewModel.SelectedItemsCount++;
+                            }
                         }
                     }
                 }

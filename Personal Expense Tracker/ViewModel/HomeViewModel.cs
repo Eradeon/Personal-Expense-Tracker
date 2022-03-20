@@ -8,6 +8,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows;
 using System.Globalization;
+using Personal_Expense_Tracker.Command;
 using Personal_Expense_Tracker.Command.General;
 using Personal_Expense_Tracker.Command.Home;
 using Personal_Expense_Tracker.Service;
@@ -17,7 +18,7 @@ using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal enum ToolBar
+    internal enum ExpenseToolBar
     {
         None,
         Edit,
@@ -119,8 +120,8 @@ namespace Personal_Expense_Tracker.ViewModel
             set { _selectedItemsCount = value; RaisePropertyChanged(); }
         }
 
-        private ToolBar _selectedToolBar = ToolBar.None;
-        public ToolBar SelectedToolBar
+        private ExpenseToolBar _selectedToolBar = ExpenseToolBar.None;
+        public ExpenseToolBar SelectedToolBar
         {
             get { return _selectedToolBar; }
             set { _selectedToolBar = value; RaisePropertyChanged(); }
@@ -159,11 +160,11 @@ namespace Personal_Expense_Tracker.ViewModel
 
         #region Expense Editing Properties
         //General
-        private ExpenseViewModel? _selectedRow;
-        public ExpenseViewModel? SelectedRow
+        private ExpenseViewModel? _selectedExpense = null;
+        public ExpenseViewModel? SelectedExpense
         {
-            get { return _selectedRow; }
-            set { _selectedRow = value; RaisePropertyChanged(); }
+            get { return _selectedExpense; }
+            set { _selectedExpense = value; RaisePropertyChanged(); }
         }
 
         private DateTime _editExpenseDate;
@@ -237,10 +238,11 @@ namespace Personal_Expense_Tracker.ViewModel
         public ICommand DefaultDataGridSorting { get; }
         public ICommand RowClickSelectionCommand { get; }
 
+        public ICommand SelectAllCommand { get; }
+        public ICommand DeselectAllCommand { get; }
         public ICommand ChangeToolBarToMoveCommand { get; }
         public ICommand ChangeToolBarToDuplicateCommand { get; }
         public ICommand ChangeToolBarToDeleteCommand { get; }
-        public ICommand ChangeToolBarToNoneCommand { get; }
         public ICommand ToolBarCancelCommand { get; }
 
         public ICommand UnfocusElementUponMouseClick { get; }
@@ -256,8 +258,11 @@ namespace Personal_Expense_Tracker.ViewModel
             _datagridAmountHeader = string.Concat("Částka v ", CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
 
             _categoryCollection = LoadCategories();
-            _selectedCategory = _categoryCollection[0];
-            _selectedMoveToCategory = _categoryCollection[0];
+            if (_categoryCollection.Count > 0)
+            {
+                _selectedCategory = _categoryCollection[0];
+                _selectedMoveToCategory = _categoryCollection[0];
+            }
 
             _monthList = LoadMonths();
             _statisticsCardsCollection = LoadStatisticsCards();
@@ -272,21 +277,22 @@ namespace Personal_Expense_Tracker.ViewModel
             UpdateCategoryGroupByMonth = new UpdateCategoryGroupByMonthCommand(this, databaseService);
 
             LoadExpenses = new LoadExpenseDataCommand(this, databaseService);
-            AddExpense = new CreateExpenseCommand(this, databaseService, formattingService);
+            AddExpense = new CreateExpenseCommand(this, databaseService, formattingService, messageBoxStore);
             DeleteExpenseCommand = new DeleteExpenseCommand(this, databaseService, messageBoxStore);
-            BeginExpenseEditCommand = new BeginExpenseEditCommand();
+            BeginExpenseEditCommand = new BeginExpenseEditCommand(this);
             EditExpenseCommand = new EditExpenseCommand(this, databaseService, formattingService, messageBoxStore);
-            MoveExpenseCommand = new MoveExpenseCommand();
-            DuplicateExpenseCommand = new DuplicateExpenseCommand();
+            MoveExpenseCommand = new MoveExpenseCommand(this, databaseService, formattingService, messageBoxStore);
+            DuplicateExpenseCommand = new DuplicateExpenseCommand(this, databaseService, formattingService, messageBoxStore);
 
             DefaultDataGridSorting = new DefaultDataGridSortingCommand();
             RowClickSelectionCommand = new RowClickSelectionCommand(this);
 
-            ChangeToolBarToMoveCommand = new ChangeToolBarCommand(this, ToolBar.Move);
-            ChangeToolBarToDuplicateCommand = new ChangeToolBarCommand(this, ToolBar.Duplicate);
-            ChangeToolBarToDeleteCommand = new ChangeToolBarCommand(this, ToolBar.Delete);
-            ChangeToolBarToNoneCommand = new ChangeToolBarCommand(this, ToolBar.None);
-            ToolBarCancelCommand = new ToolBarCancelCommand();
+            SelectAllCommand = new SelectAllCommand(this);
+            DeselectAllCommand = new DeselectAllCommand(this);
+            ChangeToolBarToMoveCommand = new ChangeToolBarCommand(this, ExpenseToolBar.Move);
+            ChangeToolBarToDuplicateCommand = new ChangeToolBarCommand(this, ExpenseToolBar.Duplicate);
+            ChangeToolBarToDeleteCommand = new ChangeToolBarCommand(this, ExpenseToolBar.Delete);
+            ToolBarCancelCommand = new ToolBarCancelCommand(this);
 
             UnfocusElementUponMouseClick = new UnfocusElementUponMouseClickCommand();
 
@@ -433,6 +439,12 @@ namespace Personal_Expense_Tracker.ViewModel
         {
             ExpenseCollection.CollectionChanged -= ExpenseCollectionChangedEventHandler;
             ExpenseCollection.ItemPropertyChanged -= ExpenseCollectionItemChangedEventHandler;
+
+            ((BaseCommand)AddExpense).Dispose();
+            ((BaseCommand)DeleteExpenseCommand).Dispose();
+            ((BaseCommand)EditExpenseCommand).Dispose();
+            ((BaseCommand)DuplicateExpenseCommand).Dispose();
+            ((BaseCommand)MoveExpenseCommand).Dispose();
 
             base.Dispose();
         }

@@ -182,10 +182,93 @@
 
                     <TextBlock
                         Grid.Row="10"
+                        Text="Sloučit kategorie"
+                        Style="{StaticResource TextHeadline6Style}"/>
+
+                    <Grid x:Name="MergeCategoriesGrid" Grid.Row="12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="4"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="4"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Text="Přesunout data z kategorie"
+                            Style="{StaticResource TextSubtitle1Style}"/>
+
+                        <ComboBox
+                            x:Name="MergeCategoriesFromComboBox"
+                            Grid.Row="2"
+                            ItemsSource="{Binding CategoryCollection}"
+                            SelectedItem="{Binding SelectedMergeFromCategory, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource ComboBoxStyle}"
+                            Tag="Kategorie"
+                            Width="330"
+                            Margin="-15 0 0 0"
+                            HorizontalAlignment="Left">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding DisplayName}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <TextBlock
+                            Grid.Row="4"
+                            Text="Do kategorie"
+                            Style="{StaticResource TextSubtitle1Style}"/>
+
+                        <ComboBox
+                            x:Name="MergeCategoriesToComboBox"
+                            Grid.Row="6"
+                            ItemsSource="{Binding CategoryCollection}"
+                            SelectedItem="{Binding SelectedMergeToCategory, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource ComboBoxStyle}"
+                            Tag="Kategorie"
+                            Width="330"
+                            Margin="-15 0 0 0"
+                            HorizontalAlignment="Left">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding DisplayName}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <Button
+                            x:Name="MergeCategoriesButton"
+                            Grid.Row="8"
+                            Content="Sloučit kategorie"
+                            Command="{Binding MergeCategoriesCommand}"
+                            Style="{StaticResource FilledButtonStyle}"
+                            Tag="&#xeb98;"
+                            FontFamily="{StaticResource MaterialIconsFilled}"
+                            HorizontalAlignment="Left">
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
+                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClickCommand}" CommandParameter="{Binding ElementName=MainGrid}"/>
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                    
+                    <TextBlock
+                        Grid.Row="14"
                         Text="Odstranit kategorii"
                         Style="{StaticResource TextHeadline6Style}"/>
 
-                    <Grid x:Name="DeleteCategoryGrid" Grid.Row="12">
+                    <Grid x:Name="DeleteCategoryGrid" Grid.Row="16">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="16"/>
@@ -263,89 +346,6 @@
                                 </Behaviors:Interaction.Triggers>
                             </Button>
                         </StackPanel>
-                    </Grid>
-
-                    <TextBlock
-                        Grid.Row="14"
-                        Text="Sloučit kategorie"
-                        Style="{StaticResource TextHeadline6Style}"/>
-
-                    <Grid x:Name="MergeCategoriesGrid" Grid.Row="16">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="4"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="12"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="4"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="16"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock
-                            Grid.Row="0"
-                            Text="Přesunout data z kategorie"
-                            Style="{StaticResource TextSubtitle1Style}"/>
-
-                        <ComboBox
-                            x:Name="MergeCategoriesFromComboBox"
-                            Grid.Row="2"
-                            ItemsSource="{Binding CategoryCollection}"
-                            SelectedItem="{Binding SelectedMergeFromCategory, UpdateSourceTrigger=PropertyChanged}"
-                            Style="{StaticResource ComboBoxStyle}"
-                            Tag="Kategorie"
-                            Width="330"
-                            Margin="-15 0 0 0"
-                            HorizontalAlignment="Left">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding DisplayName}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-
-                        <TextBlock
-                            Grid.Row="4"
-                            Text="Do kategorie"
-                            Style="{StaticResource TextSubtitle1Style}"/>
-
-                        <ComboBox
-                            x:Name="MergeCategoriesToComboBox"
-                            Grid.Row="6"
-                            ItemsSource="{Binding CategoryCollection}"
-                            SelectedItem="{Binding SelectedMergeToCategory, UpdateSourceTrigger=PropertyChanged}"
-                            Style="{StaticResource ComboBoxStyle}"
-                            Tag="Kategorie"
-                            Width="330"
-                            Margin="-15 0 0 0"
-                            HorizontalAlignment="Left">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding DisplayName}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-
-                        <Button
-                            x:Name="MergeCategoriesButton"
-                            Grid.Row="8"
-                            Content="Sloučit kategorie"
-                            Command="{Binding MergeCategoriesCommand}"
-                            Style="{StaticResource FilledButtonStyle}"
-                            Tag="&#xeb98;"
-                            FontFamily="{StaticResource MaterialIconsFilled}"
-                            HorizontalAlignment="Left">
-                            <Behaviors:Interaction.Triggers>
-                                <Behaviors:EventTrigger EventName="GotKeyboardFocus">
-                                    <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClickCommand}" CommandParameter="{Binding ElementName=MainGrid}"/>
-                                </Behaviors:EventTrigger>
-                            </Behaviors:Interaction.Triggers>
-                        </Button>
                     </Grid>
                 </Grid>
             </Grid>

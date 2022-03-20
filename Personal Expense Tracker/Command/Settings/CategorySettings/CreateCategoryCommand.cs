@@ -39,19 +39,17 @@ namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
 
             if (!_categorySettingsViewModel.CategoryExists(tableName))
             {
-                try
+                string displayName = _formattingService.FormatCategoryDisplayName(_categorySettingsViewModel.NewCategoryName);
+
+                int newCategoryId = _databaseService.CreateExpenseCategory
+                (
+                    tableName,
+                    displayName,
+                    _categorySettingsViewModel.NewCategoryGroupByMonth.ToInt()
+                );
+
+                if (newCategoryId > 0)
                 {
-                    _databaseService.CreateExpenseTable(tableName);
-
-                    string displayName = _formattingService.FormatCategoryDisplayName(_categorySettingsViewModel.NewCategoryName);
-
-                    int newCategoryId = _databaseService.InsertCategory
-                    (
-                        tableName,
-                        displayName,
-                        _categorySettingsViewModel.NewCategoryGroupByMonth.ToInt()
-                    );
-
                     _categorySettingsViewModel.CategoryCollection.Add(new CategoryViewModel(new Category
                     (
                         newCategoryId,
@@ -60,23 +58,19 @@ namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
                         _categorySettingsViewModel.NewCategoryGroupByMonth
                     )));
 
-                    _categorySettingsViewModel.NewCategoryName = string.Empty;
-                    _categorySettingsViewModel.NewCategoryGroupByMonth = false;
-                    _categorySettingsViewModel.DeleteCategoryConfirmation = false;
-
-                    if (parameter != null && parameter is UIElement)
-                    {
-                        UIElement element = (UIElement)parameter;
-
-                        if (element.Focusable)
-                            element.Focus();
-                    }
-
                     _messageBoxStore.ShowMessageBox(MessageType.Information, $"Kategorie {displayName} byla úspěšně vytvořena.");
                 }
-                catch (Exception ex)
+
+                _categorySettingsViewModel.NewCategoryName = string.Empty;
+                _categorySettingsViewModel.NewCategoryGroupByMonth = false;
+                _categorySettingsViewModel.DeleteCategoryConfirmation = false;
+
+                if (parameter != null && parameter is UIElement)
                 {
-                    MessageBox.Show(ex.Message);
+                    UIElement element = (UIElement)parameter;
+
+                    if (element.Focusable)
+                        element.Focus();
                 }
             }
             else
@@ -91,6 +85,12 @@ namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
             {
                 OnCanExecuteChanged();
             }
+        }
+
+        public override void Dispose()
+        {
+            _categorySettingsViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            base.Dispose();
         }
     }
 }

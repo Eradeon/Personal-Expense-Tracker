@@ -19,13 +19,14 @@ namespace Personal_Expense_Tracker.Command.Home
         {
             if (_homeViewModel.SelectedCategory != null)
             {
-                _databaseService.UpdateGroupByMonth
-            (
-                _homeViewModel.SelectedCategory.Id,
-                _homeViewModel.GroupByMonth
-            );
+                var result = _databaseService.UpdateGroupByMonth
+                (
+                    _homeViewModel.SelectedCategory.Id,
+                    _homeViewModel.GroupByMonth
+                );
 
-                _homeViewModel.SelectedCategory.GroupByMonth = _homeViewModel.GroupByMonth;
+                if (result == DatabaseActionResult.Success)
+                    _homeViewModel.SelectedCategory.GroupByMonth = _homeViewModel.GroupByMonth;
             }
         }
     }

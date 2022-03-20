@@ -39,7 +39,7 @@ namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
                 string oldDisplayName = _categorySettingsViewModel.SelectedRenameCategory.DisplayName;
                 string newDisplayName = _formattingService.FormatCategoryDisplayName(_categorySettingsViewModel.RenamedCategoryName);
 
-                _databaseService.RenameTable
+                var result = _databaseService.RenameTable
                 (
                     _categorySettingsViewModel.SelectedRenameCategory.Id,
                     _categorySettingsViewModel.SelectedRenameCategory.Name,
@@ -47,13 +47,16 @@ namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
                     newDisplayName
                 );
 
-                _categorySettingsViewModel.SelectedRenameCategory.Name = newTableName;
-                _categorySettingsViewModel.SelectedRenameCategory.DisplayName = newDisplayName;
+                if (result == DatabaseActionResult.Success)
+                {
+                    _categorySettingsViewModel.SelectedRenameCategory.Name = newTableName;
+                    _categorySettingsViewModel.SelectedRenameCategory.DisplayName = newDisplayName;
 
-                _categorySettingsViewModel.RenamedCategoryName = string.Empty;
-                _categorySettingsViewModel.DeleteCategoryConfirmation = false;
+                    _categorySettingsViewModel.RenamedCategoryName = string.Empty;
+                    _categorySettingsViewModel.DeleteCategoryConfirmation = false;
 
-                _messageBoxStore.ShowMessageBox(MessageType.Information, $"Kategorie \"{oldDisplayName}\" byla úspěšně přejmenována na \"{newDisplayName}\".");
+                    _messageBoxStore.ShowMessageBox(MessageType.Information, $"Kategorie \"{oldDisplayName}\" byla úspěšně přejmenována na \"{newDisplayName}\".");
+                }
             }
             else
             {
@@ -67,6 +70,12 @@ namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
             {
                 OnCanExecuteChanged();
             }
+        }
+
+        public override void Dispose()
+        {
+            _categorySettingsViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            base.Dispose();
         }
     }
 }

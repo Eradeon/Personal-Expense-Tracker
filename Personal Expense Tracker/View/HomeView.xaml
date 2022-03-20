@@ -339,6 +339,7 @@
                                                 x:Name="EditRowButton"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                                                                   Path=DataContext.BeginExpenseEditCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridRow}}"
                                                 Style="{StaticResource DataGridEditButton}">
                                                 <Behaviors:Interaction.Triggers>
                                                     <Behaviors:EventTrigger EventName="GotKeyboardFocus">
@@ -450,7 +451,7 @@
                                     Style="{StaticResource ToolBarRadioButtonStyle}">
                                     <Behaviors:Interaction.Triggers>
                                         <Behaviors:EventTrigger EventName="Checked">
-                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToNoneCommand}"/>
+                                            <Behaviors:InvokeCommandAction Command="{Binding ToolBarCancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
                                         </Behaviors:EventTrigger>
                                         <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                             <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
@@ -533,7 +534,7 @@
                                     Style="{StaticResource ToolBarRadioButtonStyle}">
                                     <Behaviors:Interaction.Triggers>
                                         <Behaviors:EventTrigger EventName="Checked">
-                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToNoneCommand}"/>
+                                            <Behaviors:InvokeCommandAction Command="{Binding ToolBarCancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
                                         </Behaviors:EventTrigger>
                                         <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                             <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
@@ -616,7 +617,7 @@
                                     Style="{StaticResource ToolBarRadioButtonStyle}">
                                     <Behaviors:Interaction.Triggers>
                                         <Behaviors:EventTrigger EventName="Checked">
-                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToNoneCommand}"/>
+                                            <Behaviors:InvokeCommandAction Command="{Binding ToolBarCancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
                                         </Behaviors:EventTrigger>
                                         <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                             <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
@@ -643,7 +644,7 @@
                                 </Grid.Style>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="12"/>
-                                    <ColumnDefinition Width="185"/>
+                                    <ColumnDefinition Width="190"/>
                                     <ColumnDefinition MinWidth="130" Width="5*"/>
                                     <ColumnDefinition Width="16"/>
                                     <ColumnDefinition MinWidth="100" Width="5*"/>
@@ -667,7 +668,7 @@
                                     Tag="Nový název"
                                     Text="{Binding EditExpenseName, UpdateSourceTrigger=PropertyChanged}">
                                     <TextBox.InputBindings>
-                                        <KeyBinding Key="Return" Command="{Binding EditExpenseCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <KeyBinding Key="Return" Command="{Binding EditExpenseCommand, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding ElementName=CloseDeleteExpense}"/>
                                     </TextBox.InputBindings>
                                 </TextBox>
                                 <TextBox
@@ -677,7 +678,7 @@
                                     Tag="Nová částka"
                                     Text="{Binding EditExpenseAmount, UpdateSourceTrigger=PropertyChanged}">
                                     <TextBox.InputBindings>
-                                        <KeyBinding Key="Return" Command="{Binding EditExpenseCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <KeyBinding Key="Return" Command="{Binding EditExpenseCommand, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding ElementName=CloseDeleteExpense}"/>
                                     </TextBox.InputBindings>
                                 </TextBox>
                                 <Button
@@ -686,6 +687,7 @@
                                     HorizontalAlignment="Right"
                                     Content="Upravit"
                                     Command="{Binding EditExpenseCommand}"
+                                    CommandParameter="{Binding ElementName=CloseDeleteExpense}"
                                     Style="{StaticResource TextButtonStyle}"
                                     Tag="&#xe3c9;"
                                     FontFamily="{StaticResource MaterialIconsFilled}">
@@ -696,6 +698,7 @@
                                     </Behaviors:Interaction.Triggers>
                                 </Button>
                                 <RadioButton
+                                    x:Name="CloseEditExpense"
                                     Grid.Column="8"
                                     GroupName="ToolBarRadioButtons"
                                     Content="&#xe5cd;"
@@ -703,7 +706,7 @@
                                     Style="{StaticResource ToolBarRadioButtonStyle}">
                                     <Behaviors:Interaction.Triggers>
                                         <Behaviors:EventTrigger EventName="Checked">
-                                            <Behaviors:InvokeCommandAction Command="{Binding ChangeToolBarToNoneCommand}"/>
+                                            <Behaviors:InvokeCommandAction Command="{Binding ToolBarCancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
                                         </Behaviors:EventTrigger>
                                         <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                             <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
@@ -735,6 +738,7 @@
                                     x:Name="SelectAllButton"    
                                     Content="&#xe834;"
                                     Style="{StaticResource ToolBarButtonStyle}"
+                                    Command="{Binding SelectAllCommand}"
                                     Margin="0 0 8 0">
                                     <Button.ToolTip>
                                         <ToolTip Content="Vybrat vše" Style="{StaticResource BasicTooltipStyle}"/>
@@ -748,7 +752,8 @@
                                 <Button
                                     x:Name="DeselectAllButton"
                                     Content="&#xe835;"
-                                    Style="{StaticResource ToolBarButtonStyle}">
+                                    Style="{StaticResource ToolBarButtonStyle}"
+                                    Command="{Binding DeselectAllCommand}">
                                     <Button.ToolTip>
                                         <ToolTip Content="Zrušit výběr" Style="{StaticResource BasicTooltipStyle}"/>
                                     </Button.ToolTip>

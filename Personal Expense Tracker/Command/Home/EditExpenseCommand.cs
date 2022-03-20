@@ -33,31 +33,34 @@ namespace Personal_Expense_Tracker.Command.Home
 
         public override void Execute(object? parameter)
         {
-            if (_homeViewModel.SelectedRow != null && _homeViewModel.SelectedCategory != null)
+            if (_homeViewModel.SelectedExpense != null && _homeViewModel.SelectedCategory != null)
             {
-                    DateTime newExpenseDate = _homeViewModel.EditExpenseDate;
-                    string newExpenseName = _formattingService.FormatExpenseName(_homeViewModel.EditExpenseName);
-                    double newExpenseAmount = _formattingService.FormatExpenseAmount(_homeViewModel.EditExpenseAmount);
+                DateTime newExpenseDate = _homeViewModel.EditExpenseDate;
+                string newExpenseName = _formattingService.FormatExpenseName(_homeViewModel.EditExpenseName);
+                double newExpenseAmount = _formattingService.FormatExpenseAmount(_homeViewModel.EditExpenseAmount);
 
-                    _databaseService.UpdateExpense
-                    (
-                        _homeViewModel.SelectedRow.Id,
-                        _homeViewModel.SelectedCategory.Name,
-                        _formattingService.FormatExpenseDate(newExpenseDate),
-                        newExpenseName,
-                        newExpenseAmount
-                    );
+                var result = _databaseService.UpdateExpense
+                (
+                    _homeViewModel.SelectedExpense.Id,
+                    _homeViewModel.SelectedCategory.Name,
+                    _formattingService.FormatExpenseDate(newExpenseDate),
+                    newExpenseName,
+                    newExpenseAmount
+                );
 
+                if (result == DatabaseActionResult.Success)
+                {
                     foreach (var expense in _homeViewModel.ExpenseCollection)
                     {
-                        if (expense.Id == _homeViewModel.SelectedRow.Id)
+                        if (expense.Id == _homeViewModel.SelectedExpense.Id)
                         {
-                            if ((_homeViewModel.GroupByMonth && newExpenseDate.Month == _homeViewModel.SelectedMonth+1 && newExpenseDate.Year == _homeViewModel.SelectedYear) ||
+                            if ((_homeViewModel.GroupByMonth && newExpenseDate.Month == _homeViewModel.SelectedMonth + 1 && newExpenseDate.Year == _homeViewModel.SelectedYear) ||
                                 (!_homeViewModel.GroupByMonth && newExpenseDate.Year == _homeViewModel.SelectedYear))
                             {
                                 expense.Date = newExpenseDate;
                                 expense.Name = newExpenseName;
                                 expense.Amount = newExpenseAmount;
+                                expense.IsEditing = false;
                                 break;
                             }
                             else
@@ -70,8 +73,13 @@ namespace Personal_Expense_Tracker.Command.Home
 
                     _messageBoxStore.ShowMessageBox(MessageType.Information, "Výdaj byl úspěšně upraven.");
 
+                    _homeViewModel.SelectedExpense = null;
                     _homeViewModel.EditExpenseName = string.Empty;
                     _homeViewModel.EditExpenseAmount = string.Empty;
+
+                    if (parameter != null)
+                        _homeViewModel.ToolBarCancelCommand.Execute(parameter);
+                }
             }
         }
 
@@ -83,6 +91,12 @@ namespace Personal_Expense_Tracker.Command.Home
             {
                 OnCanExecuteChanged();
             }
+        }
+
+        public override void Dispose()
+        {
+            _homeViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            base.Dispose();
         }
     }
 }

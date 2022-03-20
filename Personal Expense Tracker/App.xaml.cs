@@ -20,21 +20,21 @@ namespace Personal_Expense_Tracker
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag))
             );
 
-            FormattingService _formattingService = new FormattingService();
-            DatabaseService _databaseService = new DatabaseService(_formattingService);
-            ConfigurationService _configurationService = new ConfigurationService();
+            FormattingService formattingService = new FormattingService();
+            MessageBoxStore messageBoxStore = new MessageBoxStore();
+            DatabaseService databaseService = new DatabaseService(formattingService, messageBoxStore);
+            ConfigurationService configurationService = new ConfigurationService();
 
-            _databaseService.CreateDefaultDatabase();
+            databaseService.CreateDefaultDatabase();
 
-            NavigationStore _navigationStore = new NavigationStore();
-            MessageBoxStore _messageBoxStore = new MessageBoxStore();
-            ThemeStore _themeStore = new ThemeStore(_configurationService, _messageBoxStore);
-            _navigationStore.CurrentViewModel = new HomeViewModel(_databaseService, _formattingService, _messageBoxStore);
+            NavigationStore navigationStore = new NavigationStore();
+            ThemeStore themeStore = new ThemeStore(configurationService, messageBoxStore);
+            navigationStore.CurrentViewModel = new HomeViewModel(databaseService, formattingService, messageBoxStore);
 
             Window mainWindow = new MainWindow
             (
-                new MainViewModel(_formattingService, _databaseService, _configurationService,
-                                  _navigationStore, _themeStore, _messageBoxStore)
+                new MainViewModel(formattingService, databaseService, configurationService,
+                                  navigationStore, themeStore, messageBoxStore)
             );
             mainWindow.Show();
 

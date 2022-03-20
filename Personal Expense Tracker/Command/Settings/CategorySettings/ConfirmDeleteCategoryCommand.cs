@@ -26,23 +26,25 @@ namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
                 {
                     string categoryName = _categorySettingsViewModel.SelectedDeleteCategory.DisplayName;
 
-                    _databaseService.DeleteCategory
+                    var result =  _databaseService.DeleteCategory
                     (
                         _categorySettingsViewModel.SelectedDeleteCategory.Id,
-                        _categorySettingsViewModel.SelectedDeleteCategory.Name
+                        _categorySettingsViewModel.SelectedDeleteCategory.Name,
+                        categoryName
                     );
 
-                    int collectionId = _categorySettingsViewModel.CategoryCollection.IndexOf(_categorySettingsViewModel.SelectedDeleteCategory);
+                    if (result == DatabaseActionResult.Success)
+                    {
+                        _categorySettingsViewModel.CategoryCollection.Remove(_categorySettingsViewModel.SelectedDeleteCategory);
 
-                    _categorySettingsViewModel.CategoryCollection.RemoveAt(collectionId);
+                        _categorySettingsViewModel.SelectedDeleteCategory = _categorySettingsViewModel.CategoryCollection[0];
+                        _categorySettingsViewModel.SelectedRenameCategory = _categorySettingsViewModel.CategoryCollection[0];
+                        _categorySettingsViewModel.SelectedMergeFromCategory = _categorySettingsViewModel.CategoryCollection[0];
+                        _categorySettingsViewModel.SelectedMergeToCategory = _categorySettingsViewModel.CategoryCollection[0];
 
-                    _categorySettingsViewModel.SelectedDeleteCategory = _categorySettingsViewModel.CategoryCollection[0];
-                    _categorySettingsViewModel.SelectedRenameCategory = _categorySettingsViewModel.CategoryCollection[0];
-                    _categorySettingsViewModel.SelectedMergeFromCategory = _categorySettingsViewModel.CategoryCollection[0];
-                    _categorySettingsViewModel.SelectedMergeToCategory = _categorySettingsViewModel.CategoryCollection[0];
-
-                    _messageBoxStore.ShowMessageBox(MessageType.Information, $"Kategorie {categoryName} byla úspěšně odstraněna.");
-                    _categorySettingsViewModel.DeleteCategoryConfirmation = false;
+                        _messageBoxStore.ShowMessageBox(MessageType.Information, $"Kategorie {categoryName} byla úspěšně odstraněna.");
+                        _categorySettingsViewModel.DeleteCategoryConfirmation = false;
+                    }
                 }
                 else
                 {

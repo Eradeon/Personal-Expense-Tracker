@@ -26,16 +26,19 @@ namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
                 {
                     try
                     {
-                        _databaseService.MergeTables(_categorySettingsViewModel.SelectedMergeFromCategory.Name, _categorySettingsViewModel.SelectedMergeToCategory.Name);
+                        var result = _databaseService.MergeTables(_categorySettingsViewModel.SelectedMergeFromCategory.Name, _categorySettingsViewModel.SelectedMergeToCategory.Name);
 
-                        _messageBoxStore.ShowMessageBox(MessageType.Information, string.Concat
-                        (
-                            "Data byla úspěšně přesunuta z kategorie ",
-                            _categorySettingsViewModel.SelectedMergeFromCategory.DisplayName,
-                            " do kategorie ",
-                            _categorySettingsViewModel.SelectedMergeToCategory.DisplayName,
-                            "."
-                        ));
+                        if (result == DatabaseActionResult.Success)
+                        {
+                            _messageBoxStore.ShowMessageBox(MessageType.Information, string.Concat
+                            (
+                                "Data byla úspěšně přesunuta z kategorie ",
+                                _categorySettingsViewModel.SelectedMergeFromCategory.DisplayName,
+                                " do kategorie ",
+                                _categorySettingsViewModel.SelectedMergeToCategory.DisplayName,
+                                "."
+                            ));
+                        }
                     }
                     catch
                     {
