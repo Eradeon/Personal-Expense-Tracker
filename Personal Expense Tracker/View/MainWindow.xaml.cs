@@ -24,8 +24,9 @@ namespace Personal_Expense_Tracker.View
             InitializeComponent();
         }
 
-        private void OnSourceInitialized(object sender, EventArgs e)
+        protected override void OnSourceInitialized(EventArgs e)
         {
+            base.OnSourceInitialized(e);
             _windowPlacementService.SetPlacement(new WindowInteropHelper(this).Handle, _configurationService.GetStringFromConfig("window_placement"));
         }
 
