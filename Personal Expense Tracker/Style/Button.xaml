@@ -476,7 +476,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="MessageBoxCloseButtonStyle" TargetType="Button">
+    <Style x:Key="CloseButtonStyle" TargetType="Button">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

@@ -42,6 +42,13 @@ namespace Personal_Expense_Tracker.ViewModel
             get { return _datagridAmountHeader; }
             set { _datagridAmountHeader = value; RaisePropertyChanged(); }
         }
+
+        private bool _cancelToolBarSelection = false;
+        public bool CancelToolBarSelection
+        {
+            get { return _cancelToolBarSelection; }
+            set { _cancelToolBarSelection = value; RaisePropertyChanged(); }
+        }
         #endregion View Controls Properties
 
         #region Collection Properties
@@ -277,7 +284,7 @@ namespace Personal_Expense_Tracker.ViewModel
             UpdateCategoryGroupByMonth = new UpdateCategoryGroupByMonthCommand(this, databaseService);
 
             LoadExpenses = new LoadExpenseDataCommand(this, databaseService);
-            AddExpense = new CreateExpenseCommand(this, databaseService, formattingService, messageBoxStore);
+            AddExpense = new CreateExpenseCommand(this, databaseService, formattingService);
             DeleteExpenseCommand = new DeleteExpenseCommand(this, databaseService, messageBoxStore);
             BeginExpenseEditCommand = new BeginExpenseEditCommand(this);
             EditExpenseCommand = new EditExpenseCommand(this, databaseService, formattingService, messageBoxStore);

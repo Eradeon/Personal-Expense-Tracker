@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.ViewModel;
 using Personal_Expense_Tracker.Stores;
+using System.Windows.Controls;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
@@ -77,8 +78,7 @@ namespace Personal_Expense_Tracker.Command.Home
                     _homeViewModel.EditExpenseName = string.Empty;
                     _homeViewModel.EditExpenseAmount = string.Empty;
 
-                    if (parameter != null)
-                        _homeViewModel.ToolBarCancelCommand.Execute(parameter);
+                    _homeViewModel.ToolBarCancelCommand.Execute(null);
                 }
             }
         }

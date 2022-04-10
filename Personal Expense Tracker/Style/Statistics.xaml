@@ -60,10 +60,6 @@
         <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="ToolTipService.Placement" Value="Center"/>
-        <Setter Property="ToolTipService.VerticalOffset" Value="30"/>
-        <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
-        <Setter Property="ToolTipService.ShowDuration" Value="4000"/>
     </Style>
 
     <!--Statistics Graphs-->

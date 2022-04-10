@@ -17,6 +17,19 @@ namespace Personal_Expense_Tracker.Command.Home
         public override void Execute(object? parameter)
         {
             _homeViewModel.SelectedToolBar = _toolbar;
+
+            if (_homeViewModel.SelectedExpense != null)
+            {
+                foreach (var item in _homeViewModel.ExpenseCollection)
+                {
+                    if (item.IsEditing)
+                    {
+                        item.IsEditing = false;
+                        break;
+                    }
+                }
+                _homeViewModel.SelectedExpense = null;
+            }
         }
     }
 }

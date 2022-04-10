@@ -15,24 +15,20 @@ namespace Personal_Expense_Tracker.Command.Home
 
         public override void Execute(object? parameter)
         {
-            if (parameter != null && parameter is RadioButton)
-            {
-                ((RadioButton)parameter).IsChecked = true;
-                _homeViewModel.SelectedToolBar = ExpenseToolBar.None;
-                ((RadioButton)parameter).IsChecked = false;
+            _homeViewModel.SelectedToolBar = ExpenseToolBar.None;
+            _homeViewModel.CancelToolBarSelection = true;
 
-                if (_homeViewModel.SelectedExpense != null)
+            if (_homeViewModel.SelectedExpense != null)
+            {
+                foreach (var item in _homeViewModel.ExpenseCollection)
                 {
-                    foreach (var item in _homeViewModel.ExpenseCollection)
+                    if (item.IsEditing)
                     {
-                        if (item.IsEditing)
-                        {
-                            item.IsEditing = false;
-                            break;
-                        }
+                        item.IsEditing = false;
+                        break;
                     }
-                    _homeViewModel.SelectedExpense = null;
                 }
+                _homeViewModel.SelectedExpense = null;
             }
         }
     }

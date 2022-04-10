@@ -4,7 +4,6 @@ using System.Windows;
 using Personal_Expense_Tracker.Model;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.ViewModel;
-using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
@@ -13,14 +12,12 @@ namespace Personal_Expense_Tracker.Command.Home
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
         private readonly FormattingService _formattingService;
-        private readonly MessageBoxStore _messageBoxStore;
 
-        public CreateExpenseCommand(HomeViewModel homeViewModel, DatabaseService databaseService, FormattingService formattingService, MessageBoxStore messageBoxStore)
+        public CreateExpenseCommand(HomeViewModel homeViewModel, DatabaseService databaseService, FormattingService formattingService)
         {
             _homeViewModel = homeViewModel;
             _databaseService = databaseService;
             _formattingService = formattingService;
-            _messageBoxStore = messageBoxStore;
 
             _homeViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }

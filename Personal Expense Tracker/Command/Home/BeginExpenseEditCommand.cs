@@ -25,17 +25,7 @@ namespace Personal_Expense_Tracker.Command.Home
 
                     if (expense != null)
                     {
-                        if (_homeViewModel.SelectedExpense != null)
-                        {
-                            foreach (var item in _homeViewModel.ExpenseCollection)
-                            {
-                                if (item.IsEditing)
-                                {
-                                    item.IsEditing = false;
-                                    break;
-                                }
-                            }
-                        }
+                        _homeViewModel.DeselectAllCommand.Execute(null);
                         
                         if (expense.IsSelected)
                         {
@@ -49,6 +39,7 @@ namespace Personal_Expense_Tracker.Command.Home
                         _homeViewModel.EditExpenseAmount = expense.Amount.ToString();
                         expense.IsEditing = true;
                         _homeViewModel.SelectedToolBar = ExpenseToolBar.Edit;
+                        _homeViewModel.CancelToolBarSelection = true;
                     }
                 }
             }

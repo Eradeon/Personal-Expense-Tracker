@@ -23,7 +23,6 @@ namespace Personal_Expense_Tracker.Command.Home
             if (_homeViewModel.SelectedCategory != null)
             {
                 _homeViewModel.ExpenseCollection.Clear();
-                _homeViewModel.SelectedItemsCount = 0;
 
                 if (_homeViewModel.GroupByMonth)
                 {
@@ -35,6 +34,8 @@ namespace Personal_Expense_Tracker.Command.Home
                     ));
 
                     LoadExpenses(dataTable);
+                    _homeViewModel.DeselectAllCommand.Execute(null);
+                    _homeViewModel.ToolBarCancelCommand.Execute(null);
                 }
                 else
                 {
@@ -46,6 +47,8 @@ namespace Personal_Expense_Tracker.Command.Home
                     ));
 
                     LoadExpenses(dataTable);
+                    _homeViewModel.DeselectAllCommand.Execute(null);
+                    _homeViewModel.ToolBarCancelCommand.Execute(null);
                 }
             }
         }

@@ -19,9 +19,17 @@ namespace Personal_Expense_Tracker.Command.Home
                 foreach (var item in _homeViewModel.ExpenseCollection)
                 {
                     item.IsSelected = false;
+                    item.IsEditing = false;
                 }
 
                 _homeViewModel.SelectedItemsCount = 0;
+
+                if (_homeViewModel.SelectedToolBar == ExpenseToolBar.Edit)
+                {
+                    _homeViewModel.SelectedExpense = null;
+                    _homeViewModel.CancelToolBarSelection = true;
+                    _homeViewModel.SelectedToolBar = ExpenseToolBar.None;
+                }
             }
         }
     }

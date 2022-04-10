@@ -443,21 +443,17 @@
                                         Text="{Binding SelectedItemsCount}"
                                         Style="{StaticResource TextBody2Style}"/>
                                 </StackPanel>
-                                <RadioButton
+                                <Button
+                                    x:Name="CloseMoveToolBarButton"
                                     Grid.Column="6"
-                                    GroupName="ToolBarRadioButtons"
-                                    Content="&#xe5cd;"
-                                    Foreground="{DynamicResource PrimaryColourFullBrush}"
-                                    Style="{StaticResource ToolBarRadioButtonStyle}">
+                                    Style="{StaticResource CloseButtonStyle}"
+                                    Command="{Binding ToolBarCancelCommand}">
                                     <Behaviors:Interaction.Triggers>
-                                        <Behaviors:EventTrigger EventName="Checked">
-                                            <Behaviors:InvokeCommandAction Command="{Binding ToolBarCancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
-                                        </Behaviors:EventTrigger>
                                         <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                             <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
                                         </Behaviors:EventTrigger>
                                     </Behaviors:Interaction.Triggers>
-                                </RadioButton>
+                                </Button>
                             </Grid>
                             <Grid x:Name="DuplicateItemsGrid" Background="{DynamicResource SurfaceColourFullBrush}" VerticalAlignment="Bottom">
                                 <Grid.Style>
@@ -490,7 +486,6 @@
                                     Grid.Column="1"
                                     Content="Zrušit"
                                     Command="{Binding ToolBarCancelCommand}"
-                                    CommandParameter="{Binding ElementName=CloseDuplicateExpense}"
                                     Style="{StaticResource TextButtonStyle}"
                                     Tag="&#xe5cd;"
                                     FontFamily="{StaticResource MaterialIconsFilled}"
@@ -525,22 +520,17 @@
                                         Text="{Binding SelectedItemsCount}"
                                         Style="{StaticResource TextBody2Style}"/>
                                 </StackPanel>
-                                <RadioButton
-                                    x:Name="CloseDuplicateExpense"
+                                <Button
+                                    x:Name="CloseDuplicateToolBarButton"
                                     Grid.Column="6"
-                                    GroupName="ToolBarRadioButtons"
-                                    Content="&#xe5cd;"
-                                    Foreground="{DynamicResource PrimaryColourFullBrush}"
-                                    Style="{StaticResource ToolBarRadioButtonStyle}">
+                                    Style="{StaticResource CloseButtonStyle}"
+                                    Command="{Binding ToolBarCancelCommand}">
                                     <Behaviors:Interaction.Triggers>
-                                        <Behaviors:EventTrigger EventName="Checked">
-                                            <Behaviors:InvokeCommandAction Command="{Binding ToolBarCancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
-                                        </Behaviors:EventTrigger>
                                         <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                             <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
                                         </Behaviors:EventTrigger>
                                     </Behaviors:Interaction.Triggers>
-                                </RadioButton>
+                                </Button>
                             </Grid>
                             <Grid x:Name="DeleteItemsGrid" Background="{DynamicResource SurfaceColourFullBrush}" VerticalAlignment="Bottom">
                                 <Grid.Style>
@@ -573,7 +563,6 @@
                                     Grid.Column="1"
                                     Content="Zrušit"
                                     Command="{Binding ToolBarCancelCommand}"
-                                    CommandParameter="{Binding ElementName=CloseDeleteExpense}"
                                     Style="{StaticResource TextButtonStyle}"
                                     Tag="&#xe5cd;"
                                     FontFamily="{StaticResource MaterialIconsFilled}"
@@ -608,22 +597,17 @@
                                         Text="{Binding SelectedItemsCount}"
                                         Style="{StaticResource TextBody2Style}"/>
                                 </StackPanel>
-                                <RadioButton
-                                    x:Name="CloseDeleteExpense"
+                                <Button
+                                    x:Name="CloseDeleteToolBarButton"
                                     Grid.Column="6"
-                                    GroupName="ToolBarRadioButtons"
-                                    Content="&#xe5cd;"
-                                    Foreground="{DynamicResource PrimaryColourFullBrush}"
-                                    Style="{StaticResource ToolBarRadioButtonStyle}">
+                                    Style="{StaticResource CloseButtonStyle}"
+                                    Command="{Binding ToolBarCancelCommand}">
                                     <Behaviors:Interaction.Triggers>
-                                        <Behaviors:EventTrigger EventName="Checked">
-                                            <Behaviors:InvokeCommandAction Command="{Binding ToolBarCancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
-                                        </Behaviors:EventTrigger>
                                         <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                             <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
                                         </Behaviors:EventTrigger>
                                     </Behaviors:Interaction.Triggers>
-                                </RadioButton>
+                                </Button>
                             </Grid>
                             <Grid x:Name="EditItemsGrid" Background="{DynamicResource SurfaceColourFullBrush}" VerticalAlignment="Bottom">
                                 <Grid.Style>
@@ -668,7 +652,7 @@
                                     Tag="Nový název"
                                     Text="{Binding EditExpenseName, UpdateSourceTrigger=PropertyChanged}">
                                     <TextBox.InputBindings>
-                                        <KeyBinding Key="Return" Command="{Binding EditExpenseCommand, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding ElementName=CloseDeleteExpense}"/>
+                                        <KeyBinding Key="Return" Command="{Binding EditExpenseCommand, UpdateSourceTrigger=PropertyChanged}"/>
                                     </TextBox.InputBindings>
                                 </TextBox>
                                 <TextBox
@@ -678,7 +662,7 @@
                                     Tag="Nová částka"
                                     Text="{Binding EditExpenseAmount, UpdateSourceTrigger=PropertyChanged}">
                                     <TextBox.InputBindings>
-                                        <KeyBinding Key="Return" Command="{Binding EditExpenseCommand, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding ElementName=CloseDeleteExpense}"/>
+                                        <KeyBinding Key="Return" Command="{Binding EditExpenseCommand, UpdateSourceTrigger=PropertyChanged}"/>
                                     </TextBox.InputBindings>
                                 </TextBox>
                                 <Button
@@ -687,7 +671,6 @@
                                     HorizontalAlignment="Right"
                                     Content="Upravit"
                                     Command="{Binding EditExpenseCommand}"
-                                    CommandParameter="{Binding ElementName=CloseDeleteExpense}"
                                     Style="{StaticResource TextButtonStyle}"
                                     Tag="&#xe3c9;"
                                     FontFamily="{StaticResource MaterialIconsFilled}">
@@ -697,22 +680,17 @@
                                         </Behaviors:EventTrigger>
                                     </Behaviors:Interaction.Triggers>
                                 </Button>
-                                <RadioButton
-                                    x:Name="CloseEditExpense"
+                                <Button
+                                    x:Name="CloseEditToolBarButton"
                                     Grid.Column="8"
-                                    GroupName="ToolBarRadioButtons"
-                                    Content="&#xe5cd;"
-                                    Foreground="{DynamicResource PrimaryColourFullBrush}"
-                                    Style="{StaticResource ToolBarRadioButtonStyle}">
+                                    Style="{StaticResource CloseButtonStyle}"
+                                    Command="{Binding ToolBarCancelCommand}">
                                     <Behaviors:Interaction.Triggers>
-                                        <Behaviors:EventTrigger EventName="Checked">
-                                            <Behaviors:InvokeCommandAction Command="{Binding ToolBarCancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
-                                        </Behaviors:EventTrigger>
                                         <Behaviors:EventTrigger EventName="GotKeyboardFocus">
                                             <Behaviors:InvokeCommandAction Command="{Binding UnfocusElementUponMouseClick}" CommandParameter="{Binding ElementName=MainGrid}"/>
                                         </Behaviors:EventTrigger>
                                     </Behaviors:Interaction.Triggers>
-                                </RadioButton>
+                                </Button>
                             </Grid>
                         </Grid>
                         
@@ -824,6 +802,15 @@
                                         </Behaviors:EventTrigger>
                                     </Behaviors:Interaction.Triggers>
                                 </RadioButton>
+                                <RadioButton
+                                    x:Name="CancelToolBarSelectionButton"
+                                    GroupName="ToolBarRadioButtons"
+                                    Focusable="False"
+                                    IsHitTestVisible="False"
+                                    Visibility="Hidden"
+                                    Height="0"
+                                    Width="0"
+                                    IsChecked="{Binding CancelToolBarSelection}"/>
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -887,15 +874,23 @@
                                                         Text="{Binding Value}"
                                                         Style="{StaticResource StatisticsCardValueText}"/>
                                                     
-                                                    <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal">
+                                                    <StackPanel
+                                                        Grid.Column="1"
+                                                        Grid.Row="5"
+                                                        Orientation="Horizontal"
+                                                        ToolTipService.Placement="Center"
+                                                        ToolTipService.VerticalOffset="30"
+                                                        ToolTipService.InitialShowDelay="0"
+                                                        ToolTipService.ShowDuration="4000"
+                                                        HorizontalAlignment="Left">
+                                                        <StackPanel.ToolTip>
+                                                            <ToolTip Content="{Binding TooltipText}" Style="{StaticResource BasicTooltipStyle}"/>
+                                                        </StackPanel.ToolTip>
+                                                        
                                                         <TextBlock
                                                             Grid.Column="1" Grid.Row="5"
                                                             Text="{Binding SupportText}"
-                                                            Style="{StaticResource StatisticsCardSupportText}">
-                                                            <TextBlock.ToolTip>
-                                                                <ToolTip Content="{Binding TooltipText}" Style="{StaticResource BasicTooltipStyle}"/>
-                                                            </TextBlock.ToolTip>
-                                                        </TextBlock>
+                                                            Style="{StaticResource StatisticsCardSupportText}"/>
 
                                                         <TextBlock
                                                             Text="&#xe8fd;"
