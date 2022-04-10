@@ -38,4 +38,11 @@
     <Resource Include="assets\fonts\RobotoMono-Regular.ttf" />
   </ItemGroup>
 
+	<ItemGroup>
+		<None Update="*.config">
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</None>
+	</ItemGroup>
+
 </Project>
