@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal class AboutSettingsViewModel : BaseViewModel
+    public class AboutSettingsViewModel : BaseViewModel
     {
         private string _appVersion = string.Empty;
         public string AppVersion

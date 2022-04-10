@@ -3,7 +3,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Stores
 {
-    internal class NavigationStore
+    public class NavigationStore
     {
         public event Action? CurrentViewModelChanged;
 

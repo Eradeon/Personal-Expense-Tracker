@@ -3,7 +3,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class CategoryChangedCommand : BaseCommand
+    public class CategoryChangedCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
 

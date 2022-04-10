@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Personal_Expense_Tracker.Model
 {
-    internal class StatisticCard
+    public class StatisticCard
     {
         public string Icon { get; set; }
         public string Title { get; set; }

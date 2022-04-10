@@ -12,7 +12,7 @@ using Personal_Expense_Tracker.Command.Settings.PersonalizeSettings;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal class PersonalizeSettingsViewModel : BaseViewModel
+    public class PersonalizeSettingsViewModel : BaseViewModel
     {
         #region Services & Stores
         private readonly ConfigurationService _configurationService;

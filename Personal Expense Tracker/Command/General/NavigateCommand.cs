@@ -4,7 +4,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.General
 {
-    internal class NavigateCommand<TViewModel> : BaseCommand
+    public class NavigateCommand<TViewModel> : BaseCommand
         where TViewModel : BaseViewModel
     {
         private readonly NavigationStore _navigationStore;

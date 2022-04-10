@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Personal_Expense_Tracker.Command.General
 {
-    internal class LoseFocusWhenEmptySpaceClickedCommand : BaseCommand
+    public class LoseFocusWhenEmptySpaceClickedCommand : BaseCommand
     {
         public override void Execute(object? parameter)
         {

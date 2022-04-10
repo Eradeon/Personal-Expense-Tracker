@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Personal_Expense_Tracker.Extension
 {
-    internal class FullyObservableCollection<T> : ObservableCollection<T>
+    public class FullyObservableCollection<T> : ObservableCollection<T>
         where T : INotifyPropertyChanged
     {
         public event EventHandler<ItemPropertyChangedEventArgs>? ItemPropertyChanged;
@@ -88,7 +88,7 @@ namespace Personal_Expense_Tracker.Extension
         }
     }
 
-    internal class ItemPropertyChangedEventArgs : PropertyChangedEventArgs
+    public class ItemPropertyChangedEventArgs : PropertyChangedEventArgs
     {
         public int CollectionIndex { get; }
 

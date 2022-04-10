@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media;
 using Personal_Expense_Tracker.Extension;
 using Personal_Expense_Tracker.Service;
-using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Stores
 {
-    internal enum ThemeType
+    public enum ThemeType
     {
         Light,
         Dark
     }
 
-    internal class ThemeStore
+    public class ThemeStore
     {
         #region Services & Stores
         private readonly ConfigurationService _configurationService;

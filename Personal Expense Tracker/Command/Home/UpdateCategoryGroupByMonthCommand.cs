@@ -4,7 +4,7 @@ using Personal_Expense_Tracker.Service;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class UpdateCategoryGroupByMonthCommand : BaseCommand
+    public class UpdateCategoryGroupByMonthCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;

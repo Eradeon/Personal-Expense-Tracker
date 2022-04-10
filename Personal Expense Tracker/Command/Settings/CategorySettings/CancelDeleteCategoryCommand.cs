@@ -3,7 +3,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
 {
-    internal class CancelDeleteCategoryCommand : BaseCommand
+    public class CancelDeleteCategoryCommand : BaseCommand
     {
         private readonly CategorySettingsViewModel _categorySettingsViewModel;
 

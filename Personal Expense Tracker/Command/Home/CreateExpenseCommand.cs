@@ -7,7 +7,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class CreateExpenseCommand : BaseCommand
+    public class CreateExpenseCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;

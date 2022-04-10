@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace Personal_Expense_Tracker.Converters
 {
-    internal class ReverseBooleanToVisibilityConverter : IValueConverter
+    public class ReverseBooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

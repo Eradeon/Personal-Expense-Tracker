@@ -12,7 +12,7 @@ using Personal_Expense_Tracker.Command.Settings.CategorySettings;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal class CategorySettingsViewModel : BaseViewModel
+    public class CategorySettingsViewModel : BaseViewModel
     {
         #region Services & Stores
         private readonly DatabaseService _databaseService;

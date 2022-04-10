@@ -4,7 +4,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class BeginExpenseEditCommand : BaseCommand
+    public class BeginExpenseEditCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
 

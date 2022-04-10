@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace Personal_Expense_Tracker.Extension
 {
-    internal class ThemeColoursSection : ConfigurationSection
+    public class ThemeColoursSection : ConfigurationSection
     {
         [ConfigurationProperty("themeColours")]
         public ThemeColoursCollection ThemeColours
@@ -12,7 +12,7 @@ namespace Personal_Expense_Tracker.Extension
         }
     }
 
-    internal class ThemeColoursCollection : ConfigurationElementCollection
+    public class ThemeColoursCollection : ConfigurationElementCollection
     {
         public new ThemeColourElement this[string key]
         {
@@ -35,7 +35,7 @@ namespace Personal_Expense_Tracker.Extension
         }
     }
 
-    internal class ThemeColourElement : ConfigurationElement
+    public class ThemeColourElement : ConfigurationElement
     {
         [ConfigurationProperty("key", IsRequired = true, IsKey = true)]
         public string Key

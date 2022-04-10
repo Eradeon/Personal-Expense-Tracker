@@ -3,7 +3,7 @@ using Personal_Expense_Tracker.Model;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal class StatisticCardViewModel : BaseViewModel
+    public class StatisticCardViewModel : BaseViewModel
     {
         private readonly StatisticCard _statisticCard;
 

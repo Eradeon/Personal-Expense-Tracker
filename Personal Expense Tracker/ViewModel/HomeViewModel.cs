@@ -18,7 +18,7 @@ using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal enum ExpenseToolBar
+    public enum ExpenseToolBar
     {
         None,
         Edit,
@@ -27,7 +27,7 @@ namespace Personal_Expense_Tracker.ViewModel
         Delete
     }
 
-    internal class HomeViewModel : BaseViewModel
+    public class HomeViewModel : BaseViewModel
     {
         #region Services & Stores
         private readonly DatabaseService _databaseService;

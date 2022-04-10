@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using Personal_Expense_Tracker.Model;
 using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Service
 {
-    internal class StatisticsService
+    public class StatisticsService
     {
         private readonly BaseViewModel _viewModel;
 

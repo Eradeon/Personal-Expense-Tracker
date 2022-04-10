@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace Personal_Expense_Tracker.Model
 {
-    internal class ThemeColour
+    public class ThemeColour
     {
         public string Key { get; set; }
         public string Name { get; set; }

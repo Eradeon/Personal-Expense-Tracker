@@ -6,7 +6,7 @@ using Personal_Expense_Tracker.Model;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal class ThemeColourViewModel : BaseViewModel, IDataErrorInfo
+    public class ThemeColourViewModel : BaseViewModel, IDataErrorInfo
     {
         private readonly ThemeColour _themeColour;
 

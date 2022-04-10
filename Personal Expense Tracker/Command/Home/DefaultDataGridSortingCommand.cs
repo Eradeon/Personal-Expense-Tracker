@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class DefaultDataGridSortingCommand : BaseCommand
+    public class DefaultDataGridSortingCommand : BaseCommand
     {
         public override void Execute(object? parameter)
         {

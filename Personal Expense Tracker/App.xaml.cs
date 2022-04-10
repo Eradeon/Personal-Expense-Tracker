@@ -34,7 +34,8 @@ namespace Personal_Expense_Tracker
             Window mainWindow = new MainWindow
             (
                 new MainViewModel(formattingService, databaseService, configurationService,
-                                  navigationStore, themeStore, messageBoxStore)
+                                  navigationStore, themeStore, messageBoxStore),
+                configurationService
             );
             mainWindow.Show();
 

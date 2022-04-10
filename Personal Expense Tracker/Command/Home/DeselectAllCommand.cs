@@ -3,7 +3,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class DeselectAllCommand : BaseCommand
+    public class DeselectAllCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
 

@@ -2,14 +2,13 @@
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
-using Personal_Expense_Tracker.Model;
 using Personal_Expense_Tracker.ViewModel;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class DuplicateExpenseCommand : BaseCommand
+    public class DuplicateExpenseCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;

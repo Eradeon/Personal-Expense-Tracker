@@ -3,7 +3,7 @@ using Personal_Expense_Tracker.Model;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal class CategoryViewModel : BaseViewModel
+    public class CategoryViewModel : BaseViewModel
     {
         private readonly Category _category;
 

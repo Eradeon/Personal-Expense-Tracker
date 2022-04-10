@@ -5,7 +5,7 @@ using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.Command.Settings.CategorySettings
 {
-    internal class ConfirmDeleteCategoryCommand : BaseCommand
+    public class ConfirmDeleteCategoryCommand : BaseCommand
     {
         private readonly CategorySettingsViewModel _categorySettingsViewModel;
         private readonly DatabaseService _databaseService;

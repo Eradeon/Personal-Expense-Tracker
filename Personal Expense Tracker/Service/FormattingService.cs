@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Personal_Expense_Tracker.Service
 {
-    internal class FormattingService
+    public class FormattingService
     {
         public string FormatCategoryTableName(string name)
         {

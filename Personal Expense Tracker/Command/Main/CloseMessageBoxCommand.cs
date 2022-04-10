@@ -4,7 +4,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.Main
 {
-    internal class CloseMessageBoxCommand : BaseCommand
+    public class CloseMessageBoxCommand : BaseCommand
     {
         private readonly MessageBoxStore _messageBoxStore;
 

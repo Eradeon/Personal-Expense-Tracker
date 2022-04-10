@@ -3,11 +3,10 @@ using System.ComponentModel;
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.ViewModel;
 using Personal_Expense_Tracker.Stores;
-using System.Windows.Controls;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class EditExpenseCommand : BaseCommand
+    public class EditExpenseCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;

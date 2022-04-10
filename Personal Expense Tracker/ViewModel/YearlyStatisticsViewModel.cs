@@ -2,7 +2,7 @@
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal class YearlyStatisticsViewModel : BaseViewModel
+    public class YearlyStatisticsViewModel : BaseViewModel
     {
 
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
-
+using System.ComponentModel;
+using Personal_Expense_Tracker.Service;
+using System.Windows.Interop;
 
 namespace Personal_Expense_Tracker.View
 {
@@ -9,11 +11,31 @@ namespace Personal_Expense_Tracker.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(object dataContext)
+        private readonly WindowPlacementService _windowPlacementService;
+        private readonly ConfigurationService _configurationService;
+
+        public MainWindow(object dataContext, ConfigurationService configurationService)
         {
             this.DataContext = dataContext;
 
+            _windowPlacementService = new WindowPlacementService();
+            _configurationService = configurationService;
+
             InitializeComponent();
+        }
+
+        private void OnSourceInitialized(object sender, EventArgs e)
+        {
+            _windowPlacementService.SetPlacement(new WindowInteropHelper(this).Handle, _configurationService.GetStringFromConfig("window_placement"));
+        }
+
+        private void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            _configurationService.UpdateAppSettings
+            (
+                "window_placement",
+                _windowPlacementService.GetPlacement(new WindowInteropHelper(this).Handle)
+            );
         }
     }
 }

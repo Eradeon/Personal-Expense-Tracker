@@ -6,7 +6,7 @@ using Personal_Expense_Tracker.Command.General;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal class SettingsViewModel : BaseViewModel
+    public class SettingsViewModel : BaseViewModel
     {
         #region Services & Stores
         public NavigationStore SettingsNavigationStore { get; }

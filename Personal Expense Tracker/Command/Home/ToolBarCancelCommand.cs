@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Windows.Controls;
 using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class ToolBarCancelCommand : BaseCommand
+    public class ToolBarCancelCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
 

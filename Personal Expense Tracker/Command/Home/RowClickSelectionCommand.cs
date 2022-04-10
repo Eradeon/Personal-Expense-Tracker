@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,7 +7,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class RowClickSelectionCommand : BaseCommand
+    public class RowClickSelectionCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
 

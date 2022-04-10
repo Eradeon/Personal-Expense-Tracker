@@ -11,13 +11,13 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Service
 {
-    internal enum DatabaseActionResult
+    public enum DatabaseActionResult
     {
         Success,
         Error
     }
 
-    internal class DatabaseService
+    public class DatabaseService
     {
         private readonly FormattingService _formattingService;
         private readonly MessageBoxStore _messageBoxStore;

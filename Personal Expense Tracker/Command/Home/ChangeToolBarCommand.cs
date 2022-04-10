@@ -3,7 +3,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class ChangeToolBarCommand : BaseCommand
+    public class ChangeToolBarCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
         private readonly ExpenseToolBar _toolbar;

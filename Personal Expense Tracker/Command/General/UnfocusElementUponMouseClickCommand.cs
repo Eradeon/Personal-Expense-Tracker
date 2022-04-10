@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Personal_Expense_Tracker.Command.General
 {
-    internal class UnfocusElementUponMouseClickCommand : BaseCommand
+    public class UnfocusElementUponMouseClickCommand : BaseCommand
     {
         public override void Execute(object? parameter)
         {

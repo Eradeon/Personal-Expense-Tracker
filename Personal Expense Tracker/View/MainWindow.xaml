@@ -8,7 +8,9 @@
         xmlns:views="clr-namespace:Personal_Expense_Tracker.View"
         mc:Ignorable="d"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-        Title="Sledování výdajů" Height="1000" Width="1890">
+        Title="Sledování výdajů" Height="1000" Width="1890"
+        SourceInitialized="OnSourceInitialized"
+        Closing="OnWindowClosing">
     <Grid x:Name="MainGrid" Background="{DynamicResource SurfaceVariantColourFullBrush}" Focusable="True" FocusVisualStyle="{x:Null}">
         <Behaviors:Interaction.Triggers>
             <Behaviors:EventTrigger EventName="MouseDown">

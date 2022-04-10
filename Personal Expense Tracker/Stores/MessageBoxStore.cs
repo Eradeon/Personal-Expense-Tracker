@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Windows.Threading;
-using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Stores
 {
-    internal enum MessageType
+    public enum MessageType
     {
         Information,
         Warning,
         Error
     }
 
-    internal class MessageBoxStore
+    public class MessageBoxStore
     {
         private DispatcherTimer timer = new DispatcherTimer();
 

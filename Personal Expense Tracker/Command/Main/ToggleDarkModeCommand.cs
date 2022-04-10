@@ -5,7 +5,7 @@ using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.Command.Main
 {
-    internal class ToggleDarkModeCommand : BaseCommand
+    public class ToggleDarkModeCommand : BaseCommand
     {
         private readonly MainViewModel _mainViewModel;
         private readonly ConfigurationService _configurationService;

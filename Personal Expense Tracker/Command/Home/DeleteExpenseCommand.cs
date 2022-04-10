@@ -2,14 +2,13 @@
 using Personal_Expense_Tracker.Service;
 using Personal_Expense_Tracker.ViewModel;
 using Personal_Expense_Tracker.Stores;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class DeleteExpenseCommand : BaseCommand
+    public class DeleteExpenseCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;

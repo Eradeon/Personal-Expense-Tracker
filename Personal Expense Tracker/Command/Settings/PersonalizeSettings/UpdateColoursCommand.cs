@@ -6,7 +6,7 @@ using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Command.Settings.PersonalizeSettings
 {
-    internal class UpdateColoursCommand : BaseCommand
+    public class UpdateColoursCommand : BaseCommand
     {
         private readonly ThemeStore _themeStore;
         private readonly MessageBoxStore _messageBoxStore;

@@ -7,6 +7,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Statistics"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="32"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+                <TextBlock
+                    Style="{StaticResource TextSubtitle1Style}"
+                    Text="Přibude ve verzi 1.2"/>
+                <TextBlock
+                    Style="{StaticResource TextBody2Style}"
+                    Margin="12 0 0 12">
+                    • Roční statistiky s grafy (tato stránka) <LineBreak/>
+                    • Automatické doplňování názvu při přidávání nové položky <LineBreak/>
+                    • Filtrování výdajů podle názvu, částky a datumu <LineBreak/>
+                    • Log chybových hlášek <LineBreak/>
+                    • Cokoliv co navrhne Lolopolko
+                </TextBlock>
+
+                <TextBlock
+                    Style="{StaticResource TextSubtitle1Style}"
+                    Text="Známé chyby ve verzi 1.1"/>
+                <TextBlock
+                    Style="{StaticResource TextBody2Style}"
+                    Margin="12 0 0 12">
+                    • Když se kalendář a rozbalovací seznamu otevírají nahoru, jsou od textového pole odsazeny o 15 px.
+                </TextBlock>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

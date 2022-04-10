@@ -7,7 +7,7 @@ using Personal_Expense_Tracker.Command.Main;
 
 namespace Personal_Expense_Tracker.ViewModel
 {
-    internal class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel
     {
         #region Services & Stores
         private readonly NavigationStore _navigationStore;

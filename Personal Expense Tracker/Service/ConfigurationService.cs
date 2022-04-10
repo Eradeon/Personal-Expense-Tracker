@@ -4,11 +4,10 @@ using System.Configuration;
 using System.Collections.Generic;
 using Personal_Expense_Tracker.Stores;
 using Personal_Expense_Tracker.Extension;
-using Personal_Expense_Tracker.ViewModel;
 
 namespace Personal_Expense_Tracker.Service
 {
-    internal class ConfigurationService
+    public class ConfigurationService
     {
         public bool GetBoolFromConfig(string key)
         {

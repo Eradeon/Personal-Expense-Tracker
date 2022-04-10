@@ -8,7 +8,7 @@ using Personal_Expense_Tracker.Stores;
 
 namespace Personal_Expense_Tracker.Command.Home
 {
-    internal class MoveExpenseCommand : BaseCommand
+    public class MoveExpenseCommand : BaseCommand
     {
         private readonly HomeViewModel _homeViewModel;
         private readonly DatabaseService _databaseService;
